@@ -121,6 +121,7 @@ export default function CustomersBySize() {
                 alt={article.company}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                style={{ objectPosition: article.heroImageFocal ?? "center" }}
                 sizes="(max-width: 768px) 100vw, 580px"
               />
 

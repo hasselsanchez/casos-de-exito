@@ -49,6 +49,7 @@ export default function ArticleCard({
           alt={article.company}
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+          style={{ objectPosition: article.heroImageFocal ?? "center" }}
           sizes="(max-width: 768px) 100vw, 50vw"
         />
         {/* Top + bottom gradients for white-on-photo legibility */}

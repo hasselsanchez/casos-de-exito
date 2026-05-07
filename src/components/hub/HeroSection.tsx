@@ -126,6 +126,7 @@ export default function HeroSection() {
                   fill
                   priority
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                  style={{ objectPosition: featured.heroImageFocal ?? "center" }}
                   sizes="(max-width: 768px) 100vw, 640px"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />

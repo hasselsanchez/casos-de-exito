@@ -13,6 +13,10 @@ export interface Article {
   /** Speaker quote shown as overlay on the hero video */
   videoCaption?: { es: string; en: string };
   heroImage: string;
+  /** CSS object-position for the heroImage when shown in landscape preview cards.
+     Use this for portrait-orientation hero photos so faces don't get cropped.
+     Defaults to "center" if omitted. */
+  heroImageFocal?: string;
   images: string[];
   title: {
     es: string;
@@ -144,11 +148,11 @@ export const articles: Article[] = [
       es: "Mejoramos los tiempos de entrega un 30% con T1.",
       en: "We improved delivery times by 30% with T1.",
     },
-    heroImage: "/images/articles/DOTO/AZT18558.JPG",
+    heroImage: "/images/articles/DOTO/AZT18598.JPG",
     images: [
-      "/images/articles/DOTO/AZT18564.JPG",
-      "/images/articles/DOTO/AZT18572.JPG",
-      "/images/articles/DOTO/AZT18598.JPG",
+      "/images/articles/DOTO/AZT18599.JPG",
+      "/images/articles/DOTO/AZT18610.JPG",
+      "/images/articles/DOTO/AZT18628.JPG",
     ],
     title: {
       es: "Doto mejora tiempos de entrega un 30% y reduce costos logísticos un 20%",
@@ -219,12 +223,8 @@ export const articles: Article[] = [
       es: "Creamos nuestra tienda en línea en un minuto.",
       en: "We built our online store in one minute.",
     },
-    heroImage: "/images/articles/MAKORA/AZT17566.JPG",
-    images: [
-      "/images/articles/MAKORA/AZT17575.JPG",
-      "/images/articles/MAKORA/AZT17583.JPG",
-      "/images/articles/MAKORA/AZT17587.JPG",
-    ],
+    heroImage: "/images/articles/MAKORA/AZT17583.JPG",
+    images: ["/images/articles/MAKORA/AZT17566.JPG"],
     title: {
       es: "Makora lanzó su tienda en línea en minutos con T1, lo que antes tardó 6 meses",
       en: "Makora launched their online store in minutes with T1, what previously took 6 months",
@@ -371,11 +371,10 @@ export const articles: Article[] = [
       es: "En T1 encontramos un partner que escala con nosotros.",
       en: "In T1 we found a partner that scales with us.",
     },
-    heroImage: "/images/articles/SEARS/AZT18670.JPG",
+    heroImage: "/images/articles/SEARS/AZT18725.JPG",
     images: [
       "/images/articles/SEARS/AZT18695.JPG",
       "/images/articles/SEARS/AZT18714.JPG",
-      "/images/articles/SEARS/AZT18722.JPG",
     ],
     title: {
       es: "Sears México logra entregas el mismo día con T1 como core logístico",
