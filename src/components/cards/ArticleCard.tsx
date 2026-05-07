@@ -16,7 +16,7 @@ const PARTNER_LOGO: Record<
 > = {
   "Sears México": { w: "w-[88px]", h: "h-[22px]" },
   Doto: { w: "w-[56px]", h: "h-[22px]" },
-  Makora: { w: "w-[64px]", h: "h-[22px]", size: "auto 155%", pos: "left bottom" },
+  Makora: { w: "w-[120px]", h: "h-[22px]" },
   PASE: { w: "w-[48px]", h: "h-[22px]" },
   Sesen: { w: "w-[72px]", h: "h-[22px]" },
   "Círculo de Crédito": {
