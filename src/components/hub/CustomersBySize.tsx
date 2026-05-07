@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { articles } from "@/lib/articles";
+import { SOLUTION_META } from "@/lib/constants";
 
 type SizeKey = "startup" | "growth" | "enterprise";
 
@@ -14,13 +15,6 @@ const REPRESENTATIVE: Record<SizeKey, string> = {
   startup: "makora",
   growth: "doto",
   enterprise: "sears",
-};
-
-const SOLUTION_LOGOS: Record<string, string> = {
-  "T1 Tienda": "/logos/t1tienda.svg",
-  "T1 Envíos": "/logos/t1envios.svg",
-  "T1 Pagos": "/logos/t1pagos.svg",
-  T1Score: "/logos/t1score.svg",
 };
 
 /** Per-logo placement on the image — widths tuned so every brand renders at
@@ -170,82 +164,81 @@ export default function CustomersBySize() {
             </div>
           </Link>
 
-          {/* ── Right column: metrics → industry/size → solutions → brief quote ── */}
+          {/* ── Right column: editorial — metrics · context · solutions · quote ── */}
           <div className="flex flex-col">
-            {/* 1. Datos duros */}
-            <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+            {/* 1. Datos duros — light weight, editorial */}
+            <div className="grid grid-cols-2 gap-x-8">
               {article.metrics.slice(0, 2).map((m) => (
                 <div key={m.value.es}>
-                  <p className="font-inter text-[24px] leading-[1] font-bold tracking-[-0.015em] text-gray-900 tablet:text-[26px]">
+                  <p className="font-sora text-[30px] leading-[1] font-light tracking-[-0.02em] text-gray-900 tablet:text-[34px]">
                     {m.value[locale]}
                   </p>
-                  <p className="mt-2 font-inter text-[11.5px] leading-[1.45] text-gray-500">
+                  <p className="mt-2.5 font-inter text-[11.5px] leading-[1.45] text-gray-500">
                     {m.label[locale]}
                   </p>
                 </div>
               ))}
             </div>
 
-            {/* 2. Industria + Tamaño con íconos */}
-            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2.5">
-              <span className="inline-flex items-center gap-2 font-inter text-[13px] text-gray-700">
-                <IndustryIcon />
-                {article.industry[locale]}
-              </span>
-              <span className="inline-flex items-center gap-2 font-inter text-[13px] text-gray-700">
-                <SizeIcon size={article.size} />
-                {labelFor(article.size as SizeKey)}
-              </span>
-            </div>
+            {/* 2. Industria · Tamaño — single line, no icons */}
+            <p className="mt-7 font-inter text-[12.5px] text-gray-500">
+              {article.industry[locale]}
+              <span className="mx-2 text-gray-300">·</span>
+              {labelFor(article.size as SizeKey)}
+            </p>
 
-            {/* 3. Soluciones utilizadas */}
-            <div className="mt-6 border-t border-gray-200 pt-5">
-              <p className="font-inter text-[10.5px] font-semibold uppercase tracking-[0.22em] text-gray-500">
+            {/* 3. Soluciones — product names as inline red text */}
+            <div className="mt-7">
+              <p className="font-inter text-[10px] font-medium uppercase tracking-[0.1em] text-gray-400">
                 {t("productsUsed")}
               </p>
-              <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-3">
-                {article.solutions.map((sol) => {
-                  const logo = SOLUTION_LOGOS[sol];
-                  if (!logo) return null;
+              <p className="mt-2 font-sora text-[14px] font-semibold text-[#E26153]">
+                {article.solutions.map((sol, i) => {
+                  const meta = SOLUTION_META[sol];
                   return (
-                    <Image
-                      key={sol}
-                      src={logo}
-                      alt={sol}
-                      width={120}
-                      height={32}
-                      className="h-6 w-auto object-contain"
-                    />
+                    <span key={sol}>
+                      {meta ? (
+                        <a
+                          href={meta.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="transition-opacity hover:opacity-70"
+                        >
+                          {sol}
+                        </a>
+                      ) : (
+                        sol
+                      )}
+                      {i < article.solutions.length - 1 && (
+                        <span className="text-gray-300"> · </span>
+                      )}
+                    </span>
                   );
                 })}
-              </div>
+              </p>
             </div>
 
-            {/* 4. Quote MUY breve */}
-            <div className="mt-6 border-t border-gray-200 pt-5">
-              <p className="font-inter text-[14px] leading-[1.5] font-normal italic text-gray-700 tablet:text-[15px]">
+            {/* 4. Quote — editorial, no italic */}
+            <div className="mt-7">
+              <p className="font-sora text-[15px] leading-[1.5] font-light text-gray-700 tablet:text-[16px]">
                 &ldquo;{article.quote.short[locale]}&rdquo;
               </p>
-              <p className="mt-2.5 font-inter text-[11px] font-medium tracking-[0.03em] text-gray-600">
+              <p className="mt-2.5 font-inter text-[11px] text-gray-400">
                 {article.quote.author}
-                <span className="text-gray-400">
-                  {" "}
-                  · {article.quote.role[locale]}
-                </span>
+                <span className="mx-1.5 text-gray-300">·</span>
+                {article.quote.role[locale]}
               </p>
             </div>
 
             {/* CTA */}
             <Link
               href={caseHref}
-              className="group mt-7 inline-flex items-center gap-2 self-start font-inter text-[12.5px] font-semibold text-[#0A0B10]"
+              className="group mt-7 inline-flex items-center gap-1.5 self-start font-inter text-[12px] font-medium text-[#E26153] transition-opacity hover:opacity-70"
             >
-              <span className="border-b border-[#0A0B10]/35 pb-0.5 transition-colors group-hover:border-[#0A0B10]">
-                {readFullCase}
-              </span>
+              {readFullCase}
               <svg
-                width="13"
-                height="13"
+                width="12"
+                height="12"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -262,93 +255,3 @@ export default function CustomersBySize() {
   );
 }
 
-function IndustryIcon() {
-  return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="shrink-0 text-[#E26153]"
-      aria-hidden="true"
-    >
-      <path d="M3 21h18" />
-      <path d="M5 21V7l8-4v18" />
-      <path d="M19 21V11l-6-4" />
-      <path d="M9 9h.01" />
-      <path d="M9 12h.01" />
-      <path d="M9 15h.01" />
-      <path d="M9 18h.01" />
-    </svg>
-  );
-}
-
-function SizeIcon({ size }: { size: SizeKey }) {
-  if (size === "startup") {
-    return (
-      <svg
-        width="14"
-        height="14"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="shrink-0 text-[#E26153]"
-        aria-hidden="true"
-      >
-        <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" />
-      </svg>
-    );
-  }
-  if (size === "growth") {
-    return (
-      <svg
-        width="14"
-        height="14"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="shrink-0 text-[#E26153]"
-        aria-hidden="true"
-      >
-        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
-        <polyline points="16 7 22 7 22 13" />
-      </svg>
-    );
-  }
-  return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="shrink-0 text-[#E26153]"
-      aria-hidden="true"
-    >
-      <rect x="4" y="2" width="16" height="20" rx="2" />
-      <path d="M9 22v-4h6v4" />
-      <path d="M8 6h.01" />
-      <path d="M16 6h.01" />
-      <path d="M12 6h.01" />
-      <path d="M12 10h.01" />
-      <path d="M12 14h.01" />
-      <path d="M16 10h.01" />
-      <path d="M16 14h.01" />
-      <path d="M8 10h.01" />
-      <path d="M8 14h.01" />
-    </svg>
-  );
-}
