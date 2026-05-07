@@ -165,7 +165,7 @@ export default async function ArticlePage({ params }: PageProps) {
 
         {/* ===== HERO 2-col: text | meta card ===== */}
         <div
-          className="grid grid-cols-1 items-start gap-8 tablet:grid-cols-[1fr_220px] tablet:gap-12"
+          className="grid grid-cols-1 items-start gap-8 tablet:grid-cols-[1fr_170px] tablet:gap-14"
           data-animate
         >
           <ArticleHero article={article} locale={locale} />
