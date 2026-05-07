@@ -17,6 +17,17 @@ const REPRESENTATIVE: Record<SizeKey, string> = {
   enterprise: "sears",
 };
 
+/* Per-logo visual height tuning for T1 product marks. Their SVG viewBoxes
+   differ — t1pagos is 41.2 tall vs ~35.5 for the rest — so a single height
+   class makes t1pagos read smaller. These overrides equalize visual weight
+   at a small editorial size (~14px optical height). */
+const PRODUCT_LOGO_HEIGHT: Record<string, string> = {
+  "T1 Tienda": "h-[14px]",
+  "T1 Envíos": "h-[14px]",
+  "T1 Pagos": "h-[16px]",
+  T1Score: "h-[14px]",
+};
+
 /** Per-logo placement on the image — widths tuned so every brand renders at
    ~28px visual height for consistent editorial weight. */
 const PARTNER_LOGO: Record<
@@ -200,24 +211,26 @@ export default function CustomersBySize() {
               </footer>
             </blockquote>
 
-            {/* 4. Solutions — small label + logo row */}
+            {/* 4. Solutions — small label + logo row, optically equalized */}
             <div className="mt-8">
               <p className="font-inter text-[10px] font-semibold uppercase tracking-[0.18em] text-gray-400">
                 {locale === "es" ? "Con T1" : "Built with T1"}
               </p>
-              <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-3">
                 {article.solutions.map((sol) => {
                   const meta = SOLUTION_META[sol];
                   if (!meta) {
                     return (
                       <span
                         key={sol}
-                        className="font-inter text-[13px] text-gray-700"
+                        className="font-inter text-[12px] text-gray-700"
                       >
                         {sol}
                       </span>
                     );
                   }
+                  const heightClass =
+                    PRODUCT_LOGO_HEIGHT[sol] ?? "h-[14px]";
                   return (
                     <a
                       key={sol}
@@ -226,14 +239,14 @@ export default function CustomersBySize() {
                       rel="noopener noreferrer"
                       title={sol}
                       aria-label={sol}
-                      className="block transition-opacity hover:opacity-70"
+                      className="block transition-opacity hover:opacity-60"
                     >
                       <Image
                         src={meta.logoSrc}
                         alt={sol}
                         width={120}
-                        height={28}
-                        className="h-7 w-auto object-contain"
+                        height={20}
+                        className={`${heightClass} w-auto object-contain`}
                       />
                     </a>
                   );
