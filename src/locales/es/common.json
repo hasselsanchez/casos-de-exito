@@ -1,0 +1,120 @@
+{
+  "meta": {
+    "title": "Casos de Éxito | T1",
+    "description": "Descubre cómo empresas de todos los tamaños transforman sus operaciones de comercio con T1. Historias reales de éxito con T1 Tienda, T1 Envíos, T1 Pagos y T1Score."
+  },
+  "nav": {
+    "ecosystem": "Ecosistema",
+    "whatIsT1": "¿Qué es T1?",
+    "contact": "Contacto",
+    "login": "Iniciar sesión",
+    "cta": "Empieza con T1"
+  },
+  "hero": {
+    "title": "Historias de éxito",
+    "titleAccent": "que inspiran",
+    "subtitle": "Descubre cómo empresas de todos los tamaños transforman sus operaciones de comercio con T1.",
+    "findSolution": "Encuentra tu solución",
+    "moreCases": "Más casos de éxito",
+    "readStory": "Leer historia"
+  },
+  "editorial": {
+    "title": "Empresas de todos los tamaños eligen",
+    "titleAccent": "T1",
+    "subtitle": "Desde startups hasta enterprise, empresas de distintas industrias confían en T1 para transformar sus operaciones de comercio.",
+    "viewAll": "Ver todos los casos",
+    "readFullCase": "Leer caso completo",
+    "productsUsed": "Soluciones T1 utilizadas",
+    "readStory": "Leer historia completa"
+  },
+  "customers": {
+    "eyebrow": "Clientes",
+    "title": "Marcas que ",
+    "titleAccent": "ya transforman su comercio",
+    "subtitle": "T1 escala desde startups hasta enterprise. Una infraestructura, distintos momentos de crecimiento.",
+    "segmentEnterprise": "Enterprise",
+    "segmentGrowth": "Growth",
+    "segmentStartup": "Startup",
+    "segmentEnterpriseDesc": "Operaciones consolidadas a escala nacional",
+    "segmentGrowthDesc": "Escalando rápidamente",
+    "segmentStartupDesc": "Construyendo desde cero",
+    "casePlural": "casos",
+    "caseSingular": "caso",
+    "readStory": "Leer historia",
+    "allStories": "Ver todas las historias",
+    "productsUsed": "Soluciones integradas"
+  },
+  "results": {
+    "title": "Ayudamos a nuestros clientes a lograr",
+    "titleAccent": "resultados medibles"
+  },
+  "brandMetrics": {
+    "eyebrow": "En cifras",
+    "title": "Acompañamos el ",
+    "titleAccent": "crecimiento",
+    "titleAfter": " de miles de negocios en México.",
+    "items": {
+      "merchants": "negocios confían en T1",
+      "payments": "procesados en pagos",
+      "shipments": "de envíos gestionados",
+      "integrations": "integraciones disponibles"
+    }
+  },
+  "explore": {
+    "eyebrow": "Explorar",
+    "title": "Más ",
+    "titleAccent": "casos de éxito"
+  },
+  "filters": {
+    "all": "Todos",
+    "size": "Tamaño",
+    "industry": "Industria",
+    "solution": "Solución T1",
+    "contentType": "Tipo",
+    "article": "Artículo",
+    "video": "Video",
+    "clear": "Limpiar filtros",
+    "noResults": "No se encontraron casos de éxito con estos filtros.",
+    "showing": "Mostrando",
+    "of": "de",
+    "results": "resultados"
+  },
+  "article": {
+    "readingTime": "min de lectura",
+    "challenge": "El reto",
+    "solution": "La solución",
+    "results": "Resultados",
+    "relatedTitle": "Más historias de éxito",
+    "backToAll": "← Todas las historias",
+    "exploreT1": "Conoce T1",
+    "finalCta": "Empieza con T1",
+    "productsUsed": "Productos usados",
+    "solutions": "Soluciones",
+    "industry": "Industria",
+    "size": "Tamaño",
+    "keyMetrics": "Datos clave"
+  },
+  "cta": {
+    "eyebrow": "Tu turno",
+    "title": "El próximo caso de éxito",
+    "titleAccent": "es el tuyo.",
+    "subtitle": "La infraestructura que usan Sears, Círculo de Crédito, PASE y +25 mil negocios mexicanos.",
+    "primary": "Empieza con T1",
+    "secondary": "Habla con un experto",
+    "trustedBy": "+25 mil negocios eligieron T1"
+  },
+  "footer": {
+    "tagline": "La infraestructura que mueve el comercio en México.",
+    "solutions": "Soluciones",
+    "company": "T1",
+    "whatIsT1": "¿Qué es T1?",
+    "joinT1": "Únete a T1",
+    "successStories": "Historias de éxito",
+    "contact": "Contacto",
+    "terms": "Términos y condiciones",
+    "privacy": "Privacidad",
+    "rights": "© 2026 T1. Todos los derechos reservados.",
+    "country": "México (Español)",
+    "whatsappAria": "Contactar por WhatsApp"
+  }
+}

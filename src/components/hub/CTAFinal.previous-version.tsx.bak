@@ -1,0 +1,219 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+import { SIGNUP_URL } from "@/lib/constants";
+import SectionWrapper from "../ui/SectionWrapper";
+
+export default function CTAFinal() {
+  const t = useTranslations("cta");
+
+  return (
+    <SectionWrapper className="py-20 tablet:py-28">
+      <div
+        className="relative overflow-hidden rounded-[32px] bg-[#0A0A0F] px-8 py-16 tablet:px-16 tablet:py-20"
+        data-animate
+      >
+        {/* Grain texture */}
+        <div className="bg-grain pointer-events-none absolute inset-0 z-[2]" />
+
+        {/* ── Luminous waves — both colors converging ── */}
+        <div className="pointer-events-none absolute inset-0 z-0">
+          {/* Coral wave — left side */}
+          <div
+            className="animate-wave-drift absolute -top-[20%] -left-[15%] h-[400px] w-[600px] rounded-[50%]"
+            style={{
+              background:
+                "radial-gradient(ellipse at center, rgba(226,97,83,0.25) 0%, rgba(229,144,134,0.1) 40%, transparent 70%)",
+              filter: "blur(80px)",
+            }}
+          />
+          {/* Turquoise wave — right side */}
+          <div
+            className="animate-wave-drift-slow absolute -bottom-[20%] -right-[10%] h-[350px] w-[500px] rounded-[50%]"
+            style={{
+              background:
+                "radial-gradient(ellipse at center, rgba(20,184,166,0.15) 0%, rgba(94,234,212,0.06) 45%, transparent 70%)",
+              filter: "blur(80px)",
+            }}
+          />
+          {/* Center glow — where they meet */}
+          <div
+            className="animate-glow-breathe absolute top-1/2 left-1/2 h-[300px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(226,97,83,0.08) 0%, transparent 60%)",
+              filter: "blur(60px)",
+            }}
+          />
+        </div>
+
+        <div className="relative z-10 grid grid-cols-1 items-center gap-10 tablet:grid-cols-2">
+          {/* Left: Product mockup (dashboard preview) */}
+          <div className="relative">
+            {/* Browser mockup with glass frame */}
+            <div className="overflow-hidden rounded-[16px] border border-white/[0.08] bg-white shadow-[0_25px_80px_-15px_rgba(0,0,0,0.5)]">
+              {/* Browser bar */}
+              <div className="flex items-center gap-2 border-b border-gray-200 bg-[#F6F6F8] px-3 py-2">
+                <div className="flex gap-1.5">
+                  <div className="h-[8px] w-[8px] rounded-full bg-[#FF5F57]" />
+                  <div className="h-[8px] w-[8px] rounded-full bg-[#FFBD2E]" />
+                  <div className="h-[8px] w-[8px] rounded-full bg-[#27C93F]" />
+                </div>
+                <div className="ml-2 flex-1 rounded-md border border-gray-200 bg-white px-2 py-1 text-[9px] text-gray-400">
+                  app.t1pagos.com
+                </div>
+              </div>
+              {/* Dashboard content */}
+              <div className="bg-gray-50 p-4">
+                <div className="space-y-3">
+                  {/* Header row */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="h-6 w-6 rounded-lg bg-[#E26153]" />
+                      <span className="font-inter text-[10px] font-semibold text-gray-800">
+                        Dashboard
+                      </span>
+                    </div>
+                    <div className="flex gap-1">
+                      <div className="h-5 w-14 rounded-md bg-gray-200" />
+                      <div className="h-5 w-14 rounded-md bg-[#E26153]" />
+                    </div>
+                  </div>
+                  {/* Stats row */}
+                  <div className="grid grid-cols-3 gap-2">
+                    <div className="rounded-lg bg-white p-2 shadow-sm">
+                      <p className="font-inter text-[8px] text-gray-400">
+                        Ventas
+                      </p>
+                      <p className="font-sora text-[12px] font-bold text-gray-900">
+                        $48.2K
+                      </p>
+                    </div>
+                    <div className="rounded-lg bg-white p-2 shadow-sm">
+                      <p className="font-inter text-[8px] text-gray-400">
+                        Envíos
+                      </p>
+                      <p className="font-sora text-[12px] font-bold text-gray-900">
+                        1,847
+                      </p>
+                    </div>
+                    <div className="rounded-lg bg-white p-2 shadow-sm">
+                      <p className="font-inter text-[8px] text-gray-400">
+                        Tasa
+                      </p>
+                      <p className="font-sora text-[12px] font-bold text-green-600">
+                        98.2%
+                      </p>
+                    </div>
+                  </div>
+                  {/* Chart */}
+                  <div className="rounded-lg bg-white p-3 shadow-sm">
+                    <svg
+                      className="h-16 w-full"
+                      viewBox="0 0 300 60"
+                      preserveAspectRatio="none"
+                    >
+                      <path
+                        d="M0,50 L43,40 L86,45 L129,30 L172,35 L215,20 L258,15 L300,5 L300,60 L0,60 Z"
+                        fill="url(#ctaGrad)"
+                      />
+                      <polyline
+                        fill="none"
+                        stroke="#E26153"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        points="0,50 43,40 86,45 129,30 172,35 215,20 258,15 300,5"
+                      />
+                      <defs>
+                        <linearGradient
+                          id="ctaGrad"
+                          x1="0"
+                          y1="0"
+                          x2="0"
+                          y2="1"
+                        >
+                          <stop
+                            offset="0%"
+                            stopColor="#E26153"
+                            stopOpacity="0.15"
+                          />
+                          <stop
+                            offset="100%"
+                            stopColor="#E26153"
+                            stopOpacity="0"
+                          />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Floating badge — glass style */}
+            <div className="absolute -bottom-4 -right-2 z-20 animate-float-slow rounded-2xl border border-white/15 bg-white/95 p-3 shadow-[0_12px_40px_rgba(0,0,0,0.2)] backdrop-blur-xl">
+              <div className="flex items-center gap-2">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#4FC153"
+                    strokeWidth="2"
+                  >
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-inter text-[10px] font-semibold text-gray-900">
+                    Listo para usar
+                  </p>
+                  <p className="font-inter text-[9px] text-gray-400">
+                    Configuración en minutos
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Glow behind mockup */}
+            <div
+              className="pointer-events-none absolute -inset-10 -z-10 rounded-[40px]"
+              style={{
+                background:
+                  "radial-gradient(ellipse at center, rgba(226,97,83,0.12) 0%, transparent 60%)",
+                filter: "blur(40px)",
+              }}
+            />
+          </div>
+
+          {/* Right: Text + CTAs */}
+          <div>
+            <h2 className="font-sora text-[32px] font-light text-white tablet:text-[44px]">
+              {t("title")}{" "}
+              <span className="text-[#E26153]">{t("titleAccent")}</span>
+            </h2>
+            <p className="mt-4 max-w-md font-inter text-[15px] leading-relaxed text-white/50">
+              {t("subtitle")}
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <a
+                href={SIGNUP_URL}
+                className="flex h-[45px] items-center rounded-[22px] bg-[#E26153] px-7 font-inter text-[14px] font-semibold text-white transition-all hover:bg-[#DB3B2B] hover:shadow-[0_0_30px_rgba(226,97,83,0.4)]"
+              >
+                {t("primary")}
+              </a>
+              <a
+                href={SIGNUP_URL}
+                className="flex h-[45px] items-center rounded-[22px] border border-white/15 bg-white/[0.05] px-7 font-inter text-[14px] font-semibold text-white backdrop-blur-md transition-all hover:bg-white/[0.1]"
+              >
+                {t("secondary")}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </SectionWrapper>
+  );
+}

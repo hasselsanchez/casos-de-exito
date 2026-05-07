@@ -1,0 +1,120 @@
+{
+  "meta": {
+    "title": "Success Stories | T1",
+    "description": "Discover how businesses of all sizes transform their commerce operations with T1. Real success stories with T1 Tienda, T1 Envíos, T1 Pagos and T1Score."
+  },
+  "nav": {
+    "ecosystem": "Ecosystem",
+    "whatIsT1": "What is T1?",
+    "contact": "Contact",
+    "login": "Log in",
+    "cta": "Get started with T1"
+  },
+  "hero": {
+    "title": "Success stories",
+    "titleAccent": "that inspire",
+    "subtitle": "Discover how businesses of all sizes transform their commerce operations with T1.",
+    "findSolution": "Find my solution",
+    "moreCases": "More success stories",
+    "readStory": "Read story"
+  },
+  "editorial": {
+    "title": "Businesses of all sizes choose",
+    "titleAccent": "T1",
+    "subtitle": "From startups to enterprise, companies across industries trust T1 to transform their commerce operations.",
+    "viewAll": "View all cases",
+    "readFullCase": "Read full case",
+    "productsUsed": "T1 solutions used",
+    "readStory": "Read full story"
+  },
+  "customers": {
+    "eyebrow": "Customers",
+    "title": "Brands ",
+    "titleAccent": "already transforming their commerce",
+    "subtitle": "T1 scales from startups to enterprise. One infrastructure, different growth stages.",
+    "segmentEnterprise": "Enterprise",
+    "segmentGrowth": "Growth",
+    "segmentStartup": "Startup",
+    "segmentEnterpriseDesc": "Consolidated operations at national scale",
+    "segmentGrowthDesc": "Scaling fast",
+    "segmentStartupDesc": "Building from zero",
+    "casePlural": "cases",
+    "caseSingular": "case",
+    "readStory": "Read story",
+    "allStories": "All customer stories",
+    "productsUsed": "Integrated solutions"
+  },
+  "results": {
+    "title": "We help customers achieve",
+    "titleAccent": "measurable results"
+  },
+  "brandMetrics": {
+    "eyebrow": "By the numbers",
+    "title": "We support the ",
+    "titleAccent": "growth",
+    "titleAfter": " of thousands of businesses across Mexico.",
+    "items": {
+      "merchants": "businesses trust T1",
+      "payments": "processed in payments",
+      "shipments": "shipments managed",
+      "integrations": "integrations available"
+    }
+  },
+  "explore": {
+    "eyebrow": "Explore",
+    "title": "More ",
+    "titleAccent": "success stories"
+  },
+  "filters": {
+    "all": "All",
+    "size": "Size",
+    "industry": "Industry",
+    "solution": "T1 Solution",
+    "contentType": "Type",
+    "article": "Article",
+    "video": "Video",
+    "clear": "Clear filters",
+    "noResults": "No success stories found with these filters.",
+    "showing": "Showing",
+    "of": "of",
+    "results": "results"
+  },
+  "article": {
+    "readingTime": "min read",
+    "challenge": "The challenge",
+    "solution": "The solution",
+    "results": "Results",
+    "relatedTitle": "More success stories",
+    "backToAll": "← All stories",
+    "exploreT1": "Discover T1",
+    "finalCta": "Get started with T1",
+    "productsUsed": "Products used",
+    "solutions": "Solutions",
+    "industry": "Industry",
+    "size": "Size",
+    "keyMetrics": "Key metrics"
+  },
+  "cta": {
+    "eyebrow": "Your turn",
+    "title": "The next success story",
+    "titleAccent": "is yours.",
+    "subtitle": "The infrastructure trusted by Sears, Círculo de Crédito, PASE and 25,000+ Mexican businesses.",
+    "primary": "Get started with T1",
+    "secondary": "Talk to an expert",
+    "trustedBy": "25,000+ businesses chose T1"
+  },
+  "footer": {
+    "tagline": "The infrastructure that powers commerce in Mexico.",
+    "solutions": "Solutions",
+    "company": "T1",
+    "whatIsT1": "What is T1?",
+    "joinT1": "Join T1",
+    "successStories": "Success stories",
+    "contact": "Contact",
+    "terms": "Terms & conditions",
+    "privacy": "Privacy",
+    "rights": "© 2026 T1. All rights reserved.",
+    "country": "Mexico (English)",
+    "whatsappAria": "Contact via WhatsApp"
+  }
+}

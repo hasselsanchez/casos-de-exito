@@ -1,0 +1,264 @@
+"use client";
+
+import { useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import Image from "next/image";
+import Link from "next/link";
+import { articles, type Article } from "@/lib/articles";
+
+type SizeKey = "startup" | "growth" | "enterprise";
+
+const ORDER: SizeKey[] = ["startup", "growth", "enterprise"];
+
+const REPRESENTATIVE: Record<SizeKey, string> = {
+  startup: "makora",
+  growth: "doto",
+  enterprise: "sears",
+};
+
+const SOLUTION_LOGOS: Record<string, string> = {
+  "T1 Tienda": "/logos/t1tienda.svg",
+  "T1 Envíos": "/logos/t1envios.svg",
+  "T1 Pagos": "/logos/t1pagos.svg",
+  T1Score: "/logos/t1score.svg",
+};
+
+/* ─── Per-company logo config for image-card pill ───
+   SVGs have very different viewBox padding:
+   - Sears (1680×403) and Doto (236×166) are tight → bg-contain
+   - Círculo, Makora, PASE, Sesen (all 1440×810) have heavy internal whitespace → need zoom
+   Tuned per company to render at visually consistent size. */
+/* Per-logo workaround for inconsistent SVG exports:
+   - Sears/Doto: clean SVGs, bg-contain works
+   - Makora/PASE/Sesen: have transform offsets that push content to bottom of
+     viewBox (top 19-33% is empty whitespace). Use "auto N%" + "center bottom"
+     to focus the bottom band where the logo actually lives.
+   - Doto: square aspect (1.42:1), uses taller pill so logo doesn't look tiny. */
+const PARTNER_LOGO: Record<
+  string,
+  { w: string; h?: string; size?: string; pos?: string }
+> = {
+  "Sears México": { w: "w-[80px]" },
+  Doto: { w: "w-[48px]", h: "h-5" },
+  Makora: { w: "w-[64px]", size: "auto 155%", pos: "center bottom" },
+  PASE: { w: "w-[64px]", size: "auto 130%", pos: "center bottom" },
+  Sesen: { w: "w-[64px]", size: "auto 145%", pos: "center bottom" },
+  "Círculo de Crédito": { w: "w-[92px]", size: "100% auto", pos: "center 45%" },
+};
+
+export default function CustomersBySize() {
+  const t = useTranslations("customers");
+  const locale = useLocale() as "es" | "en";
+  const [active, setActive] = useState<SizeKey>("startup");
+
+  const article = articles.find((a) => a.slug === REPRESENTATIVE[active]);
+  if (!article) return null;
+
+  const slug = locale === "en" ? article.slugEn : article.slug;
+  const caseHref = `/${locale}/casos-de-exito/${slug}`;
+  const allStoriesHref = `#explorar`;
+
+  const labelFor = (k: SizeKey) =>
+    k === "startup"
+      ? t("segmentStartup")
+      : k === "growth"
+        ? t("segmentGrowth")
+        : t("segmentEnterprise");
+
+  return (
+    <section className="bg-grain-soft relative overflow-hidden bg-[#FAFAF7] py-20 tablet:py-28">
+      {/* Subtle warm decorative blobs */}
+      <div
+        className="pointer-events-none absolute -top-32 -right-32 h-[420px] w-[420px] rounded-full opacity-60"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(229,144,134,0.18) 0%, transparent 70%)",
+          filter: "blur(80px)",
+        }}
+      />
+      <div
+        className="pointer-events-none absolute top-1/2 -left-24 h-[300px] w-[300px] rounded-full opacity-50"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(226,97,83,0.08) 0%, transparent 70%)",
+          filter: "blur(60px)",
+        }}
+      />
+
+      <div className="relative z-10 mx-auto max-w-[1100px] px-5 tablet:px-8">
+        {/* Section header */}
+        <div data-animate className="max-w-[640px]">
+          <div className="flex items-center gap-3">
+            <span aria-hidden className="h-px w-8 bg-gray-300" />
+            <span className="editorial-kicker text-gray-500">
+              {t("eyebrow")}
+            </span>
+          </div>
+          <h2 className="mt-5 font-sora text-[28px] leading-[1.1] font-light tracking-[-0.02em] text-gray-900 tablet:text-[36px] desktop:text-[42px]">
+            {t("title")}
+            <span className="text-[#E26153]">{t("titleAccent")}</span>
+          </h2>
+        </div>
+
+        {/* Filter pills + all-stories link */}
+        <div
+          data-animate
+          className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 tablet:mt-10"
+        >
+          <div className="flex flex-wrap gap-1.5">
+            {ORDER.map((k) => {
+              const isActive = active === k;
+              return (
+                <button
+                  key={k}
+                  type="button"
+                  onClick={() => setActive(k)}
+                  className={`rounded-full px-4 py-1.5 font-inter text-[12px] font-medium transition-all duration-300 ${
+                    isActive
+                      ? "bg-gray-900 text-white shadow-[0_2px_10px_rgba(0,0,0,0.12)]"
+                      : "border border-gray-200 bg-white text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900"
+                  }`}
+                >
+                  {labelFor(k)}
+                </button>
+              );
+            })}
+          </div>
+          <Link
+            href={allStoriesHref}
+            className="inline-flex items-center gap-1 font-inter text-[12px] font-medium text-[#E26153] transition-colors hover:text-[#DB3B2B]"
+          >
+            {t("allStories")}
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.75"
+            >
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </Link>
+        </div>
+
+        {/* Showcase — switches with pill */}
+        <div
+          key={active}
+          className="mt-12 grid animate-fade-in-up grid-cols-1 gap-10 tablet:mt-14 tablet:grid-cols-[260px_1fr] tablet:gap-12 desktop:grid-cols-[280px_1fr] desktop:gap-16"
+        >
+          {/* ── Left: stats + products ── */}
+          <div className="flex flex-col gap-7 tablet:gap-8">
+            {article.metrics.slice(0, 2).map((m) => (
+              <div
+                key={m.value}
+                className="border-l-2 border-[#E26153] pl-4"
+              >
+                <p className="font-sora text-[26px] leading-[1] font-light tracking-[-0.02em] text-gray-900 tablet:text-[32px]">
+                  {m.value}
+                </p>
+                <p className="mt-2 max-w-[220px] font-inter text-[12px] leading-[1.45] text-gray-500">
+                  {m.label[locale]}
+                </p>
+              </div>
+            ))}
+
+            {/* Integrated solutions — logos only */}
+            <div>
+              <p className="editorial-kicker text-gray-500">
+                {t("productsUsed")}
+              </p>
+              <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2.5">
+                {article.solutions.map((sol) => {
+                  const logo = SOLUTION_LOGOS[sol];
+                  if (!logo) return null;
+                  return (
+                    <Image
+                      key={sol}
+                      src={logo}
+                      alt={sol}
+                      width={120}
+                      height={32}
+                      className="h-[18px] w-auto object-contain"
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* ── Right: image card ── */}
+          <Link
+            href={caseHref}
+            className="group relative block overflow-hidden rounded-[16px] shadow-[0_20px_60px_rgba(0,0,0,0.08)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(0,0,0,0.12)]"
+          >
+            <div className="relative aspect-[16/10]">
+              <Image
+                src={article.heroImage}
+                alt={article.company}
+                fill
+                className="object-cover saturate-[0.92] transition-transform duration-700 group-hover:scale-[1.03]"
+                sizes="(max-width: 768px) 100vw, 60vw"
+              />
+              {/* Coral atmospheric tint — our brand color version of Stripe's orange wash */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(135deg, rgba(229,144,134,0.32) 0%, rgba(226,97,83,0.18) 50%, rgba(0,0,0,0.45) 100%)",
+                  mixBlendMode: "multiply",
+                }}
+              />
+              {/* Bottom dark gradient for headline legibility */}
+              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+
+              {/* Logo pill — top-left, glass */}
+              {(() => {
+                const cfg = PARTNER_LOGO[article.company] ?? { w: "w-[80px]" };
+                return (
+                  <div className="absolute top-4 left-4 inline-flex items-center rounded-[7px] border border-white/10 bg-black/40 px-2.5 py-1 backdrop-blur-md">
+                    <span
+                      role="img"
+                      aria-label={article.company}
+                      className={`block ${cfg.h ?? "h-4"} ${cfg.w} bg-no-repeat brightness-0 invert`}
+                      style={{
+                        backgroundImage: `url(${article.logoSrc})`,
+                        backgroundSize: cfg.size ?? "contain",
+                        backgroundPosition: cfg.pos ?? "center",
+                      }}
+                    />
+                  </div>
+                );
+              })()}
+
+              {/* Video badge — top-right */}
+              {article.contentType === "video" && (
+                <div className="absolute top-4 right-4 inline-flex h-5 items-center gap-1 rounded-[7px] border border-white/10 bg-black/40 px-2 backdrop-blur-md">
+                  <svg
+                    width="6"
+                    height="6"
+                    viewBox="0 0 24 24"
+                    fill="white"
+                    className="shrink-0"
+                  >
+                    <polygon points="6,4 20,12 6,20" />
+                  </svg>
+                  <span className="font-inter text-[8px] font-semibold tracking-[0.18em] text-white/85 uppercase">
+                    {locale === "es" ? "Video" : "Watch"}
+                  </span>
+                </div>
+              )}
+
+              {/* Headline overlay — bottom */}
+              <div className="absolute inset-x-0 bottom-0 p-5 tablet:p-6">
+                <h3 className="max-w-[440px] font-sora text-[16px] leading-[1.3] font-light tracking-[-0.01em] text-white tablet:text-[18px] desktop:text-[20px]">
+                  {article.title[locale]}
+                </h3>
+              </div>
+            </div>
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
