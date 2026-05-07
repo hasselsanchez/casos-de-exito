@@ -164,73 +164,70 @@ export default function CustomersBySize() {
             </div>
           </Link>
 
-          {/* ── Right column: editorial — metrics · context · solutions · quote ── */}
+          {/* ── Right column: editorial hierarchy ──
+              1. Industry kicker (section label)
+              2. ONE hero metric (the lead — biggest visual weight)
+              3. Quote (human voice — medium weight)
+              4. Solutions as quiet credits
+              5. CTA */}
           <div className="flex flex-col">
-            {/* 1. Datos duros — light weight, editorial */}
-            <div className="grid grid-cols-2 gap-x-8">
-              {article.metrics.slice(0, 2).map((m) => (
-                <div key={m.value.es}>
-                  <p className="font-sora text-[30px] leading-[1] font-light tracking-[-0.02em] text-gray-900 tablet:text-[34px]">
-                    {m.value[locale]}
-                  </p>
-                  <p className="mt-2.5 font-inter text-[11.5px] leading-[1.45] text-gray-500">
-                    {m.label[locale]}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            {/* 2. Industria · Tamaño — single line, no icons */}
-            <p className="mt-7 font-inter text-[12.5px] text-gray-500">
+            {/* 1. Industry kicker — magazine-style section label */}
+            <p className="font-inter text-[10px] font-semibold uppercase tracking-[0.22em] text-[#E26153]">
               {article.industry[locale]}
-              <span className="mx-2 text-gray-300">·</span>
-              {labelFor(article.size as SizeKey)}
             </p>
 
-            {/* 3. Soluciones — product names as inline red text */}
-            <div className="mt-7">
-              <p className="font-inter text-[10px] font-medium uppercase tracking-[0.1em] text-gray-400">
-                {t("productsUsed")}
-              </p>
-              <p className="mt-2 font-sora text-[14px] font-semibold text-[#E26153]">
-                {article.solutions.map((sol, i) => {
-                  const meta = SOLUTION_META[sol];
-                  return (
-                    <span key={sol}>
-                      {meta ? (
-                        <a
-                          href={meta.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="transition-opacity hover:opacity-70"
-                        >
-                          {sol}
-                        </a>
-                      ) : (
-                        sol
-                      )}
-                      {i < article.solutions.length - 1 && (
-                        <span className="text-gray-300"> · </span>
-                      )}
-                    </span>
-                  );
-                })}
-              </p>
-            </div>
+            {/* 2. ONE hero metric — the lead */}
+            {article.metrics[0] && (
+              <div className="mt-6">
+                <p className="font-sora text-[44px] leading-[1] font-light tracking-[-0.025em] text-[#0A0B10] tablet:text-[52px]">
+                  {article.metrics[0].value[locale]}
+                </p>
+                <p className="mt-3 max-w-[280px] font-inter text-[12.5px] leading-[1.45] text-gray-500">
+                  {article.metrics[0].label[locale]}
+                </p>
+              </div>
+            )}
 
-            {/* 4. Quote — editorial, no italic */}
-            <div className="mt-7">
-              <p className="font-sora text-[15px] leading-[1.5] font-light text-gray-700 tablet:text-[16px]">
+            {/* 3. Quote — the human truth */}
+            <blockquote className="mt-8 border-l border-gray-200 pl-5">
+              <p className="font-sora text-[16px] leading-[1.5] font-light text-gray-800 tablet:text-[17px]">
                 &ldquo;{article.quote.short[locale]}&rdquo;
               </p>
-              <p className="mt-2.5 font-inter text-[11px] text-gray-400">
+              <footer className="mt-3 font-inter text-[11px] text-gray-500">
                 {article.quote.author}
                 <span className="mx-1.5 text-gray-300">·</span>
                 {article.quote.role[locale]}
-              </p>
-            </div>
+              </footer>
+            </blockquote>
 
-            {/* CTA */}
+            {/* 4. Solutions — quiet credits, no label */}
+            <p className="mt-8 font-inter text-[11.5px] text-gray-400">
+              {locale === "es" ? "Con " : "Built with "}
+              {article.solutions.map((sol, i) => {
+                const meta = SOLUTION_META[sol];
+                return (
+                  <span key={sol}>
+                    {meta ? (
+                      <a
+                        href={meta.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-medium text-gray-600 transition-colors hover:text-[#E26153]"
+                      >
+                        {sol}
+                      </a>
+                    ) : (
+                      <span className="font-medium text-gray-600">{sol}</span>
+                    )}
+                    {i < article.solutions.length - 2 && ", "}
+                    {i === article.solutions.length - 2 &&
+                      (locale === "es" ? " y " : " and ")}
+                  </span>
+                );
+              })}
+            </p>
+
+            {/* 5. CTA */}
             <Link
               href={caseHref}
               className="group mt-7 inline-flex items-center gap-1.5 self-start font-inter text-[12px] font-medium text-[#E26153] transition-opacity hover:opacity-70"
