@@ -200,32 +200,46 @@ export default function CustomersBySize() {
               </footer>
             </blockquote>
 
-            {/* 4. Solutions — quiet credits, no label */}
-            <p className="mt-8 font-inter text-[11.5px] text-gray-400">
-              {locale === "es" ? "Con " : "Built with "}
-              {article.solutions.map((sol, i) => {
-                const meta = SOLUTION_META[sol];
-                return (
-                  <span key={sol}>
-                    {meta ? (
-                      <a
-                        href={meta.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-medium text-gray-600 transition-colors hover:text-[#E26153]"
+            {/* 4. Solutions — small label + logo row */}
+            <div className="mt-8">
+              <p className="font-inter text-[10px] font-semibold uppercase tracking-[0.18em] text-gray-400">
+                {locale === "es" ? "Con T1" : "Built with T1"}
+              </p>
+              <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-3">
+                {article.solutions.map((sol) => {
+                  const meta = SOLUTION_META[sol];
+                  if (!meta) {
+                    return (
+                      <span
+                        key={sol}
+                        className="font-inter text-[13px] text-gray-700"
                       >
                         {sol}
-                      </a>
-                    ) : (
-                      <span className="font-medium text-gray-600">{sol}</span>
-                    )}
-                    {i < article.solutions.length - 2 && ", "}
-                    {i === article.solutions.length - 2 &&
-                      (locale === "es" ? " y " : " and ")}
-                  </span>
-                );
-              })}
-            </p>
+                      </span>
+                    );
+                  }
+                  return (
+                    <a
+                      key={sol}
+                      href={meta.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title={sol}
+                      aria-label={sol}
+                      className="block transition-opacity hover:opacity-70"
+                    >
+                      <Image
+                        src={meta.logoSrc}
+                        alt={sol}
+                        width={120}
+                        height={28}
+                        className="h-7 w-auto object-contain"
+                      />
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
 
             {/* 5. CTA */}
             <Link
