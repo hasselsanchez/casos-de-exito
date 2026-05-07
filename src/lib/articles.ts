@@ -17,6 +17,10 @@ export interface Article {
      Use this for portrait-orientation hero photos so faces don't get cropped.
      Defaults to "center" if omitted. */
   heroImageFocal?: string;
+  /** When true, preview cards apply a stronger dark gradient at the top of the
+     hero image. Use it when the photo's environment has white/bright branding
+     that visually competes with the white logo overlay (e.g. Makora's wall). */
+  heroPreviewDarken?: boolean;
   images: string[];
   title: {
     es: string;
@@ -223,8 +227,9 @@ export const articles: Article[] = [
       es: "Creamos nuestra tienda en línea en un minuto.",
       en: "We built our online store in one minute.",
     },
-    heroImage: "/images/articles/MAKORA/AZT17566.JPG",
-    images: ["/images/articles/MAKORA/AZT17583.JPG"],
+    heroImage: "/images/articles/MAKORA/AZT17583.JPG",
+    heroPreviewDarken: true,
+    images: ["/images/articles/MAKORA/AZT17566.JPG"],
     title: {
       es: "Makora lanzó su tienda en línea en minutos con T1, lo que antes tardó 6 meses",
       en: "Makora launched their online store in minutes with T1, what previously took 6 months",

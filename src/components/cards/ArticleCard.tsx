@@ -52,8 +52,16 @@ export default function ArticleCard({
           style={{ objectPosition: article.heroImageFocal ?? "center" }}
           sizes="(max-width: 768px) 100vw, 50vw"
         />
-        {/* Top + bottom gradients for white-on-photo legibility */}
-        <div className="absolute inset-x-0 top-0 h-2/5 bg-gradient-to-b from-black/45 via-black/12 to-transparent" />
+        {/* Top + bottom gradients for white-on-photo legibility.
+           heroPreviewDarken bumps the top gradient when the photo's environment
+           has competing white branding (e.g. Makora wall). */}
+        <div
+          className={
+            article.heroPreviewDarken
+              ? "absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-black/70 via-black/30 to-transparent"
+              : "absolute inset-x-0 top-0 h-2/5 bg-gradient-to-b from-black/45 via-black/12 to-transparent"
+          }
+        />
         <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/45 via-black/8 to-transparent" />
 
         {/* Logo — white, INSIDE image, no pill, top-left */}

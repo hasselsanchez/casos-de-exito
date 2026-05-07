@@ -125,8 +125,16 @@ export default function CustomersBySize() {
                 sizes="(max-width: 768px) 100vw, 580px"
               />
 
-              {/* Soft top + bottom gradients for white overlay legibility */}
-              <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-black/35 via-black/8 to-transparent" />
+              {/* Soft top + bottom gradients for white overlay legibility.
+                 heroPreviewDarken bumps the top gradient when the photo's
+                 environment has competing white branding (e.g. Makora wall). */}
+              <div
+                className={
+                  article.heroPreviewDarken
+                    ? "absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-black/70 via-black/30 to-transparent"
+                    : "absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-black/35 via-black/8 to-transparent"
+                }
+              />
               <div className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
 
               {/* Logo — white, INSIDE image, no pill, top-left */}
