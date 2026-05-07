@@ -223,8 +223,8 @@ export const articles: Article[] = [
       es: "Creamos nuestra tienda en línea en un minuto.",
       en: "We built our online store in one minute.",
     },
-    heroImage: "/images/articles/MAKORA/AZT17583.JPG",
-    images: ["/images/articles/MAKORA/AZT17566.JPG"],
+    heroImage: "/images/articles/MAKORA/AZT17566.JPG",
+    images: ["/images/articles/MAKORA/AZT17583.JPG"],
     title: {
       es: "Makora lanzó su tienda en línea en minutos con T1, lo que antes tardó 6 meses",
       en: "Makora launched their online store in minutes with T1, what previously took 6 months",
