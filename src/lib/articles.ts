@@ -14,14 +14,21 @@ export interface Article {
   videoCaption?: { es: string; en: string };
   heroImage: string;
   /** CSS object-position for the heroImage when shown in landscape preview cards.
-     Use this for portrait-orientation hero photos so faces don't get cropped.
-     Defaults to "center" if omitted. */
+     Tuned per photo so faces survive the side-cropping that 5/4 cards apply
+     to a 3/2 source. Defaults to "center" if omitted. */
   heroImageFocal?: string;
   /** When true, preview cards apply a stronger dark gradient at the top of the
      hero image. Use it when the photo's environment has white/bright branding
      that visually competes with the white logo overlay (e.g. Makora's wall). */
   heroPreviewDarken?: boolean;
   images: string[];
+  /** CSS object-position for the in-article decorative image (16/9 frame that
+     aggressively crops top + bottom of the 3/2 source). Tuned per photo so the
+     subject's face stays in frame. Defaults to "center top" if omitted.
+     Only landscape sources should be referenced here — never images from the
+     "Verticales/" capture folders, since portrait sources collapse into a
+     close-up of the head once forced into a 16/9 box. */
+  articleImageFocal?: string;
   title: {
     es: string;
     en: string;
@@ -77,11 +84,13 @@ export const articles: Article[] = [
       en: "Our alliance with T1 cuts early arrears by up to 40%.",
     },
     heroImage: "/images/articles/CIRCULO/AZT17438.JPG",
+    heroImageFocal: "70% 30%",
     images: [
       "/images/articles/CIRCULO/AZT17449.JPG",
       "/images/articles/CIRCULO/AZT17472.JPG",
       "/images/articles/CIRCULO/AZT17477.JPG",
     ],
+    articleImageFocal: "center 25%",
     title: {
       es: "Cómo Círculo de Crédito está repensando el acceso al crédito en México",
       en: "How Círculo de Crédito is rethinking credit access in Mexico",
@@ -153,11 +162,13 @@ export const articles: Article[] = [
       en: "We improved delivery times by 30% with T1.",
     },
     heroImage: "/images/articles/DOTO/AZT18598.JPG",
+    heroImageFocal: "55% 25%",
     images: [
       "/images/articles/DOTO/AZT18599.JPG",
       "/images/articles/DOTO/AZT18610.JPG",
       "/images/articles/DOTO/AZT18628.JPG",
     ],
+    articleImageFocal: "55% 25%",
     title: {
       es: "Doto y la apuesta por una logística unificada en el e-commerce de electrónica",
       en: "Doto's bet on unified logistics for electronics e-commerce",
@@ -189,7 +200,7 @@ export const articles: Article[] = [
       },
       author: "Jacobo Zutton",
       role: { es: "Jefe de E-commerce, DGL LATAM", en: "Head of E-commerce, DGL LATAM" },
-      photo: "/images/articles/DOTO/AZT18559.JPG",
+      photo: "/images/articles/DOTO/AZT18598.JPG",
     },
     content: {
       intro: {
@@ -228,8 +239,10 @@ export const articles: Article[] = [
       en: "We built our online store in one minute.",
     },
     heroImage: "/images/articles/MAKORA/AZT17583.JPG",
+    heroImageFocal: "58% 40%",
     heroPreviewDarken: true,
     images: ["/images/articles/MAKORA/AZT17566.JPG"],
+    articleImageFocal: "42% 30%",
     title: {
       es: "Makora redefine el retail de muebles desde lo digital",
       en: "Makora is redefining furniture retail from a digital-first lens",
@@ -262,7 +275,7 @@ export const articles: Article[] = [
       },
       author: "Marín Ramos",
       role: { es: "Fundador y Director General, Makora", en: "Founder & CEO, Makora" },
-      photo: "/images/articles/MAKORA/AZT17587.JPG",
+      photo: "/images/articles/MAKORA/AZT17583.JPG",
     },
     content: {
       intro: {
@@ -301,11 +314,13 @@ export const articles: Article[] = [
       en: "We approve 98% of transactions in under half a second.",
     },
     heroImage: "/images/articles/PASE/AZT17352.jpg",
+    heroImageFocal: "37% 30%",
     images: [
       "/images/articles/PASE/AZT17356.jpg",
       "/images/articles/PASE/AZT17359.jpg",
-      "/images/articles/PASE/AZT17401.JPG",
+      "/images/articles/PASE/AZT17427.JPG",
     ],
+    articleImageFocal: "45% 30%",
     title: {
       es: "Cómo PASE construyó la infraestructura de pago de la movilidad mexicana",
       en: "How PASE built the payment infrastructure for Mexican mobility",
@@ -377,10 +392,12 @@ export const articles: Article[] = [
       en: "In T1 we found a partner that scales with us.",
     },
     heroImage: "/images/articles/SEARS/AZT18725.JPG",
+    heroImageFocal: "center 25%",
     images: [
       "/images/articles/SEARS/AZT18695.JPG",
       "/images/articles/SEARS/AZT18714.JPG",
     ],
+    articleImageFocal: "center 20%",
     title: {
       es: "Sears México: la reinvención de un ícono del retail mexicano",
       en: "Sears México: reinventing a Mexican retail icon",
@@ -451,10 +468,12 @@ export const articles: Article[] = [
       en: "Without T1's infrastructure, scaling would be impossible.",
     },
     heroImage: "/images/articles/SESEN/AZT17596.JPG",
+    heroImageFocal: "center 25%",
     images: [
       "/images/articles/SESEN/AZT17598.JPG",
       "/images/articles/SESEN/AZT17600.JPG",
     ],
+    articleImageFocal: "center 25%",
     title: {
       es: "Sesen y la nueva generación de marcas de bienestar D2C en México",
       en: "Sesen and the new wave of D2C wellness brands in Mexico",

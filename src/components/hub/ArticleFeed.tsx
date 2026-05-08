@@ -10,24 +10,28 @@ type SizeKey = "all" | "startup" | "growth" | "enterprise";
 
 const SIZE_FILTERS: SizeKey[] = ["all", "startup", "growth", "enterprise"];
 
-/* Per-logo placement on the card image (white overlay, no pill).
-   Widths tuned so every brand renders at ~22px visual height for consistent
-   editorial weight across the grid. */
-const PARTNER_LOGO: Record<
-  string,
-  { w: string; h?: string; size?: string; pos?: string }
-> = {
-  "Sears México": { w: "w-[88px]", h: "h-[22px]" },
-  Doto: { w: "w-[56px]", h: "h-[22px]" },
-  Makora: { w: "w-[88px]", h: "h-[22px]" },
-  PASE: { w: "w-[48px]", h: "h-[22px]" },
-  Sesen: { w: "w-[72px]", h: "h-[22px]" },
-  "Círculo de Crédito": {
-    w: "w-[88px]",
-    h: "h-[24px]",
-    size: "100% auto",
-    pos: "left 45%",
-  },
+/* Per-logo height for the centered-logo card layout. Wider wordmarks (Makora,
+   Sears) get a smaller height so the bounding box stays in line with the more
+   compact ones; taller-friendly marks (PASE, Doto) get a bit more presence. */
+const CENTERED_LOGO: Record<string, string> = {
+  "Sears México": "h-[36px]",
+  Doto: "h-[44px]",
+  Makora: "h-[28px]",
+  PASE: "h-[48px]",
+  Sesen: "h-[40px]",
+  "Círculo de Crédito": "h-[44px]",
+};
+
+/* Per-article hover gradient. Two source files for now (blue / red) — cycled
+   across the six cases until the rest land. Swap paths per slug as new
+   gradient images are dropped into /public/images/gradients/. */
+const CARD_GRADIENT: Record<string, string> = {
+  "circulo-de-credito": "/images/gradients/blue.jpg",
+  doto: "/images/gradients/red.jpg",
+  makora: "/images/gradients/blue.jpg",
+  pase: "/images/gradients/red.jpg",
+  sears: "/images/gradients/blue.jpg",
+  sesen: "/images/gradients/red.jpg",
 };
 
 /**
@@ -134,7 +138,10 @@ export default function ArticleFeed() {
 }
 
 /* ─────────────────────────────────────────────────────────── */
-/*  White card — hairline border, image with white-logo overlay */
+/*  Logo-forward card                                           */
+/*  Default: pale neutral bg, brand mark centered, industry tag */
+/*  top-left, title bottom. Hover swaps to a full-bleed gradient*/
+/*  with white logo + title and a circular ↗ pill top-right.    */
 /* ─────────────────────────────────────────────────────────── */
 function FeedCard({
   article,
@@ -147,90 +154,74 @@ function FeedCard({
 }) {
   const slug = locale === "en" ? article.slugEn : article.slug;
   const href = `/${locale}/casos-de-exito/${slug}`;
-  const cfg = PARTNER_LOGO[article.company] ?? { w: "w-[64px]" };
-  const readFullCase =
-    locale === "es" ? "Leer el caso completo" : "Read the full case";
+  const logoH = CENTERED_LOGO[article.company] ?? "h-[40px]";
+  const gradient = CARD_GRADIENT[article.slug];
 
   return (
     <Link
       href={href}
-      className="group relative flex flex-col overflow-hidden rounded-[14px] border border-gray-200 bg-white opacity-0 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_48px_-20px_rgba(10,11,16,0.18)]"
+      className="group relative flex aspect-[5/4] flex-col overflow-hidden rounded-[14px] bg-[#F4F4F2] opacity-0 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_48px_-20px_rgba(10,11,16,0.22)]"
       style={{
         animation: `fade-in-up 0.55s cubic-bezier(0.16, 1, 0.3, 1) ${index * 70}ms forwards`,
       }}
     >
-      {/* ── Image with white logo overlay (no pill) ── */}
-      <div className="relative aspect-[5/4] overflow-hidden bg-gray-100">
+      {/* Hover gradient layer — fades in over the neutral bg. */}
+      {gradient && (
         <Image
-          src={article.heroImage}
-          alt={article.company}
+          src={gradient}
+          alt=""
           fill
-          className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-          style={{ objectPosition: article.heroImageFocal ?? "center" }}
+          aria-hidden
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+          className="object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         />
-        {/* Top dark gradient — subtler, only for logo legibility. heroPreviewDarken
-           bumps it when the photo's environment has competing white branding. */}
-        <div
-          className={
-            article.heroPreviewDarken
-              ? "absolute inset-x-0 top-0 h-2/5 bg-gradient-to-b from-black/55 via-black/20 to-transparent"
-              : "absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-black/35 via-black/8 to-transparent"
-          }
-        />
-        {/* Bottom white fade — barely-there veil so the image quietly dissolves into the card. */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-white/55 to-transparent" />
+      )}
 
-        {/* Logo — white, INSIDE image, no pill, top-left */}
-        <div className="absolute top-5 left-5 tablet:top-6 tablet:left-6">
+      {/* Industry tag — top-left, ○ + label */}
+      <div className="relative z-10 flex items-center gap-2 p-5 tablet:p-6">
+        <span className="block h-[9px] w-[9px] rounded-full border border-gray-400 transition-colors duration-500 group-hover:border-white/70" />
+        <span className="font-inter text-[11.5px] font-medium text-gray-500 transition-colors duration-500 group-hover:text-white/80">
+          {article.industry[locale]}
+        </span>
+      </div>
+
+      {/* Arrow pill — top-right, hover only */}
+      <span className="absolute top-4 right-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#0A0B10] opacity-0 transition-all duration-300 ease-out group-hover:opacity-100 tablet:top-5 tablet:right-5">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M7 17 17 7M9 7h8v8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </span>
+
+      {/* Centered logo — crossfades between full-color and white on hover.
+         Two stacked layers (rather than `transition: filter`) so the swap
+         is smooth in every browser. */}
+      <div className="relative z-10 flex flex-1 items-center justify-center px-6">
+        <div className="relative w-full max-w-[68%]">
+          {/* Default — full-color */}
           <span
             role="img"
             aria-label={article.company}
-            className={`block ${cfg.h ?? "h-5"} ${cfg.w} bg-no-repeat brightness-0 invert`}
+            className={`block ${logoH} w-full bg-no-repeat bg-center transition-opacity duration-500 group-hover:opacity-0`}
             style={{
               backgroundImage: `url(${article.logoSrc})`,
-              backgroundSize: cfg.size ?? "contain",
-              backgroundPosition: cfg.pos ?? "left center",
+              backgroundSize: "contain",
+            }}
+          />
+          {/* Hover — white */}
+          <span
+            aria-hidden
+            className={`pointer-events-none absolute inset-0 ${logoH} w-full bg-no-repeat bg-center opacity-0 brightness-0 invert transition-opacity duration-500 group-hover:opacity-100`}
+            style={{
+              backgroundImage: `url(${article.logoSrc})`,
+              backgroundSize: "contain",
             }}
           />
         </div>
-
-        {/* Video pill — bold editorial style: solid white, dark bold text, soft shadow. */}
-        {article.contentType === "video" && (
-          <span className="absolute top-4 right-4 inline-flex h-[28px] items-center gap-1.5 rounded-full bg-white px-3.5 font-inter text-[11px] font-bold text-[#0A0B10] shadow-[0_2px_8px_rgba(0,0,0,0.08)] tablet:top-5 tablet:right-5">
-            <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor">
-              <polygon points="6,4 20,12 6,20" />
-            </svg>
-            {locale === "es" ? "Video" : "Watch"}
-          </span>
-        )}
-
-        {/* Hover overlay — soft full-image darken so the CTA reads cleanly */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/30"
-        />
-        {/* Read more — centered on the image, reveals on hover. No pill, no border. */}
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-6">
-          <span className="inline-flex items-center gap-2 font-inter text-[14px] font-semibold text-white opacity-0 translate-y-1 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-y-0">
-            {readFullCase}
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.75"
-            >
-              <path d="M5 12h14M13 5l7 7-7 7" />
-            </svg>
-          </span>
-        </div>
       </div>
 
-      {/* ── Body — only headline; CTA lives on the image so every card stays compact ── */}
-      <div className="p-5 tablet:p-6">
-        <h3 className="line-clamp-2 min-h-[2.7em] font-sora text-[15px] leading-[1.35] font-semibold tracking-[-0.01em] text-[#0A0B10] tablet:text-[17px]">
+      {/* Title — bottom, color-shifts to white on hover */}
+      <div className="relative z-10 p-5 tablet:p-6">
+        <h3 className="font-sora text-[13px] font-semibold leading-[1.35] tracking-[-0.005em] text-[#0A0B10] transition-colors duration-500 group-hover:text-white tablet:text-[14px]">
           {article.title[locale]}
         </h3>
       </div>

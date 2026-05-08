@@ -217,7 +217,8 @@ export default async function ArticlePage({ params }: PageProps) {
                     src={article.images[2] ?? article.images[1] ?? article.images[0]}
                     alt={article.company}
                     fill
-                    className="object-cover object-[center_top]"
+                    className="object-cover"
+                    style={{ objectPosition: article.articleImageFocal ?? "center top" }}
                     sizes="(max-width: 768px) 100vw, 520px"
                   />
                 </div>
