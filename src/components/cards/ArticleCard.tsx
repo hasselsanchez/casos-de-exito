@@ -52,17 +52,17 @@ export default function ArticleCard({
           style={{ objectPosition: article.heroImageFocal ?? "center" }}
           sizes="(max-width: 768px) 100vw, 50vw"
         />
-        {/* Top + bottom gradients for white-on-photo legibility.
-           heroPreviewDarken bumps the top gradient when the photo's environment
-           has competing white branding (e.g. Makora wall). */}
+        {/* Top dark gradient — subtler, only for logo legibility. heroPreviewDarken
+           bumps it when the photo's environment has competing white branding. */}
         <div
           className={
             article.heroPreviewDarken
-              ? "absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-black/70 via-black/30 to-transparent"
-              : "absolute inset-x-0 top-0 h-2/5 bg-gradient-to-b from-black/45 via-black/12 to-transparent"
+              ? "absolute inset-x-0 top-0 h-2/5 bg-gradient-to-b from-black/55 via-black/20 to-transparent"
+              : "absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-black/35 via-black/8 to-transparent"
           }
         />
-        <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/45 via-black/8 to-transparent" />
+        {/* Bottom white fade — image dissolves into the card for an editorial feel. */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-white via-white/65 to-transparent" />
 
         {/* Logo — white, INSIDE image, no pill, top-left */}
         <div className="absolute top-5 left-5 tablet:top-6 tablet:left-6">
@@ -78,10 +78,10 @@ export default function ArticleCard({
           />
         </div>
 
-        {/* Video badge — top-right */}
+        {/* Video pill — bold editorial style: solid white, dark bold text, soft shadow. */}
         {article.contentType === "video" && (
-          <span className="absolute top-5 right-5 inline-flex h-5 items-center gap-1 rounded-full bg-white/90 px-2 font-inter text-[8.5px] font-semibold uppercase tracking-[0.18em] text-[#0A0B10] backdrop-blur-sm tablet:top-6 tablet:right-6">
-            <svg width="5" height="5" viewBox="0 0 24 24" fill="currentColor">
+          <span className="absolute top-4 right-4 inline-flex h-[28px] items-center gap-1.5 rounded-full bg-white px-3.5 font-inter text-[11px] font-bold text-[#0A0B10] shadow-[0_2px_8px_rgba(0,0,0,0.08)] tablet:top-5 tablet:right-5">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor">
               <polygon points="6,4 20,12 6,20" />
             </svg>
             {locale === "es" ? "Video" : "Watch"}
