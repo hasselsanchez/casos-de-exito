@@ -34,10 +34,14 @@ export default function HeroSection() {
   const copy = {
     headlinePre: locale === "es" ? "Historias de" : "Stories of",
     headlineAccent: locale === "es" ? "éxito" : "success",
-    subhead:
+    subheadLine1:
       locale === "es"
-        ? "Miles de negocios están redefiniendo el comercio en México. Conoce cómo lo hacen con T1."
-        : "Thousands of businesses are redefining commerce in Mexico. See how they do it with T1.",
+        ? "Miles de negocios están redefiniendo el comercio en México."
+        : "Thousands of businesses are redefining commerce in Mexico.",
+    subheadLine2:
+      locale === "es"
+        ? "Conoce cómo lo hacen con T1."
+        : "See how they do it with T1.",
     primary: locale === "es" ? "Empieza con T1" : "Get started with T1",
     secondary: locale === "es" ? "Ver todas las historias" : "See all stories",
   };
@@ -91,7 +95,9 @@ export default function HeroSection() {
               animation: `hero-fade-up 800ms cubic-bezier(0.16, 1, 0.3, 1) 220ms both`,
             }}
           >
-            {copy.subhead}
+            {copy.subheadLine1}
+            <br />
+            {copy.subheadLine2}
           </p>
 
           {/* CTAs */}
