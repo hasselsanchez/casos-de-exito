@@ -11,11 +11,13 @@ type SolutionKey = "tienda" | "pagos" | "envios" | "score";
 
 const ORDER: SolutionKey[] = ["tienda", "pagos", "envios", "score"];
 
+/* These labels MUST match the keys in SOLUTION_META so the meta lookup
+   resolves. T1Score is one word per the brand guide; the rest have a space. */
 const SOLUTION_LABEL: Record<SolutionKey, string> = {
   tienda: "T1 Tienda",
   pagos: "T1 Pagos",
   envios: "T1 Envíos",
-  score: "T1 Score",
+  score: "T1Score",
 };
 
 const REPRESENTATIVE: Record<SolutionKey, string> = {
@@ -80,29 +82,32 @@ export default function CustomersBySize() {
   const cooldownTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const paused = isHoveringStrip || isInClickCooldown;
 
-  /* Respect prefers-reduced-motion — disable auto-rotation entirely for users
-     who opt out of motion. They can still click logos to navigate. */
-  const prefersReducedMotion = useRef(false);
+  /* Respect prefers-reduced-motion — disables auto-rotation AND hides the
+     progress line for users who opt out of motion. They can still click
+     logos to navigate. State (not ref) so the JSX reacts to it. */
+  const [reducedMotion, setReducedMotion] = useState(false);
   useEffect(() => {
-    prefersReducedMotion.current = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
   }, []);
 
-  /* Auto-rotation. Restarts whenever `paused` toggles, so hovering the strip
+  /* Auto-rotation. Restarts the timer on every `paused` toggle so hovering
      halts the cycle and leaving resumes it from a fresh ROTATION_MS window.
-     Bumping rotationKey on resume keeps the progress line in sync with the
-     freshly-started interval (otherwise the line would finish early). */
+     We deliberately do NOT bump rotationKey here — during a click cooldown
+     the progress bar should fill once and then sit at 100% (CSS `forwards`)
+     until the cooldown ends; only the next setInterval tick advances. */
   useEffect(() => {
     if (paused) return;
-    if (prefersReducedMotion.current) return;
-    setRotationKey((k) => k + 1);
+    if (reducedMotion) return;
     const id = setInterval(() => {
       setActive((prev) => ORDER[(ORDER.indexOf(prev) + 1) % ORDER.length]);
       setRotationKey((k) => k + 1);
     }, ROTATION_MS);
     return () => clearInterval(id);
-  }, [paused]);
+  }, [paused, reducedMotion]);
 
   /* Cleanup the click-cooldown timer on unmount. */
   useEffect(() => {
@@ -116,10 +121,14 @@ export default function CustomersBySize() {
     setRotationKey((rk) => rk + 1);
     setIsInClickCooldown(true);
     if (cooldownTimerRef.current) clearTimeout(cooldownTimerRef.current);
-    cooldownTimerRef.current = setTimeout(
-      () => setIsInClickCooldown(false),
-      CLICK_COOLDOWN_MS,
-    );
+    /* When the cooldown ends, cycle to the next solution immediately rather
+       than waiting another full ROTATION_MS — otherwise the clicked logo
+       sits "selected" for cooldown + interval, which feels too long. */
+    cooldownTimerRef.current = setTimeout(() => {
+      setIsInClickCooldown(false);
+      setActive((prev) => ORDER[(ORDER.indexOf(prev) + 1) % ORDER.length]);
+      setRotationKey((rk) => rk + 1);
+    }, CLICK_COOLDOWN_MS);
   };
 
   const article = articles.find((a) => a.slug === REPRESENTATIVE[active]);
@@ -237,15 +246,22 @@ export default function CustomersBySize() {
                   className="group flex flex-col items-center"
                 >
                   {/* Progress track — always present (1px), only the
-                     active logo paints a red fill driven by the keyframe. */}
+                     active logo paints a red fill driven by the keyframe.
+                     Hidden entirely under prefers-reduced-motion. */}
                   <div className="relative h-px w-full overflow-hidden bg-gray-100">
-                    {isActive && (
+                    {isActive && !reducedMotion && (
                       <span
                         key={rotationKey}
                         aria-hidden
                         className="absolute inset-0 h-px origin-left animate-progress-line bg-[#E26153]"
                         style={{
-                          animationPlayState: paused ? "paused" : "running",
+                          /* Only HOVER freezes the bar at its current
+                             position. During click cooldown the bar fills
+                             once and then sits at 100% (forwards), which
+                             reads as "you picked this — it's settled". */
+                          animationPlayState: isHoveringStrip
+                            ? "paused"
+                            : "running",
                         }}
                       />
                     )}

@@ -11,12 +11,12 @@ export default function HeroSection() {
   const copy = {
     kicker: locale === "es" ? "Ecosistema T1" : "T1 Ecosystem",
     headlinePre:
-      locale === "es" ? "La infraestructura que hace crecer al" : "The infrastructure powering",
+      locale === "es" ? "La infraestructura que hace crecer el" : "The infrastructure powering",
     headlineAccent: locale === "es" ? "comercio en México" : "commerce in Mexico",
     subhead:
       locale === "es"
-        ? "De la primera venta a millones de operaciones: T1 es la plataforma detrás de las marcas que están definiendo el futuro del comercio."
-        : "From the first sale to millions of operations: T1 is the platform behind the brands shaping the future of commerce.",
+        ? "De la primera venta a millones de operaciones: T1 es el ecosistema detrás de las marcas que están definiendo el futuro del comercio."
+        : "From the first sale to millions of operations: T1 is the ecosystem behind the brands shaping the future of commerce.",
     primary: locale === "es" ? "Empieza con T1" : "Get started with T1",
     secondary: locale === "es" ? "Ver todas las historias" : "See all stories",
   };
