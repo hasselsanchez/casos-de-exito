@@ -4,9 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { useLocale } from "next-intl";
 import { T1_HOME_URL } from "@/lib/constants";
 
-const WORD_STAGGER_MS = 90;
-const HEADLINE_WORD_DURATION_MS = 750;
-
 /**
  * Minimalist editorial hero — no featured case, just a strong aspirational
  * statement about T1 as the infrastructure powering commerce in Mexico.
@@ -46,21 +43,6 @@ export default function HeroSection() {
     secondary: locale === "es" ? "Ver todas las historias" : "See all stories",
   };
 
-  /* Build a flat list so a single index drives the stagger across both the
-     neutral and the accented portions of the headline. The trailing period
-     lives on the last accent word. */
-  const preWords = copy.headlinePre.split(" ");
-  const accentWords = copy.headlineAccent.split(" ");
-  const words = [
-    ...preWords.map((w) => ({ text: w, accent: false })),
-    ...accentWords.map((w, i) => ({
-      text: w + (i === accentWords.length - 1 ? "." : ""),
-      accent: true,
-    })),
-  ];
-
-  const tailDelay = words.length * WORD_STAGGER_MS;
-
   return (
     <section
       ref={sectionRef}
@@ -92,28 +74,22 @@ export default function HeroSection() {
 
       <div className="relative mx-auto w-full max-w-[840px] px-5 pt-[140px] tablet:px-8 tablet:pt-[180px]">
         <div className="flex flex-col items-center text-center">
-          {/* Headline — word-by-word stagger */}
-          <h1 className="font-sora text-[36px] leading-[1.08] font-light tracking-[-0.02em] text-gray-900 tablet:text-[52px] desktop:text-[60px]">
-            {words.map((w, i) => (
-              <span
-                key={i}
-                className="inline-block"
-                style={{
-                  animation: `hero-word-up ${HEADLINE_WORD_DURATION_MS}ms cubic-bezier(0.16, 1, 0.3, 1) ${i * WORD_STAGGER_MS}ms both`,
-                  color: w.accent ? "#E26153" : undefined,
-                }}
-              >
-                {w.text}
-                {i < words.length - 1 ? " " : ""}
-              </span>
-            ))}
+          {/* Headline — single fade-up */}
+          <h1
+            className="font-sora text-[36px] leading-[1.08] font-light tracking-[-0.02em] text-gray-900 tablet:text-[52px] desktop:text-[60px]"
+            style={{
+              animation: `hero-fade-up 850ms cubic-bezier(0.16, 1, 0.3, 1) both`,
+            }}
+          >
+            {copy.headlinePre}{" "}
+            <span className="text-[#E26153]">{copy.headlineAccent}</span>.
           </h1>
 
           {/* Subhead */}
           <p
             className="mt-7 max-w-[600px] font-inter text-[15px] leading-[1.6] text-gray-600 tablet:text-[17px]"
             style={{
-              animation: `hero-fade-up 700ms cubic-bezier(0.16, 1, 0.3, 1) ${tailDelay + 100}ms both`,
+              animation: `hero-fade-up 800ms cubic-bezier(0.16, 1, 0.3, 1) 220ms both`,
             }}
           >
             {copy.subhead}
@@ -123,21 +99,16 @@ export default function HeroSection() {
           <div
             className="mt-10 flex flex-col items-stretch gap-3 tablet:flex-row tablet:items-center tablet:gap-4"
             style={{
-              animation: `hero-fade-up 700ms cubic-bezier(0.16, 1, 0.3, 1) ${tailDelay + 250}ms both`,
+              animation: `hero-fade-up 800ms cubic-bezier(0.16, 1, 0.3, 1) 380ms both`,
             }}
           >
             <a
               href={T1_HOME_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative inline-flex h-[45px] items-center justify-center overflow-hidden rounded-[18px] bg-[#E26153] px-7 font-inter text-[14px] font-semibold text-white shadow-[0_8px_24px_-8px_rgba(226,97,83,0.55)] transition-all duration-300 hover:bg-[#DB3B2B] hover:shadow-[0_14px_32px_-8px_rgba(226,97,83,0.75)]"
+              className="inline-flex h-[45px] items-center justify-center rounded-[18px] bg-[#E26153] px-7 font-inter text-[14px] font-semibold text-white shadow-[0_8px_24px_-8px_rgba(226,97,83,0.55)] transition-all duration-300 hover:bg-[#DB3B2B] hover:shadow-[0_14px_32px_-8px_rgba(226,97,83,0.75)]"
             >
-              {/* Shine sweep on hover */}
-              <span
-                aria-hidden
-                className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"
-              />
-              <span className="relative">{copy.primary}</span>
+              {copy.primary}
             </a>
             <a
               href="#explorar"

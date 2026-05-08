@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
@@ -148,73 +148,18 @@ function FeedCard({
   const slug = locale === "en" ? article.slugEn : article.slug;
   const href = `/${locale}/casos-de-exito/${slug}`;
   const cfg = PARTNER_LOGO[article.company] ?? { w: "w-[64px]" };
-  const headlineMetric = article.metrics[0];
-
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  /* Tilt amplitude in deg. ±7 reads "noticeable" without inducing motion sickness. */
-  const TILT_DEG = 7;
-  const [tilt, setTilt] = useState({
-    rx: 0,
-    ry: 0,
-    mx: 50,
-    my: 50,
-    active: false,
-  });
-
-  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = wrapperRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
-    setTilt({
-      rx: -(y - 0.5) * 2 * TILT_DEG,
-      ry: (x - 0.5) * 2 * TILT_DEG,
-      mx: x * 100,
-      my: y * 100,
-      active: true,
-    });
-  };
-  const handleLeave = () =>
-    setTilt({ rx: 0, ry: 0, mx: 50, my: 50, active: false });
+  const readFullCase =
+    locale === "es" ? "Leer el caso completo" : "Read the full case";
 
   return (
-    <div
-      ref={wrapperRef}
-      onMouseMove={handleMove}
-      onMouseLeave={handleLeave}
-      className="opacity-0 [perspective:1100px]"
+    <Link
+      href={href}
+      className="group relative flex flex-col overflow-hidden rounded-[14px] border border-gray-200 bg-white opacity-0 transition-all duration-500 hover:-translate-y-1 hover:border-[#0A0B10]/55 hover:shadow-[0_24px_48px_-20px_rgba(10,11,16,0.18)]"
       style={{
         animation: `fade-in-up 0.55s cubic-bezier(0.16, 1, 0.3, 1) ${index * 70}ms forwards`,
       }}
     >
-      <Link
-        href={href}
-        className="group relative flex flex-col overflow-hidden rounded-[14px] border border-gray-200 bg-white will-change-transform hover:border-[#0A0B10]/55 hover:shadow-[0_28px_56px_-20px_rgba(10,11,16,0.22)] [transform-style:preserve-3d]"
-        style={{
-          transform: `rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg) translateZ(0)${tilt.active ? " translateY(-6px)" : ""}`,
-          transition: tilt.active
-            ? "transform 90ms ease-out, border-color 300ms, box-shadow 300ms"
-            : "transform 600ms cubic-bezier(0.16, 1, 0.3, 1), border-color 300ms, box-shadow 300ms",
-        }}
-      >
-        {/* Cursor-following red glow — only visible on hover */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 z-20 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-          style={{
-            background: `radial-gradient(circle 240px at ${tilt.mx}% ${tilt.my}%, rgba(226,97,83,0.22), transparent 65%)`,
-            mixBlendMode: "multiply",
-          }}
-        />
-        {/* Specular highlight — subtle white sheen tracking the cursor */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 z-20 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-          style={{
-            background: `radial-gradient(circle 180px at ${tilt.mx}% ${tilt.my}%, rgba(255,255,255,0.35), transparent 60%)`,
-          }}
-        />
-        {/* ── Image with white logo overlay (no pill) ── */}
+      {/* ── Image with white logo overlay (no pill) ── */}
       <div className="relative aspect-[5/4] overflow-hidden bg-gray-100">
         <Image
           src={article.heroImage}
@@ -268,44 +213,29 @@ function FeedCard({
         )}
       </div>
 
-      {/* ── Body ── */}
-      <div className="flex flex-1 flex-col gap-4 p-5 tablet:p-6">
-        {/* Headline */}
-        <h3 className="font-sora text-[14px] leading-[1.35] font-light tracking-[-0.005em] text-[#0A0B10] tablet:text-[15px]">
+      {/* ── Body — fixed shape so every card has the same height ── */}
+      <div className="flex flex-1 flex-col p-5 tablet:p-6">
+        {/* Headline — clamped to 2 lines so card height stays consistent */}
+        <h3 className="line-clamp-2 min-h-[2.7em] font-sora text-[14px] leading-[1.35] font-light tracking-[-0.005em] text-[#0A0B10] tablet:text-[15px]">
           {article.title[locale]}
         </h3>
 
-        {/* Footer: metric + arrow */}
-        <div className="mt-auto flex items-end justify-between gap-3 border-t border-gray-100 pt-4">
-          {headlineMetric && (
-            <div>
-              <p className="font-inter text-[20px] leading-[1] font-bold tracking-[-0.015em] text-[#E26153]">
-                {headlineMetric.value[locale]}
-              </p>
-              <p className="mt-1.5 max-w-[180px] font-inter text-[10.5px] leading-[1.4] text-gray-500">
-                {headlineMetric.label[locale]}
-              </p>
-            </div>
-          )}
-          <span
-            aria-hidden
-            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition-all duration-300 group-hover:border-[#0A0B10] group-hover:bg-[#0A0B10] group-hover:text-white"
+        {/* Read more — reveals on hover. Reserved space (opacity-0) keeps every card the same height. */}
+        <span className="mt-auto inline-flex items-center gap-1.5 pt-6 font-inter text-[12px] font-medium text-[#E26153] opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100">
+          {readFullCase}
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            className="transition-transform duration-300 group-hover:translate-x-0.5"
           >
-            <svg
-              width="13"
-              height="13"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.75"
-              className="transition-transform duration-300 group-hover:translate-x-0.5"
-            >
-              <path d="M5 12h14M13 5l7 7-7 7" />
-            </svg>
-          </span>
-        </div>
+            <path d="M5 12h14M13 5l7 7-7 7" />
+          </svg>
+        </span>
       </div>
-      </Link>
-    </div>
+    </Link>
   );
 }
