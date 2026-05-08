@@ -28,21 +28,6 @@ export default function HeroSection() {
           "linear-gradient(to bottom, #E59086 0%, #F2B5AE 18%, #FFFFFF 60%)",
       }}
     >
-      {/* Subtle tech grid — barely visible, adds depth without breaking minimalism */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.05]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, #0A0B10 1px, transparent 1px), linear-gradient(to bottom, #0A0B10 1px, transparent 1px)",
-          backgroundSize: "64px 64px",
-          maskImage:
-            "radial-gradient(ellipse at 50% 0%, black 30%, transparent 75%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse at 50% 0%, black 30%, transparent 75%)",
-        }}
-      />
-
       {/* Soft glow blob for warmth */}
       <div
         aria-hidden
