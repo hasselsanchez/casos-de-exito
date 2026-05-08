@@ -36,8 +36,8 @@ export default function HeroSection() {
     headlineAccent: locale === "es" ? "éxito" : "success",
     subhead:
       locale === "es"
-        ? "Conoce cómo miles de negocios crecen con T1, el ecosistema detrás de las marcas que están definiendo el futuro del comercio."
-        : "Discover how thousands of businesses grow with T1, the ecosystem behind the brands shaping the future of commerce.",
+        ? "Miles de negocios están redefiniendo el comercio en México. Conoce cómo lo hacen con T1."
+        : "Thousands of businesses are redefining commerce in Mexico. See how they do it with T1.",
     primary: locale === "es" ? "Empieza con T1" : "Get started with T1",
     secondary: locale === "es" ? "Ver todas las historias" : "See all stories",
   };
@@ -81,7 +81,7 @@ export default function HeroSection() {
             }}
           >
             {copy.headlinePre}{" "}
-            <span className="text-[#E26153]">{copy.headlineAccent}</span>.
+            <span className="text-[#E26153]">{copy.headlineAccent}</span>
           </h1>
 
           {/* Subhead */}
