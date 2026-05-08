@@ -165,7 +165,9 @@ function FeedCard({
         animation: `fade-in-up 0.55s cubic-bezier(0.16, 1, 0.3, 1) ${index * 70}ms forwards`,
       }}
     >
-      {/* Hover gradient layer — fades in over the neutral bg. */}
+      {/* Hover gradient layer — fades in over the neutral bg. The scale-up
+         turns the source into a close-up wash so it reads as smooth color
+         (rather than a busy texture) behind the white logo + title. */}
       {gradient && (
         <Image
           src={gradient}
@@ -173,7 +175,7 @@ function FeedCard({
           fill
           aria-hidden
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-          className="object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          className="scale-[1.75] object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         />
       )}
 
