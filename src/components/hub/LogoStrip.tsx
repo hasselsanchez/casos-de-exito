@@ -43,7 +43,9 @@ export default function LogoStrip() {
                     ? "h-3 w-auto"
                     : c.slug === "doto"
                       ? "h-4 w-auto"
-                      : "h-8 max-w-[100px]"
+                      : c.slug === "makora"
+                        ? "h-4 w-auto"
+                        : "h-8 max-w-[100px]"
                 }`}
               />
             </div>
