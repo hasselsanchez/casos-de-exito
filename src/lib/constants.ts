@@ -6,12 +6,12 @@ export const WHATSAPP_URL = "https://wa.me/5215512345678";
 export const NAV_LINKS = {
   es: [
     { label: "Industrias", href: "#explorar" },
-    { label: "Por tamaño", href: "#por-tamano" },
+    { label: "Por solución", href: "#por-solucion" },
     { label: "Ecosistema", href: "https://t1.com/mx" },
   ],
   en: [
     { label: "Industries", href: "#explorar" },
-    { label: "By size", href: "#por-tamano" },
+    { label: "By solution", href: "#por-solucion" },
     { label: "Ecosystem", href: "https://t1.com/en" },
   ],
 };

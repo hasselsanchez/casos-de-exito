@@ -5,27 +5,23 @@ import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { articles } from "@/lib/articles";
-import { SOLUTION_META } from "@/lib/constants";
 
-type SizeKey = "startup" | "growth" | "enterprise";
+type SolutionKey = "tienda" | "pagos" | "envios" | "score";
 
-const ORDER: SizeKey[] = ["startup", "growth", "enterprise"];
+const ORDER: SolutionKey[] = ["tienda", "pagos", "envios", "score"];
 
-const REPRESENTATIVE: Record<SizeKey, string> = {
-  startup: "makora",
-  growth: "doto",
-  enterprise: "sears",
+const SOLUTION_LABEL: Record<SolutionKey, string> = {
+  tienda: "T1 Tienda",
+  pagos: "T1 Pagos",
+  envios: "T1 Envíos",
+  score: "T1 Score",
 };
 
-/* Per-logo visual height tuning for T1 product marks. Their SVG viewBoxes
-   differ — t1pagos is 41.2 tall vs ~35.5 for the rest — so a single height
-   class makes t1pagos read smaller. These overrides equalize visual weight
-   at a small editorial size (~14px optical height). */
-const PRODUCT_LOGO_HEIGHT: Record<string, string> = {
-  "T1 Tienda": "h-[14px]",
-  "T1 Envíos": "h-[14px]",
-  "T1 Pagos": "h-[16px]",
-  T1Score: "h-[14px]",
+const REPRESENTATIVE: Record<SolutionKey, string> = {
+  tienda: "makora",
+  pagos: "pase",
+  envios: "doto",
+  score: "circulo-de-credito",
 };
 
 /** Per-logo placement on the image — widths tuned so every brand renders at
@@ -48,15 +44,15 @@ const PARTNER_LOGO: Record<
 };
 
 /**
- * "Por tamaño" — own section. Tabs (Startup / Growth / Enterprise) swap a
- * representative case. Image left, content right (metrics → solutions →
- * brief pull-quote). Company logo overlays the image directly in white,
- * no pill or background.
+ * "Por solución" — own section. Tabs (T1 Tienda / Pagos / Envíos / Score)
+ * swap a representative case for each T1 product. Image left, content right
+ * (industry kicker → ONE hero metric → quote → CTA). The active pill itself
+ * communicates which T1 product the case used, so no in-column credits.
  */
 export default function CustomersBySize() {
   const t = useTranslations("customers");
   const locale = useLocale() as "es" | "en";
-  const [active, setActive] = useState<SizeKey>("startup");
+  const [active, setActive] = useState<SolutionKey>("tienda");
 
   const article = articles.find((a) => a.slug === REPRESENTATIVE[active]);
   if (!article) return null;
@@ -65,18 +61,11 @@ export default function CustomersBySize() {
   const caseHref = `/${locale}/casos-de-exito/${slug}`;
   const cfg = PARTNER_LOGO[article.company] ?? { w: "w-[88px]" };
 
-  const labelFor = (k: SizeKey) =>
-    k === "startup"
-      ? t("segmentStartup")
-      : k === "growth"
-        ? t("segmentGrowth")
-        : t("segmentEnterprise");
-
   const readFullCase =
     locale === "es" ? "Leer el caso completo" : "Read the full case";
 
   return (
-    <section id="por-tamano" className="bg-white py-16 tablet:py-20">
+    <section id="por-solucion" className="bg-white py-16 tablet:py-20">
       <div className="mx-auto max-w-[1100px] px-5 tablet:px-8">
         {/* ── Section header ── */}
         <div data-animate className="max-w-[600px]">
@@ -104,7 +93,7 @@ export default function CustomersBySize() {
                     : "border border-gray-200 bg-white text-gray-600 hover:border-gray-400 hover:text-[#0A0B10]"
                 }`}
               >
-                {labelFor(k)}
+                {SOLUTION_LABEL[k]}
               </button>
             );
           })}
@@ -179,8 +168,7 @@ export default function CustomersBySize() {
               1. Industry kicker (section label)
               2. ONE hero metric (the lead — biggest visual weight)
               3. Quote (human voice — medium weight)
-              4. Solutions as quiet credits
-              5. CTA */}
+              4. CTA */}
           <div className="flex flex-col">
             {/* 1. Industry kicker — magazine-style section label */}
             <p className="font-inter text-[10px] font-semibold uppercase tracking-[0.22em] text-[#E26153]">
@@ -211,50 +199,7 @@ export default function CustomersBySize() {
               </footer>
             </blockquote>
 
-            {/* 4. Solutions — small label + logo row, optically equalized */}
-            <div className="mt-8">
-              <p className="font-inter text-[10px] font-semibold uppercase tracking-[0.18em] text-gray-400">
-                {locale === "es" ? "Con T1" : "Built with T1"}
-              </p>
-              <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-3">
-                {article.solutions.map((sol) => {
-                  const meta = SOLUTION_META[sol];
-                  if (!meta) {
-                    return (
-                      <span
-                        key={sol}
-                        className="font-inter text-[12px] text-gray-700"
-                      >
-                        {sol}
-                      </span>
-                    );
-                  }
-                  const heightClass =
-                    PRODUCT_LOGO_HEIGHT[sol] ?? "h-[14px]";
-                  return (
-                    <a
-                      key={sol}
-                      href={meta.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      title={sol}
-                      aria-label={sol}
-                      className="block transition-opacity hover:opacity-60"
-                    >
-                      <Image
-                        src={meta.logoSrc}
-                        alt={sol}
-                        width={120}
-                        height={20}
-                        className={`${heightClass} w-auto object-contain`}
-                      />
-                    </a>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* 5. CTA */}
+            {/* 4. CTA — solution context already lives in the active pill above */}
             <Link
               href={caseHref}
               className="group mt-7 inline-flex items-center gap-1.5 self-start font-inter text-[12px] font-medium text-[#E26153] transition-opacity hover:opacity-70"
