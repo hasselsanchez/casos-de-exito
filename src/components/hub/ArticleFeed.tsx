@@ -154,7 +154,7 @@ function FeedCard({
   return (
     <Link
       href={href}
-      className="group relative flex flex-col overflow-hidden rounded-[14px] border border-gray-200 bg-white opacity-0 transition-all duration-500 hover:-translate-y-1 hover:border-[#0A0B10]/55 hover:shadow-[0_24px_48px_-20px_rgba(10,11,16,0.18)]"
+      className="group relative flex flex-col overflow-hidden rounded-[14px] border border-gray-200 bg-white opacity-0 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_48px_-20px_rgba(10,11,16,0.18)]"
       style={{
         animation: `fade-in-up 0.55s cubic-bezier(0.16, 1, 0.3, 1) ${index * 70}ms forwards`,
       }}
