@@ -63,6 +63,7 @@
   --animate-fade-in-up: fade-in-up 0.6s ease-out forwards;
   --animate-pulse-soft: pulse-soft 4s ease-in-out infinite;
   --animate-marquee: marquee 32s linear infinite;
+  --animate-progress-line: progress-line 5s linear forwards;
 }
 
 /* ===== Keyframes ===== */
@@ -77,6 +78,10 @@
 @keyframes marquee {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
+}
+@keyframes progress-line {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
 }
 
 /* ===== Scroll Animations ===== */

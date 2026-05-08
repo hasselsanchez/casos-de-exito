@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { articles } from "@/lib/articles";
+import { SOLUTION_META } from "@/lib/constants";
 
 type SolutionKey = "tienda" | "pagos" | "envios" | "score";
 
@@ -23,6 +24,23 @@ const REPRESENTATIVE: Record<SolutionKey, string> = {
   envios: "doto",
   score: "circulo-de-credito",
 };
+
+/** Per-logo visual height tuning for the T1 product marks. The t1pagos SVG
+   has a viewBox 16% taller than the others, so a single height class makes it
+   read smaller. These overrides equalize optical weight in the rotation strip. */
+const PRODUCT_LOGO_HEIGHT: Record<SolutionKey, string> = {
+  tienda: "h-[22px]",
+  pagos: "h-[26px]",
+  envios: "h-[22px]",
+  score: "h-[22px]",
+};
+
+/** Auto-rotation cadence (ms). 5s is the editorial sweet spot — fast enough
+   to feel alive, slow enough to read. */
+const ROTATION_MS = 5000;
+
+/** Cooldown after a manual click before auto-rotation resumes. */
+const CLICK_COOLDOWN_MS = 12000;
 
 /** Per-logo placement on the image — widths tuned so every brand renders at
    ~28px visual height for consistent editorial weight. */
@@ -53,6 +71,56 @@ export default function CustomersBySize() {
   const t = useTranslations("customers");
   const locale = useLocale() as "es" | "en";
   const [active, setActive] = useState<SolutionKey>("tienda");
+  /* rotationKey forces the progress-line div to remount (and the keyframe to
+     restart at 0) on each cycle — including a click on the already-active
+     logo, which would otherwise not change `active`. */
+  const [rotationKey, setRotationKey] = useState(0);
+  const [isHoveringStrip, setIsHoveringStrip] = useState(false);
+  const [isInClickCooldown, setIsInClickCooldown] = useState(false);
+  const cooldownTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const paused = isHoveringStrip || isInClickCooldown;
+
+  /* Respect prefers-reduced-motion — disable auto-rotation entirely for users
+     who opt out of motion. They can still click logos to navigate. */
+  const prefersReducedMotion = useRef(false);
+  useEffect(() => {
+    prefersReducedMotion.current = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+  }, []);
+
+  /* Auto-rotation. Restarts whenever `paused` toggles, so hovering the strip
+     halts the cycle and leaving resumes it from a fresh ROTATION_MS window.
+     Bumping rotationKey on resume keeps the progress line in sync with the
+     freshly-started interval (otherwise the line would finish early). */
+  useEffect(() => {
+    if (paused) return;
+    if (prefersReducedMotion.current) return;
+    setRotationKey((k) => k + 1);
+    const id = setInterval(() => {
+      setActive((prev) => ORDER[(ORDER.indexOf(prev) + 1) % ORDER.length]);
+      setRotationKey((k) => k + 1);
+    }, ROTATION_MS);
+    return () => clearInterval(id);
+  }, [paused]);
+
+  /* Cleanup the click-cooldown timer on unmount. */
+  useEffect(() => {
+    return () => {
+      if (cooldownTimerRef.current) clearTimeout(cooldownTimerRef.current);
+    };
+  }, []);
+
+  const handleLogoClick = (k: SolutionKey) => {
+    setActive(k);
+    setRotationKey((rk) => rk + 1);
+    setIsInClickCooldown(true);
+    if (cooldownTimerRef.current) clearTimeout(cooldownTimerRef.current);
+    cooldownTimerRef.current = setTimeout(
+      () => setIsInClickCooldown(false),
+      CLICK_COOLDOWN_MS,
+    );
+  };
 
   const article = articles.find((a) => a.slug === REPRESENTATIVE[active]);
   if (!article) return null;
@@ -75,41 +143,20 @@ export default function CustomersBySize() {
           </h2>
         </div>
 
-        {/* ── Pills ── */}
-        <div
-          data-animate
-          className="mt-6 flex flex-wrap items-center gap-1.5"
-        >
-          {ORDER.map((k) => {
-            const isActive = active === k;
-            return (
-              <button
-                key={k}
-                type="button"
-                onClick={() => setActive(k)}
-                className={`rounded-full px-3.5 py-1.5 font-inter text-[12px] font-medium transition-colors duration-200 ${
-                  isActive
-                    ? "bg-[#0A0B10] text-white"
-                    : "border border-gray-200 bg-white text-gray-600 hover:border-gray-400 hover:text-[#0A0B10]"
-                }`}
-              >
-                {SOLUTION_LABEL[k]}
-              </button>
-            );
-          })}
-        </div>
-
         {/* ── Showcase ── */}
         <div
-          key={active}
-          className="mt-8 grid animate-fade-in-up grid-cols-1 gap-x-10 gap-y-7 tablet:mt-10 tablet:grid-cols-[1.15fr_1fr] tablet:gap-x-12"
+          data-animate
+          className="mt-8 grid grid-cols-1 gap-x-10 gap-y-7 tablet:mt-10 tablet:grid-cols-[1.15fr_1fr] tablet:gap-x-12"
         >
+          {/* ── Left column: image + auto-rotating logo strip ── */}
+          <div>
           {/* ── Image with white logo overlay (no pill) ── */}
           <Link
+            key={`img-${active}`}
             href={caseHref}
-            className="group relative block overflow-hidden rounded-[10px]"
+            className="group relative block animate-fade-in-up overflow-hidden rounded-[10px]"
           >
-            <div className="relative aspect-[4/3]">
+            <div className="relative aspect-[3/2]">
               <Image
                 src={article.heroImage}
                 alt={article.company}
@@ -164,12 +211,76 @@ export default function CustomersBySize() {
             </div>
           </Link>
 
+          {/* ── Auto-rotating T1 product logo strip ──
+              Replaces the old text pills. Active logo is in color; the rest
+              live in grayscale at low opacity. A 1px line above each logo
+              fills left-to-right over ROTATION_MS to telegraph the cycle.
+              Hover pauses the strip; clicking a logo selects it and pauses
+              auto-rotation for CLICK_COOLDOWN_MS before resuming. */}
+          <div
+            className="mt-6 grid grid-cols-4 gap-x-3 tablet:mt-8"
+            onMouseEnter={() => setIsHoveringStrip(true)}
+            onMouseLeave={() => setIsHoveringStrip(false)}
+          >
+            {ORDER.map((k) => {
+              const isActive = active === k;
+              const sol = SOLUTION_LABEL[k];
+              const meta = SOLUTION_META[sol];
+              const heightClass = PRODUCT_LOGO_HEIGHT[k];
+              return (
+                <button
+                  key={k}
+                  type="button"
+                  onClick={() => handleLogoClick(k)}
+                  aria-label={sol}
+                  aria-pressed={isActive}
+                  className="group flex flex-col items-center"
+                >
+                  {/* Progress track — always present (1px), only the
+                     active logo paints a red fill driven by the keyframe. */}
+                  <div className="relative h-px w-full overflow-hidden bg-gray-100">
+                    {isActive && (
+                      <span
+                        key={rotationKey}
+                        aria-hidden
+                        className="absolute inset-0 h-px origin-left animate-progress-line bg-[#E26153]"
+                        style={{
+                          animationPlayState: paused ? "paused" : "running",
+                        }}
+                      />
+                    )}
+                  </div>
+                  {/* Logo */}
+                  <div className="mt-5 flex h-7 items-center">
+                    {meta && (
+                      <Image
+                        src={meta.logoSrc}
+                        alt={sol}
+                        width={140}
+                        height={32}
+                        className={`${heightClass} w-auto object-contain transition-all duration-500 ${
+                          isActive
+                            ? "opacity-100"
+                            : "opacity-40 grayscale group-hover:opacity-70"
+                        }`}
+                      />
+                    )}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+          </div>
+
           {/* ── Right column: editorial hierarchy ──
               1. Industry kicker (section label)
               2. ONE hero metric (the lead — biggest visual weight)
               3. Quote (human voice — medium weight)
               4. CTA */}
-          <div className="flex flex-col">
+          <div
+            key={`text-${active}`}
+            className="flex animate-fade-in-up flex-col"
+          >
             {/* 1. Industry kicker — magazine-style section label */}
             <p className="font-inter text-[10px] font-semibold uppercase tracking-[0.22em] text-[#E26153]">
               {article.industry[locale]}

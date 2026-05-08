@@ -1,163 +1,106 @@
-"use client";
-
 import { useLocale } from "next-intl";
-import Image from "next/image";
-import Link from "next/link";
-import { articles } from "@/lib/articles";
-import { HERO_FEATURED_INDEX } from "@/lib/constants";
-
-/* logo wall lives in its own LogoStrip section */
+import { SIGNUP_URL } from "@/lib/constants";
 
 /**
- * Hero on the inverted-red gradient bookend.
- * Compact centered editorial composition: kicker · short headline ·
- * pull-quote · CTAs. Below the text, the company photo (aspect-video,
- * original chrome). Closes with an embedded logo wall.
+ * Minimalist editorial hero — no featured case, just a strong aspirational
+ * statement about T1 as the infrastructure powering commerce in Mexico.
  */
 export default function HeroSection() {
   const locale = useLocale() as "es" | "en";
-  const featured = articles[HERO_FEATURED_INDEX];
-
-  const caseHref = `/${locale}/casos-de-exito/${
-    locale === "en" ? featured.slugEn : featured.slug
-  }`;
 
   const copy = {
-    kicker: locale === "es" ? "Caso destacado" : "Featured story",
-    headlinePre: locale === "es" ? "Cómo" : "How",
-    headlinePost:
+    kicker: locale === "es" ? "Ecosistema T1" : "T1 Ecosystem",
+    headlinePre:
+      locale === "es" ? "La infraestructura que hace crecer al" : "The infrastructure powering",
+    headlineAccent: locale === "es" ? "comercio en México" : "commerce in Mexico",
+    subhead:
       locale === "es"
-        ? "redujo la mora temprana un 40% con T1Score."
-        : "cut early arrears by 40% with T1Score.",
-    pullQuote:
-      locale === "es"
-        ? "Para ese 10% sin historial, T1 es oro molido."
-        : "For the 10% with no credit history, T1 is pure gold.",
-    readCase: locale === "es" ? "Leer el caso completo" : "Read the full case",
-    seeAll: locale === "es" ? "Ver todas las historias" : "See all stories",
+        ? "De la primera venta a millones de operaciones: T1 es la plataforma detrás de las marcas que están definiendo el futuro del comercio."
+        : "From the first sale to millions of operations: T1 is the platform behind the brands shaping the future of commerce.",
+    primary: locale === "es" ? "Empieza con T1" : "Get started with T1",
+    secondary: locale === "es" ? "Ver todas las historias" : "See all stories",
   };
 
   return (
     <section
-      className="relative pb-20 tablet:pb-28"
+      className="relative overflow-hidden pb-24 tablet:pb-32"
       style={{
         background:
-          "linear-gradient(to bottom, #E59086 0%, #F2B5AE 18%, #FFFFFF 50%)",
+          "linear-gradient(to bottom, #E59086 0%, #F2B5AE 18%, #FFFFFF 60%)",
       }}
     >
-      <div className="mx-auto w-full max-w-[1180px] px-5 pt-[110px] tablet:px-8 tablet:pt-[140px]">
-        <div className="grid grid-cols-1 items-center gap-10 tablet:grid-cols-[1.1fr_1fr] tablet:gap-14 desktop:gap-20">
-          {/* ── Left column: editorial copy ── */}
-          <div data-animate className="flex flex-col items-start text-left">
-            {/* Kicker */}
-            <div className="flex items-center gap-3">
-              <span aria-hidden className="h-px w-6 bg-gray-300" />
-              <span className="font-inter text-[10.5px] font-semibold uppercase tracking-[0.22em] text-gray-500">
-                {copy.kicker}
-              </span>
-            </div>
+      {/* Subtle tech grid — barely visible, adds depth without breaking minimalism */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.05]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, #0A0B10 1px, transparent 1px), linear-gradient(to bottom, #0A0B10 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
+          maskImage:
+            "radial-gradient(ellipse at 50% 0%, black 30%, transparent 75%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse at 50% 0%, black 30%, transparent 75%)",
+        }}
+      />
 
-            {/* Headline — Sora light, dark with red accent on company */}
-            <h1 className="mt-6 font-sora text-[30px] leading-[1.12] font-light tracking-[-0.018em] text-gray-900 tablet:text-[36px] desktop:text-[44px]">
-              <span>{copy.headlinePre} </span>
-              <span className="text-[#E26153]">{featured.company}</span>
-              <span> {copy.headlinePost}</span>
-            </h1>
+      {/* Soft glow blob for warmth */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-24 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full opacity-60 blur-[120px]"
+        style={{ background: "radial-gradient(closest-side, #E59086, transparent)" }}
+      />
 
-            {/* Pull-quote — large editorial italic */}
-            <p className="mt-7 max-w-[520px] font-inter text-[17px] leading-[1.5] font-normal italic text-gray-700 tablet:text-[18px]">
-              &ldquo;{copy.pullQuote}&rdquo;
-            </p>
-            <p className="mt-3 font-inter text-[11px] font-medium tracking-[0.04em] text-gray-500">
-              {featured.quote.author}
-              <span className="text-gray-400"> · {featured.quote.role[locale]}</span>
-            </p>
-
-            {/* CTAs */}
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
-              <Link
-                href={caseHref}
-                className="group inline-flex items-center gap-2 font-inter text-[13px] font-semibold text-[#0A0B10]"
-              >
-                <span className="border-b border-[#0A0B10]/35 pb-1 transition-colors group-hover:border-[#0A0B10]">
-                  {copy.readCase}
-                </span>
-                <svg
-                  width="13"
-                  height="13"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.75"
-                  className="transition-transform duration-300 group-hover:translate-x-0.5"
-                >
-                  <path d="M5 12h14M13 5l7 7-7 7" />
-                </svg>
-              </Link>
-              <a
-                href="#casos"
-                className="inline-flex items-center gap-1.5 font-inter text-[12px] font-normal text-gray-500 transition-colors hover:text-[#0A0B10]"
-              >
-                {copy.seeAll}
-                <svg
-                  width="11"
-                  height="11"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="m6 9 6 6 6-6" />
-                </svg>
-              </a>
-            </div>
+      <div className="relative mx-auto w-full max-w-[840px] px-5 pt-[140px] tablet:px-8 tablet:pt-[180px]">
+        <div data-animate className="flex flex-col items-center text-center">
+          {/* Kicker */}
+          <div className="flex items-center gap-3">
+            <span aria-hidden className="h-px w-6 bg-gray-400/60" />
+            <span className="font-inter text-[10.5px] font-semibold uppercase tracking-[0.24em] text-gray-600">
+              {copy.kicker}
+            </span>
+            <span aria-hidden className="h-px w-6 bg-gray-400/60" />
           </div>
 
-          {/* ── Right column: customer photo ── */}
-          <figure data-animate className="w-full">
-            <Link
-              href={caseHref}
-              className="group relative block overflow-hidden rounded-[14px] shadow-[0_22px_50px_-20px_rgba(10,11,16,0.22)] ring-1 ring-black/5"
+          {/* Headline */}
+          <h1 className="mt-7 font-sora text-[36px] leading-[1.08] font-light tracking-[-0.02em] text-gray-900 tablet:text-[52px] desktop:text-[60px]">
+            {copy.headlinePre}{" "}
+            <span className="text-[#E26153]">{copy.headlineAccent}</span>.
+          </h1>
+
+          {/* Subhead */}
+          <p className="mt-7 max-w-[600px] font-inter text-[15px] leading-[1.6] text-gray-600 tablet:text-[17px]">
+            {copy.subhead}
+          </p>
+
+          {/* CTAs */}
+          <div className="mt-10 flex flex-col items-stretch gap-3 tablet:flex-row tablet:items-center tablet:gap-4">
+            <a
+              href={SIGNUP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-[45px] items-center justify-center rounded-[18px] bg-[#E26153] px-7 font-inter text-[14px] font-semibold text-white shadow-[0_8px_24px_-8px_rgba(226,97,83,0.55)] transition-all duration-300 hover:bg-[#DB3B2B] hover:shadow-[0_12px_28px_-8px_rgba(226,97,83,0.7)]"
             >
-              <div className="relative aspect-[3/2]">
-                <Image
-                  src={featured.heroImage}
-                  alt={featured.company}
-                  fill
-                  priority
-                  className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-                  style={{ objectPosition: featured.heroImageFocal ?? "center" }}
-                  sizes="(max-width: 768px) 100vw, 640px"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
-                {/* Logo — direct on image, no pill */}
-                <Image
-                  src={featured.logoSrc}
-                  alt={featured.company}
-                  width={180}
-                  height={48}
-                  className="absolute bottom-6 left-6 h-10 w-auto brightness-0 invert drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]"
-                />
-                {/* Video badge — top-right */}
-                {featured.contentType === "video" && (
-                  <div className="absolute top-5 right-5 inline-flex h-7 items-center gap-1.5 rounded-full border border-white/20 bg-black/30 px-3 backdrop-blur-md">
-                    <svg
-                      width="7"
-                      height="7"
-                      viewBox="0 0 24 24"
-                      fill="white"
-                      className="shrink-0"
-                    >
-                      <polygon points="6,4 20,12 6,20" />
-                    </svg>
-                    <span className="font-inter text-[9.5px] font-semibold uppercase tracking-[0.22em] text-white">
-                      {locale === "es" ? "Video" : "Watch"}
-                    </span>
-                  </div>
-                )}
-              </div>
-            </Link>
-          </figure>
+              {copy.primary}
+            </a>
+            <a
+              href="#explorar"
+              className="group inline-flex h-[45px] items-center justify-center gap-2 rounded-[18px] border border-gray-300/80 bg-white/70 px-7 font-inter text-[14px] font-semibold text-[#0A0B10] backdrop-blur-sm transition-all duration-300 hover:border-gray-400 hover:bg-white"
+            >
+              {copy.secondary}
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                className="transition-transform duration-300 group-hover:translate-y-0.5"
+              >
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </section>
