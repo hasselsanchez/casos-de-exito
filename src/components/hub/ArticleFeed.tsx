@@ -178,8 +178,8 @@ function FeedCard({
               : "absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-black/35 via-black/8 to-transparent"
           }
         />
-        {/* Bottom white fade — image dissolves into the card for an editorial feel. */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-white via-white/65 to-transparent" />
+        {/* Bottom white fade — barely-there veil so the image quietly dissolves into the card. */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-white/55 to-transparent" />
 
         {/* Logo — white, INSIDE image, no pill, top-left */}
         <div className="absolute top-5 left-5 tablet:top-6 tablet:left-6">
@@ -230,7 +230,7 @@ function FeedCard({
 
       {/* ── Body — only headline; CTA lives on the image so every card stays compact ── */}
       <div className="p-5 tablet:p-6">
-        <h3 className="line-clamp-2 min-h-[2.7em] font-sora text-[14px] leading-[1.35] font-light tracking-[-0.005em] text-[#0A0B10] tablet:text-[15px]">
+        <h3 className="line-clamp-2 min-h-[2.7em] font-sora text-[15px] leading-[1.35] font-semibold tracking-[-0.01em] text-[#0A0B10] tablet:text-[17px]">
           {article.title[locale]}
         </h3>
       </div>

@@ -83,8 +83,8 @@ export const articles: Article[] = [
       "/images/articles/CIRCULO/AZT17477.JPG",
     ],
     title: {
-      es: "Círculo de Crédito reduce la mora temprana un 40% con T1Score",
-      en: "Círculo de Crédito cuts early arrears by 40% with T1Score",
+      es: "Cómo Círculo de Crédito está repensando el acceso al crédito en México",
+      en: "How Círculo de Crédito is rethinking credit access in Mexico",
     },
     subtitle: {
       es: "Data alternativa que da certeza y confianza al sistema financiero mexicano",
@@ -159,8 +159,8 @@ export const articles: Article[] = [
       "/images/articles/DOTO/AZT18628.JPG",
     ],
     title: {
-      es: "Doto mejora tiempos de entrega un 30% y reduce costos logísticos un 20%",
-      en: "Doto improves delivery times by 30% and reduces logistics costs by 20%",
+      es: "Doto y la apuesta por una logística unificada en el e-commerce de electrónica",
+      en: "Doto's bet on unified logistics for electronics e-commerce",
     },
     subtitle: {
       es: "Centralización logística que transformó la operación de e-commerce de electrónica",
@@ -231,8 +231,8 @@ export const articles: Article[] = [
     heroPreviewDarken: true,
     images: ["/images/articles/MAKORA/AZT17566.JPG"],
     title: {
-      es: "Makora lanzó su tienda en línea en minutos con T1, lo que antes tardó 6 meses",
-      en: "Makora launched their online store in minutes with T1, what previously took 6 months",
+      es: "Makora redefine el retail de muebles desde lo digital",
+      en: "Makora is redefining furniture retail from a digital-first lens",
     },
     subtitle: {
       es: "Una marca de muebles 100% online que transformó su operación con el ecosistema completo de T1",
@@ -307,8 +307,8 @@ export const articles: Article[] = [
       "/images/articles/PASE/AZT17401.JPG",
     ],
     title: {
-      es: "PASE aprueba el 98% de transacciones en menos de medio segundo con T1",
-      en: "PASE approves 98% of transactions in under half a second with T1",
+      es: "Cómo PASE construyó la infraestructura de pago de la movilidad mexicana",
+      en: "How PASE built the payment infrastructure for Mexican mobility",
     },
     subtitle: {
       es: "Seguridad, velocidad y cero fraudes en la operación de movilidad más grande de México",
@@ -382,8 +382,8 @@ export const articles: Article[] = [
       "/images/articles/SEARS/AZT18714.JPG",
     ],
     title: {
-      es: "Sears México logra entregas el mismo día con T1 como core logístico",
-      en: "Sears México achieves same-day delivery with T1 as logistics core",
+      es: "Sears México: la reinvención de un ícono del retail mexicano",
+      en: "Sears México: reinventing a Mexican retail icon",
     },
     subtitle: {
       es: "De operación convencional a alta competitividad digital con T1 como socio tecnológico",
@@ -456,8 +456,8 @@ export const articles: Article[] = [
       "/images/articles/SESEN/AZT17600.JPG",
     ],
     title: {
-      es: "Sesen escala a casi 1 millón de visitas anuales con T1 como aliado desde el día uno",
-      en: "Sesen scales to nearly 1 million annual visits with T1 as an ally from day one",
+      es: "Sesen y la nueva generación de marcas de bienestar D2C en México",
+      en: "Sesen and the new wave of D2C wellness brands in Mexico",
     },
     subtitle: {
       es: "Suplementos de alta calidad que crecieron de cero a escala nacional con el ecosistema T1",
