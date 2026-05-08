@@ -17,6 +17,13 @@ const SIZE_LABELS: Record<Article["size"], { es: string; en: string }> = {
   enterprise: { es: "Enterprise", en: "Enterprise" },
 };
 
+const SOLUTION_DISPLAY: Record<string, string> = {
+  "T1 Tienda": "T1tienda",
+  "T1 Envíos": "T1envíos",
+  "T1 Pagos": "T1pagos",
+  T1Score: "T1score",
+};
+
 export default function ArticleMetaCard({
   article,
   locale,
@@ -25,30 +32,25 @@ export default function ArticleMetaCard({
   const sizeLabel = SIZE_LABELS[article.size][locale];
 
   return (
-    <aside className="flex flex-col gap-5">
-      {/* Brand logo — small, left-aligned, editorial */}
-      <div className="relative h-7 w-full">
-        <Image
-          src={article.logoSrc}
-          alt={article.company}
-          fill
-          className="object-contain object-left"
-          sizes="160px"
-        />
-      </div>
+    <aside className="flex flex-col">
+      {/* Brand logo — capped width, natural aspect ratio */}
+      <Image
+        src={article.logoSrc}
+        alt={article.company}
+        width={160}
+        height={24}
+        className="h-6 w-auto max-w-[110px] object-contain object-left"
+      />
 
-      {/* SOLUCIONES — product names as text */}
       <MetaRow label={t("solutions")}>
         <ul className="space-y-1">
           {article.solutions.map((sol) => {
             const meta = SOLUTION_META[sol];
+            const display = SOLUTION_DISPLAY[sol] ?? sol;
             if (!meta) {
               return (
-                <li
-                  key={sol}
-                  className="font-sora text-[13px] font-semibold text-gray-900"
-                >
-                  {sol}
+                <li key={sol} className="font-inter text-[13px] text-gray-900">
+                  {display}
                 </li>
               );
             }
@@ -58,9 +60,9 @@ export default function ArticleMetaCard({
                   href={meta.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-sora text-[13px] font-semibold text-[#E26153] transition-opacity hover:opacity-70"
+                  className="font-inter text-[13px] text-gray-900 transition-colors hover:text-[#E26153]"
                 >
-                  {sol}
+                  {display}
                 </a>
               </li>
             );
@@ -81,19 +83,13 @@ export default function ArticleMetaCard({
   );
 }
 
-function MetaRow({
-  label,
-  children,
-}: {
-  label: string;
-  children: ReactNode;
-}) {
+function MetaRow({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div>
-      <p className="font-inter text-[10px] font-medium uppercase tracking-[0.1em] text-gray-400">
+    <div className="mt-5 border-t border-gray-100 pt-4">
+      <p className="font-inter text-[10px] font-semibold uppercase tracking-[0.14em] text-gray-400">
         {label}
       </p>
-      <div className="mt-1.5">{children}</div>
+      <div className="mt-2">{children}</div>
     </div>
   );
 }
