@@ -211,30 +211,35 @@ function FeedCard({
             {locale === "es" ? "Video" : "Watch"}
           </span>
         )}
+
+        {/* Hover overlay — soft full-image darken so the CTA reads cleanly */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/30"
+        />
+        {/* Read more — centered on the image, reveals on hover. No pill, no border. */}
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-6">
+          <span className="inline-flex items-center gap-2 font-inter text-[14px] font-semibold text-white opacity-0 translate-y-1 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-y-0">
+            {readFullCase}
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.75"
+            >
+              <path d="M5 12h14M13 5l7 7-7 7" />
+            </svg>
+          </span>
+        </div>
       </div>
 
-      {/* ── Body — fixed shape so every card has the same height ── */}
-      <div className="flex flex-1 flex-col p-5 tablet:p-6">
-        {/* Headline — clamped to 2 lines so card height stays consistent */}
+      {/* ── Body — only headline; CTA lives on the image so every card stays compact ── */}
+      <div className="p-5 tablet:p-6">
         <h3 className="line-clamp-2 min-h-[2.7em] font-sora text-[14px] leading-[1.35] font-light tracking-[-0.005em] text-[#0A0B10] tablet:text-[15px]">
           {article.title[locale]}
         </h3>
-
-        {/* Read more — reveals on hover. Reserved space (opacity-0) keeps every card the same height. */}
-        <span className="mt-auto inline-flex items-center gap-1.5 pt-6 font-inter text-[12px] font-medium text-[#E26153] opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100">
-          {readFullCase}
-          <svg
-            width="12"
-            height="12"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.75"
-            className="transition-transform duration-300 group-hover:translate-x-0.5"
-          >
-            <path d="M5 12h14M13 5l7 7-7 7" />
-          </svg>
-        </span>
       </div>
     </Link>
   );
