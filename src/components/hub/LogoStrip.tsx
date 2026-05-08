@@ -22,23 +22,23 @@ export default function LogoStrip() {
         <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
       </div>
 
-      <div className="relative overflow-hidden">
+      <div className="group relative overflow-hidden">
         {/* Edge fades */}
         <div className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-24 bg-gradient-to-r from-white to-transparent" />
         <div className="pointer-events-none absolute top-0 right-0 bottom-0 z-10 w-24 bg-gradient-to-l from-white to-transparent" />
 
-        <div className="flex w-fit animate-marquee items-center gap-16">
+        <div className="flex w-fit animate-marquee items-center gap-16 group-hover:[animation-play-state:paused]">
           {rail.map((c, i) => (
             <div
               key={`${c.slug}-${i}`}
-              className="flex h-12 w-[120px] shrink-0 items-center justify-center px-2"
+              className="group/logo flex h-12 w-[120px] shrink-0 items-center justify-center px-2 transition-transform duration-300 ease-out hover:-translate-y-0.5 hover:scale-110"
             >
               <Image
                 src={c.logo}
                 alt={c.name}
                 width={100}
                 height={40}
-                className={`object-contain ${
+                className={`object-contain opacity-60 saturate-0 transition-all duration-500 ease-out group-hover/logo:opacity-100 group-hover/logo:saturate-100 group-hover/logo:[filter:drop-shadow(0_4px_10px_rgba(10,11,16,0.12))] ${
                   c.slug === "sears"
                     ? "h-3 w-auto"
                     : c.slug === "doto"

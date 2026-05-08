@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
@@ -150,15 +150,71 @@ function FeedCard({
   const cfg = PARTNER_LOGO[article.company] ?? { w: "w-[64px]" };
   const headlineMetric = article.metrics[0];
 
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  /* Tilt amplitude in deg. ±7 reads "noticeable" without inducing motion sickness. */
+  const TILT_DEG = 7;
+  const [tilt, setTilt] = useState({
+    rx: 0,
+    ry: 0,
+    mx: 50,
+    my: 50,
+    active: false,
+  });
+
+  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = wrapperRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    setTilt({
+      rx: -(y - 0.5) * 2 * TILT_DEG,
+      ry: (x - 0.5) * 2 * TILT_DEG,
+      mx: x * 100,
+      my: y * 100,
+      active: true,
+    });
+  };
+  const handleLeave = () =>
+    setTilt({ rx: 0, ry: 0, mx: 50, my: 50, active: false });
+
   return (
-    <Link
-      href={href}
-      className="group relative flex flex-col overflow-hidden rounded-[14px] border border-gray-200 bg-white opacity-0 transition-all duration-500 hover:-translate-y-1 hover:border-[#0A0B10]/55 hover:shadow-[0_24px_48px_-20px_rgba(10,11,16,0.18)]"
+    <div
+      ref={wrapperRef}
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
+      className="opacity-0 [perspective:1100px]"
       style={{
         animation: `fade-in-up 0.55s cubic-bezier(0.16, 1, 0.3, 1) ${index * 70}ms forwards`,
       }}
     >
-      {/* ── Image with white logo overlay (no pill) ── */}
+      <Link
+        href={href}
+        className="group relative flex flex-col overflow-hidden rounded-[14px] border border-gray-200 bg-white will-change-transform hover:border-[#0A0B10]/55 hover:shadow-[0_28px_56px_-20px_rgba(10,11,16,0.22)] [transform-style:preserve-3d]"
+        style={{
+          transform: `rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg) translateZ(0)${tilt.active ? " translateY(-6px)" : ""}`,
+          transition: tilt.active
+            ? "transform 90ms ease-out, border-color 300ms, box-shadow 300ms"
+            : "transform 600ms cubic-bezier(0.16, 1, 0.3, 1), border-color 300ms, box-shadow 300ms",
+        }}
+      >
+        {/* Cursor-following red glow — only visible on hover */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-20 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          style={{
+            background: `radial-gradient(circle 240px at ${tilt.mx}% ${tilt.my}%, rgba(226,97,83,0.22), transparent 65%)`,
+            mixBlendMode: "multiply",
+          }}
+        />
+        {/* Specular highlight — subtle white sheen tracking the cursor */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-20 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          style={{
+            background: `radial-gradient(circle 180px at ${tilt.mx}% ${tilt.my}%, rgba(255,255,255,0.35), transparent 60%)`,
+          }}
+        />
+        {/* ── Image with white logo overlay (no pill) ── */}
       <div className="relative aspect-[5/4] overflow-hidden bg-gray-100">
         <Image
           src={article.heroImage}
@@ -249,6 +305,7 @@ function FeedCard({
           </span>
         </div>
       </div>
-    </Link>
+      </Link>
+    </div>
   );
 }

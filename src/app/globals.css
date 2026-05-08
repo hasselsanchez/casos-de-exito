@@ -83,6 +83,14 @@
   from { transform: scaleX(0); }
   to   { transform: scaleX(1); }
 }
+@keyframes hero-word-up {
+  from { opacity: 0; transform: translateY(60%) rotate(2deg); }
+  to   { opacity: 1; transform: translateY(0) rotate(0); }
+}
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
 /* ===== Scroll Animations ===== */
 [data-animate] {
