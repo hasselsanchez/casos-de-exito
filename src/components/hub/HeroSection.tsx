@@ -9,7 +9,6 @@ export default function HeroSection() {
   const locale = useLocale() as "es" | "en";
 
   const copy = {
-    kicker: locale === "es" ? "Ecosistema T1" : "T1 Ecosystem",
     headlinePre:
       locale === "es" ? "La infraestructura que hace crecer el" : "The infrastructure powering",
     headlineAccent: locale === "es" ? "comercio en México" : "commerce in Mexico",
@@ -53,17 +52,8 @@ export default function HeroSection() {
 
       <div className="relative mx-auto w-full max-w-[840px] px-5 pt-[140px] tablet:px-8 tablet:pt-[180px]">
         <div data-animate className="flex flex-col items-center text-center">
-          {/* Kicker */}
-          <div className="flex items-center gap-3">
-            <span aria-hidden className="h-px w-6 bg-gray-400/60" />
-            <span className="font-inter text-[10.5px] font-semibold uppercase tracking-[0.24em] text-gray-600">
-              {copy.kicker}
-            </span>
-            <span aria-hidden className="h-px w-6 bg-gray-400/60" />
-          </div>
-
           {/* Headline */}
-          <h1 className="mt-7 font-sora text-[36px] leading-[1.08] font-light tracking-[-0.02em] text-gray-900 tablet:text-[52px] desktop:text-[60px]">
+          <h1 className="font-sora text-[36px] leading-[1.08] font-light tracking-[-0.02em] text-gray-900 tablet:text-[52px] desktop:text-[60px]">
             {copy.headlinePre}{" "}
             <span className="text-[#E26153]">{copy.headlineAccent}</span>.
           </h1>

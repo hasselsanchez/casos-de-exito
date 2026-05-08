@@ -131,12 +131,10 @@ export default function CustomersBySize() {
     }, CLICK_COOLDOWN_MS);
   };
 
-  const article = articles.find((a) => a.slug === REPRESENTATIVE[active]);
-  if (!article) return null;
-
-  const slug = locale === "en" ? article.slugEn : article.slug;
-  const caseHref = `/${locale}/casos-de-exito/${slug}`;
-  const cfg = PARTNER_LOGO[article.company] ?? { w: "w-[88px]" };
+  const articleFor = (k: SolutionKey) =>
+    articles.find((a) => a.slug === REPRESENTATIVE[k]);
+  const activeArticle = articleFor(active);
+  if (!activeArticle) return null;
 
   const readFullCase =
     locale === "es" ? "Leer el caso completo" : "Read the full case";
@@ -159,66 +157,90 @@ export default function CustomersBySize() {
         >
           {/* ── Left column: image + auto-rotating logo strip ── */}
           <div>
-          {/* ── Image with white logo overlay (no pill) ── */}
-          <Link
-            key={`img-${active}`}
-            href={caseHref}
-            className="group relative block animate-fade-in-up overflow-hidden rounded-[10px]"
-          >
-            <div className="relative aspect-[3/2]">
-              <Image
-                src={article.heroImage}
-                alt={article.company}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                style={{ objectPosition: article.heroImageFocal ?? "center" }}
-                sizes="(max-width: 768px) 100vw, 580px"
-              />
+          {/* ── Image stack with cross-fade ──
+              All 4 articles render as stacked layers in the same grid cell;
+              only the active layer is fully opaque & interactive. This
+              eliminates unmount/remount churn and the brief flash while a
+              new <Image> loads — every variant is preloaded and toggling
+              the active one becomes a pure opacity cross-fade. */}
+          <div className="relative grid overflow-hidden rounded-[10px]">
+            {ORDER.map((k) => {
+              const a = articleFor(k);
+              if (!a) return null;
+              const isActive = active === k;
+              const aSlug = locale === "en" ? a.slugEn : a.slug;
+              const aHref = `/${locale}/casos-de-exito/${aSlug}`;
+              const aCfg = PARTNER_LOGO[a.company] ?? { w: "w-[88px]" };
+              return (
+                <Link
+                  key={k}
+                  href={aHref}
+                  aria-hidden={!isActive}
+                  tabIndex={isActive ? 0 : -1}
+                  className={`group col-start-1 row-start-1 block transition-opacity duration-700 ease-out ${
+                    isActive
+                      ? "opacity-100"
+                      : "pointer-events-none opacity-0"
+                  }`}
+                >
+                  <div className="relative aspect-[3/2]">
+                    <Image
+                      src={a.heroImage}
+                      alt={a.company}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                      style={{ objectPosition: a.heroImageFocal ?? "center" }}
+                      sizes="(max-width: 768px) 100vw, 580px"
+                      priority={isActive}
+                    />
 
-              {/* Soft top + bottom gradients for white overlay legibility.
-                 heroPreviewDarken bumps the top gradient when the photo's
-                 environment has competing white branding (e.g. Makora wall). */}
-              <div
-                className={
-                  article.heroPreviewDarken
-                    ? "absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-black/70 via-black/30 to-transparent"
-                    : "absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-black/35 via-black/8 to-transparent"
-                }
-              />
-              <div className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
+                    {/* Soft top + bottom gradients for white overlay legibility.
+                       heroPreviewDarken bumps the top gradient when the photo's
+                       environment has competing white branding (e.g. Makora wall). */}
+                    <div
+                      className={
+                        a.heroPreviewDarken
+                          ? "absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-black/70 via-black/30 to-transparent"
+                          : "absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-black/35 via-black/8 to-transparent"
+                      }
+                    />
+                    <div className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
 
-              {/* Logo — white, INSIDE image, no pill, top-left */}
-              <div className="absolute top-5 left-5 tablet:top-6 tablet:left-6">
-                <span
-                  role="img"
-                  aria-label={article.company}
-                  className={`block ${cfg.h ?? "h-7"} ${cfg.w} bg-no-repeat brightness-0 invert`}
-                  style={{
-                    backgroundImage: `url(${article.logoSrc})`,
-                    backgroundSize: cfg.size ?? "contain",
-                    backgroundPosition: cfg.pos ?? "left center",
-                  }}
-                />
-              </div>
+                    {/* Logo — white, INSIDE image, no pill, top-left */}
+                    <div className="absolute top-5 left-5 tablet:top-6 tablet:left-6">
+                      <span
+                        role="img"
+                        aria-label={a.company}
+                        className={`block ${aCfg.h ?? "h-7"} ${aCfg.w} bg-no-repeat brightness-0 invert`}
+                        style={{
+                          backgroundImage: `url(${a.logoSrc})`,
+                          backgroundSize: aCfg.size ?? "contain",
+                          backgroundPosition: aCfg.pos ?? "left center",
+                        }}
+                      />
+                    </div>
 
-              {/* Title overlay — bottom-left */}
-              <div className="absolute inset-x-0 bottom-0 p-5 tablet:p-6">
-                <h3 className="max-w-[440px] font-sora text-[16px] leading-[1.3] font-light tracking-[-0.005em] text-white tablet:text-[18px]">
-                  {article.title[locale]}
-                </h3>
-              </div>
+                    {/* Title overlay — bottom-left */}
+                    <div className="absolute inset-x-0 bottom-0 p-5 tablet:p-6">
+                      <h3 className="max-w-[440px] font-sora text-[16px] leading-[1.3] font-light tracking-[-0.005em] text-white tablet:text-[18px]">
+                        {a.title[locale]}
+                      </h3>
+                    </div>
 
-              {/* Video badge — top-right */}
-              {article.contentType === "video" && (
-                <span className="absolute top-5 right-5 inline-flex h-6 items-center gap-1.5 rounded-full bg-white/90 px-3 font-inter text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0A0B10] backdrop-blur-sm tablet:top-6 tablet:right-6">
-                  <svg width="6" height="6" viewBox="0 0 24 24" fill="currentColor">
-                    <polygon points="6,4 20,12 6,20" />
-                  </svg>
-                  {locale === "es" ? "Video" : "Watch"}
-                </span>
-              )}
-            </div>
-          </Link>
+                    {/* Video badge — top-right */}
+                    {a.contentType === "video" && (
+                      <span className="absolute top-5 right-5 inline-flex h-6 items-center gap-1.5 rounded-full bg-white/90 px-3 font-inter text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0A0B10] backdrop-blur-sm tablet:top-6 tablet:right-6">
+                        <svg width="6" height="6" viewBox="0 0 24 24" fill="currentColor">
+                          <polygon points="6,4 20,12 6,20" />
+                        </svg>
+                        {locale === "es" ? "Video" : "Watch"}
+                      </span>
+                    )}
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
 
           {/* ── Auto-rotating T1 product logo strip ──
               Replaces the old text pills. Active logo is in color; the rest
@@ -289,61 +311,79 @@ export default function CustomersBySize() {
           </div>
 
           {/* ── Right column: editorial hierarchy ──
-              1. Industry kicker (section label)
-              2. ONE hero metric (the lead — biggest visual weight)
-              3. Quote (human voice — medium weight)
-              4. CTA */}
-          <div
-            key={`text-${active}`}
-            className="flex animate-fade-in-up flex-col"
-          >
-            {/* 1. Industry kicker — magazine-style section label */}
-            <p className="font-inter text-[10px] font-semibold uppercase tracking-[0.22em] text-[#E26153]">
-              {article.industry[locale]}
-            </p>
+              All 4 article variants render stacked in the same grid cell —
+              the column auto-sizes to the tallest variant. Only the active
+              one is fully opaque and interactive; the rest fade out via
+              opacity. Same pattern as the image stack on the left, so both
+              halves cross-fade in lockstep. */}
+          <div className="relative grid">
+            {ORDER.map((k) => {
+              const a = articleFor(k);
+              if (!a) return null;
+              const isActive = active === k;
+              const aSlug = locale === "en" ? a.slugEn : a.slug;
+              const aHref = `/${locale}/casos-de-exito/${aSlug}`;
+              return (
+                <div
+                  key={k}
+                  aria-hidden={!isActive}
+                  className={`col-start-1 row-start-1 flex flex-col transition-opacity duration-700 ease-out ${
+                    isActive
+                      ? "opacity-100"
+                      : "pointer-events-none opacity-0"
+                  }`}
+                >
+                  {/* 1. Industry kicker — magazine-style section label */}
+                  <p className="font-inter text-[10px] font-semibold uppercase tracking-[0.22em] text-[#E26153]">
+                    {a.industry[locale]}
+                  </p>
 
-            {/* 2. ONE hero metric — the lead */}
-            {article.metrics[0] && (
-              <div className="mt-6">
-                <p className="font-sora text-[44px] leading-[1] font-light tracking-[-0.025em] text-[#0A0B10] tablet:text-[52px]">
-                  {article.metrics[0].value[locale]}
-                </p>
-                <p className="mt-3 max-w-[280px] font-inter text-[12.5px] leading-[1.45] text-gray-500">
-                  {article.metrics[0].label[locale]}
-                </p>
-              </div>
-            )}
+                  {/* 2. ONE hero metric — the lead */}
+                  {a.metrics[0] && (
+                    <div className="mt-6">
+                      <p className="font-sora text-[44px] leading-[1] font-light tracking-[-0.025em] text-[#0A0B10] tablet:text-[52px]">
+                        {a.metrics[0].value[locale]}
+                      </p>
+                      <p className="mt-3 max-w-[280px] font-inter text-[12.5px] leading-[1.45] text-gray-500">
+                        {a.metrics[0].label[locale]}
+                      </p>
+                    </div>
+                  )}
 
-            {/* 3. Quote — the human truth */}
-            <blockquote className="mt-8 border-l border-gray-200 pl-5">
-              <p className="font-sora text-[16px] leading-[1.5] font-light text-gray-800 tablet:text-[17px]">
-                &ldquo;{article.quote.short[locale]}&rdquo;
-              </p>
-              <footer className="mt-3 font-inter text-[11px] text-gray-500">
-                {article.quote.author}
-                <span className="mx-1.5 text-gray-300">·</span>
-                {article.quote.role[locale]}
-              </footer>
-            </blockquote>
+                  {/* 3. Quote — the human truth */}
+                  <blockquote className="mt-8 border-l border-gray-200 pl-5">
+                    <p className="font-sora text-[16px] leading-[1.5] font-light text-gray-800 tablet:text-[17px]">
+                      &ldquo;{a.quote.short[locale]}&rdquo;
+                    </p>
+                    <footer className="mt-3 font-inter text-[11px] text-gray-500">
+                      {a.quote.author}
+                      <span className="mx-1.5 text-gray-300">·</span>
+                      {a.quote.role[locale]}
+                    </footer>
+                  </blockquote>
 
-            {/* 4. CTA — solution context already lives in the active pill above */}
-            <Link
-              href={caseHref}
-              className="group mt-7 inline-flex items-center gap-1.5 self-start font-inter text-[12px] font-medium text-[#E26153] transition-opacity hover:opacity-70"
-            >
-              {readFullCase}
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.75"
-                className="transition-transform duration-300 group-hover:translate-x-0.5"
-              >
-                <path d="M5 12h14M13 5l7 7-7 7" />
-              </svg>
-            </Link>
+                  {/* 4. CTA — solution context already lives in the active pill above */}
+                  <Link
+                    href={aHref}
+                    tabIndex={isActive ? 0 : -1}
+                    className="group mt-7 inline-flex items-center gap-1.5 self-start font-inter text-[12px] font-medium text-[#E26153] transition-opacity hover:opacity-70"
+                  >
+                    {readFullCase}
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.75"
+                      className="transition-transform duration-300 group-hover:translate-x-0.5"
+                    >
+                      <path d="M5 12h14M13 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
