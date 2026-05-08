@@ -32,7 +32,7 @@ export default function ArticleMetaCard({
   const sizeLabel = SIZE_LABELS[article.size][locale];
 
   return (
-    <aside className="flex flex-col">
+    <aside className="rounded-[14px] bg-gray-50 p-5">
       {/* Brand logo — capped width, natural aspect ratio */}
       <Image
         src={article.logoSrc}
@@ -85,11 +85,11 @@ export default function ArticleMetaCard({
 
 function MetaRow({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div className="mt-5 border-t border-gray-100 pt-4">
+    <div className="mt-3 border-t border-gray-200/70 pt-3">
       <p className="font-inter text-[10px] font-semibold uppercase tracking-[0.14em] text-gray-400">
         {label}
       </p>
-      <div className="mt-2">{children}</div>
+      <div className="mt-1.5">{children}</div>
     </div>
   );
 }
