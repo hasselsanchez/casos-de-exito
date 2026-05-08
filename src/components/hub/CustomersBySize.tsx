@@ -31,10 +31,10 @@ const REPRESENTATIVE: Record<SolutionKey, string> = {
    has a viewBox 16% taller than the others, so a single height class makes it
    read smaller. These overrides equalize optical weight in the rotation strip. */
 const PRODUCT_LOGO_HEIGHT: Record<SolutionKey, string> = {
-  tienda: "h-[22px]",
-  pagos: "h-[26px]",
-  envios: "h-[22px]",
-  score: "h-[22px]",
+  tienda: "h-[20px]",
+  pagos: "h-[24px]",
+  envios: "h-[20px]",
+  score: "h-[20px]",
 };
 
 /** Auto-rotation cadence (ms). 5s is the editorial sweet spot — fast enough
@@ -267,7 +267,7 @@ export default function CustomersBySize() {
                     )}
                   </div>
                   {/* Logo */}
-                  <div className="mt-5 flex h-7 items-center">
+                  <div className="mt-5 flex h-6 items-center">
                     {meta && (
                       <Image
                         src={meta.logoSrc}
