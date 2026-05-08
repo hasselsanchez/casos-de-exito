@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { SIGNUP_URL } from "@/lib/constants";
+import { T1_HOME_URL } from "@/lib/constants";
 
 export default function CTAFinal() {
   const t = useTranslations("cta");
@@ -27,7 +27,7 @@ export default function CTAFinal() {
 
         <div data-animate className="mt-12">
           <Link
-            href={SIGNUP_URL}
+            href={T1_HOME_URL}
             className="inline-flex h-[56px] items-center rounded-full bg-[#E26153] px-10 font-inter text-[15px] font-semibold text-white transition-colors duration-300 hover:bg-[#DB3B2B]"
           >
             {t("primary")}

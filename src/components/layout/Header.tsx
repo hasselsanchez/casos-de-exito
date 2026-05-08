@@ -5,7 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import LanguageSwitcher from "./LanguageSwitcher";
-import { NAV_LINKS, SIGNUP_URL } from "@/lib/constants";
+import { NAV_LINKS, SIGNUP_URL, T1_HOME_URL } from "@/lib/constants";
 
 /**
  * Moody header.
@@ -74,7 +74,7 @@ export default function Header() {
 
           {/* CTA pill */}
           <a
-            href={SIGNUP_URL}
+            href={T1_HOME_URL}
             className="group inline-flex h-9 items-center gap-1.5 rounded-full bg-[#0A0B10] px-4 font-inter text-[12px] font-semibold text-white transition-all duration-300 hover:bg-[#0A0B10]/85"
           >
             {t("cta")}
@@ -137,7 +137,7 @@ export default function Header() {
             </a>
             <LanguageSwitcher />
             <a
-              href={SIGNUP_URL}
+              href={T1_HOME_URL}
               className="mt-2 inline-flex h-10 items-center justify-center rounded-full bg-[#0A0B10] font-inter text-[12.5px] font-semibold text-white"
             >
               {t("cta")}

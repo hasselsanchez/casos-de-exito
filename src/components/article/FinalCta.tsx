@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { SIGNUP_URL } from "@/lib/constants";
+import { T1_HOME_URL } from "@/lib/constants";
 import SectionWrapper from "../ui/SectionWrapper";
 
 export default function FinalCta() {
@@ -11,7 +11,7 @@ export default function FinalCta() {
     <SectionWrapper className="py-16 tablet:py-20">
       <div className="flex justify-center" data-animate>
         <a
-          href={SIGNUP_URL}
+          href={T1_HOME_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex h-[45px] items-center gap-2 rounded-[18px] bg-[#E26153] px-7 font-inter text-2xs font-semibold text-white transition-colors hover:bg-[#DB3B2B]"

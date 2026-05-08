@@ -1,5 +1,5 @@
 import { useLocale } from "next-intl";
-import { SIGNUP_URL } from "@/lib/constants";
+import { T1_HOME_URL } from "@/lib/constants";
 
 /**
  * Minimalist editorial hero — no featured case, just a strong aspirational
@@ -66,7 +66,7 @@ export default function HeroSection() {
           {/* CTAs */}
           <div className="mt-10 flex flex-col items-stretch gap-3 tablet:flex-row tablet:items-center tablet:gap-4">
             <a
-              href={SIGNUP_URL}
+              href={T1_HOME_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex h-[45px] items-center justify-center rounded-[18px] bg-[#E26153] px-7 font-inter text-[14px] font-semibold text-white shadow-[0_8px_24px_-8px_rgba(226,97,83,0.55)] transition-all duration-300 hover:bg-[#DB3B2B] hover:shadow-[0_12px_28px_-8px_rgba(226,97,83,0.7)]"
