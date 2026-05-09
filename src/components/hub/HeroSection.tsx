@@ -79,7 +79,7 @@ export default function HeroSection() {
         <div className="flex flex-col items-center text-center">
           {/* Headline — single fade-up */}
           <h1
-            className="font-sora text-[36px] leading-[1.08] font-light tracking-[-0.02em] text-gray-900 tablet:text-[52px] desktop:text-[60px]"
+            className="font-sora text-[32px] leading-[1.08] font-light tracking-[-0.02em] text-gray-900 tablet:text-[44px]"
             style={{
               animation: `hero-fade-up 850ms cubic-bezier(0.16, 1, 0.3, 1) both`,
             }}
@@ -127,9 +127,12 @@ export default function HeroSection() {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 className="transition-transform duration-300 group-hover:translate-y-0.5"
               >
-                <path d="m6 9 6 6 6-6" />
+                <path d="m6 7 6 6 6-6" />
+                <path d="m6 14 6 6 6-6" />
               </svg>
             </a>
           </div>

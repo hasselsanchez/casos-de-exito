@@ -18,30 +18,40 @@ const METRICS: Metric[] = [
 ];
 
 /**
- * Compact metrics interlude — white. Small Sora numbers in a centered
- * horizontal row with hairline frames. Quiet typographic moment, not a
- * monumental section.
+ * Brand metrics — black section with large Sora display numbers and a
+ * scroll-triggered count-up animation. Anchors the page midway between
+ * the customer showcase and the article feed with a confident statement
+ * of scale.
  */
 export default function BrandMetrics() {
   const t = useTranslations("brandMetrics");
 
   return (
-    <section className="relative bg-white py-12 tablet:py-16">
-      <div className="relative mx-auto max-w-[1180px] px-5 tablet:px-8">
-        {/* Small intro line — Inter regular with red accent */}
-        <p
+    <section className="relative overflow-hidden bg-black py-20 tablet:py-28">
+      {/* Soft brand glow behind the stats — adds depth without competing */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute top-1/2 left-1/2 h-[520px] w-[820px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-30 blur-[140px]"
+        style={{
+          background: "radial-gradient(closest-side, #E26153, transparent)",
+        }}
+      />
+
+      <div className="relative mx-auto max-w-[1100px] px-5 tablet:px-8">
+        {/* Section title — 44px, matches the rest of the landing */}
+        <h2
           data-animate
-          className="mx-auto max-w-[640px] text-center font-inter text-[15px] leading-[1.5] font-normal text-gray-600 tablet:text-[16px]"
+          className="mx-auto max-w-[760px] text-center font-sora text-[32px] leading-[1.1] font-light tracking-[-0.015em] text-white tablet:text-[44px]"
         >
           {t("title")}
           <span className="text-[#E26153]">{t("titleAccent")}</span>
           {t("titleAfter")}
-        </p>
+        </h2>
 
-        {/* Compact metrics strip */}
+        {/* Metrics — large display numbers */}
         <div
           data-animate
-          className="mt-7 grid grid-cols-2 gap-y-10 tablet:mt-8 tablet:grid-cols-4 tablet:gap-y-0"
+          className="mt-14 grid grid-cols-2 gap-y-14 tablet:mt-20 tablet:grid-cols-4 tablet:gap-y-0"
         >
           {METRICS.map((m) => (
             <MetricCell key={m.key} metric={m} label={t(`items.${m.key}`)} />
@@ -55,12 +65,12 @@ export default function BrandMetrics() {
 function MetricCell({ metric, label }: { metric: Metric; label: string }) {
   return (
     <div className="text-center">
-      <p className="font-inter text-[24px] leading-[1] font-bold tracking-[-0.015em] text-gray-900 tablet:text-[28px]">
+      <p className="font-sora text-[56px] leading-[1] font-light tracking-[-0.03em] text-white tablet:text-[72px] desktop:text-[80px]">
         {metric.prefix}
         <CountUp target={metric.target} />
-        {metric.suffix}
+        <span className="text-[#E26153]">{metric.suffix}</span>
       </p>
-      <p className="mx-auto mt-2.5 max-w-[200px] font-inter text-[12px] leading-[1.5] font-normal text-gray-500">
+      <p className="mx-auto mt-5 max-w-[220px] font-inter text-[13px] leading-[1.5] font-normal text-gray-400 tablet:text-[14px]">
         {label}
       </p>
     </div>

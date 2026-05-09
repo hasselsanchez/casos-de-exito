@@ -65,8 +65,8 @@ export default function ArticleFeed() {
     <section id="explorar" className="bg-white py-16 tablet:py-20">
       <div className="mx-auto max-w-[1100px] px-5 tablet:px-8">
         {/* ── Section header ── */}
-        <div data-animate className="max-w-[600px]">
-          <h2 className="font-sora text-[22px] leading-[1.2] font-light tracking-[-0.01em] text-[#0A0B10] tablet:text-[26px]">
+        <div data-animate className="max-w-[760px]">
+          <h2 className="font-sora text-[32px] leading-[1.1] font-light tracking-[-0.015em] text-[#0A0B10] tablet:text-[44px]">
             {tExplore("title")}
             <span className="text-[#E26153]">{tExplore("titleAccent")}</span>
           </h2>

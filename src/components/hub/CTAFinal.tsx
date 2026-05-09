@@ -12,7 +12,7 @@ export default function CTAFinal() {
       <div className="mx-auto max-w-[720px] px-6 py-24 text-center tablet:py-32">
         <h2
           data-animate
-          className="font-sora text-[40px] font-light leading-[1.05] tracking-[-0.02em] text-white tablet:text-[55px]"
+          className="font-sora text-[32px] font-light leading-[1.1] tracking-[-0.015em] text-white tablet:text-[44px]"
         >
           {t("title")}{" "}
           <span className="text-[#E26153]">{t("titleAccent")}</span>
