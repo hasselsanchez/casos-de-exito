@@ -50,14 +50,11 @@
   },
   "brandMetrics": {
     "eyebrow": "By the numbers",
-    "title": "We support the ",
-    "titleAccent": "growth",
-    "titleAfter": " of thousands of businesses across Mexico.",
+    "title": "By the numbers",
     "items": {
       "merchants": "businesses trust T1",
       "payments": "processed in payments",
-      "shipments": "shipments managed",
-      "integrations": "integrations available"
+      "shipments": "shipments managed"
     }
   },
   "explore": {

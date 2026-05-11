@@ -111,7 +111,7 @@ export default function HeroSection() {
               href={T1_HOME_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-[45px] items-center justify-center rounded-[18px] bg-[#E26153] px-7 font-inter text-[14px] font-semibold text-white shadow-[0_8px_24px_-8px_rgba(226,97,83,0.55)] transition-all duration-300 hover:bg-[#DB3B2B] hover:shadow-[0_14px_32px_-8px_rgba(226,97,83,0.75)]"
+              className="inline-flex h-[45px] items-center justify-center rounded-[18px] bg-[#DB3B2B] px-7 font-inter text-[14px] font-semibold text-white shadow-[0_8px_24px_-8px_rgba(219,59,43,0.55)] transition-all duration-300 hover:bg-[#E26153] hover:shadow-[0_14px_32px_-8px_rgba(226,97,83,0.65)]"
             >
               {copy.primary}
             </a>
