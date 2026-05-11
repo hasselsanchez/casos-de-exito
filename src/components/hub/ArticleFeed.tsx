@@ -47,14 +47,14 @@ const CARD_GRADIENT: Record<string, GradientView> = {
   doto: { src: "/images/background hover images/BKGMesa de trabajo 8.jpg" },
   makora: {
     src: "/images/background hover images/BKGMesa de trabajo 6.jpg",
-    position: "left top",
-    origin: "left top",
+    position: "right top",
+    origin: "right top",
     scale: 2.2,
   },
   pase: {
     src: "/images/background hover images/BKGMesa de trabajo 6.jpg",
-    position: "right bottom",
-    origin: "right bottom",
+    position: "left top",
+    origin: "left top",
     scale: 2.2,
   },
   sears: { src: "/images/background hover images/BKGMesa de trabajo 5.jpg" },
