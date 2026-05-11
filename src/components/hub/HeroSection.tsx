@@ -29,7 +29,6 @@ export default function HeroSection() {
   }, []);
 
   const copy = {
-    eyebrow: locale === "es" ? "Casos de éxito" : "Success stories",
     headlinePre: locale === "es" ? "Historias de" : "Stories of",
     headlineAccent: locale === "es" ? "éxito" : "success",
     subhead:
@@ -38,8 +37,6 @@ export default function HeroSection() {
         : "Thousands of businesses are redefining commerce in Mexico. See how they do it with T1.",
     primary: locale === "es" ? "Empieza con T1" : "Get started with T1",
     secondary: locale === "es" ? "Ver todas las historias" : "See all stories",
-    trustedBy:
-      locale === "es" ? "La eligen marcas como" : "Trusted by brands like",
   };
 
   /* Logo rail — same source as the old LogoStrip, duplicated for a seamless
@@ -54,7 +51,7 @@ export default function HeroSection() {
   return (
     <section
       className="sticky top-0 z-0 h-[100svh] w-full overflow-hidden bg-[#0A0B10]"
-      aria-label={copy.eyebrow}
+      aria-label={locale === "es" ? "Casos de éxito" : "Success stories"}
     >
       {/* ── Background video ──
           Place the final asset at /public/videos/hero.{mp4,webm}. The poster
@@ -74,11 +71,11 @@ export default function HeroSection() {
         <source src="/videos/hero.mp4" type="video/mp4" />
       </video>
 
-      {/* ── Liquid-glass scrim ──
-          Three stacked layers create depth without hiding the video:
-          1. A left-weighted dark gradient for headline legibility.
-          2. A bottom gradient that anchors the logo rail.
-          3. A whisper of backdrop-blur tints the whole frame. */}
+      {/* ── Scrim ──
+          Two gradient layers preserve video clarity while keeping the text
+          legible: a left-weighted darken for the headline column, and a
+          bottom darken that anchors the logo rail. No global blur — the
+          video reads sharp. */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/65 via-black/30 to-transparent"
@@ -87,30 +84,15 @@ export default function HeroSection() {
         aria-hidden
         className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/70 via-black/20 to-transparent"
       />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 backdrop-blur-[2px]"
-      />
 
       {/* ── Content ── */}
       <div className="relative z-10 flex h-full flex-col">
-        <div className="mx-auto flex w-full max-w-[1280px] flex-1 flex-col justify-center px-5 pt-[110px] pb-[160px] tablet:px-10 tablet:pt-[140px] tablet:pb-[180px]">
+        <div className="mx-auto flex w-full max-w-[1280px] flex-1 flex-col justify-center px-5 pt-[110px] pb-[120px] tablet:px-10 tablet:pt-[140px] tablet:pb-[140px]">
           <div className="max-w-[640px]">
-            {/* Glass eyebrow chip */}
-            <span
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 font-inter text-[11px] font-semibold uppercase tracking-[0.18em] text-white/90 backdrop-blur-xl"
-              style={{
-                animation: `hero-fade-up 700ms cubic-bezier(0.16, 1, 0.3, 1) both`,
-              }}
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-[#E26153]" />
-              {copy.eyebrow}
-            </span>
-
             <h1
-              className="mt-6 font-sora text-[40px] leading-[1.05] font-light tracking-[-0.02em] text-white tablet:text-[64px]"
+              className="font-sora text-[40px] leading-[1.05] font-light tracking-[-0.02em] text-white tablet:text-[64px]"
               style={{
-                animation: `hero-fade-up 850ms cubic-bezier(0.16, 1, 0.3, 1) 120ms both`,
+                animation: `hero-fade-up 850ms cubic-bezier(0.16, 1, 0.3, 1) both`,
               }}
             >
               {copy.headlinePre}{" "}
@@ -164,49 +146,44 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* ── Logo rail — absorbed into the hero ──
-            Glass panel pinned to the bottom of the viewport. Logos are
-            inverted to white at low opacity so they read as a quiet proof
-            band over the video. Hover lifts opacity. */}
+        {/* ── Logo rail — no label, no panel ──
+            Marquee pinned to the bottom of the hero. Logos invert to white at
+            low opacity so they read as a quiet proof line over the video,
+            without competing with the headline. Edge fades blend the rail
+            into the dark scrim instead of sitting on a glass card. */}
         <div
-          className="absolute right-0 bottom-0 left-0 border-t border-white/10 bg-black/20 backdrop-blur-xl"
+          className="absolute right-0 bottom-0 left-0 pb-7 tablet:pb-9"
           style={{
             animation: `hero-fade-up 800ms cubic-bezier(0.16, 1, 0.3, 1) 560ms both`,
           }}
         >
-          <div className="mx-auto w-full max-w-[1280px] px-5 py-5 tablet:px-10 tablet:py-6">
-            <p className="font-inter text-[10px] font-semibold uppercase tracking-[0.22em] text-white/50">
-              {copy.trustedBy}
-            </p>
-            <div className="group relative mt-3 overflow-hidden">
-              {/* Edge fades match the panel tint */}
-              <div className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-16 bg-gradient-to-r from-black/40 to-transparent" />
-              <div className="pointer-events-none absolute top-0 right-0 bottom-0 z-10 w-16 bg-gradient-to-l from-black/40 to-transparent" />
+          <div className="group relative overflow-hidden">
+            <div className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-24 bg-gradient-to-r from-[#0A0B10] via-[#0A0B10]/60 to-transparent" />
+            <div className="pointer-events-none absolute top-0 right-0 bottom-0 z-10 w-24 bg-gradient-to-l from-[#0A0B10] via-[#0A0B10]/60 to-transparent" />
 
-              <div className="flex w-fit animate-marquee items-center gap-12 group-hover:[animation-play-state:paused] tablet:gap-16">
-                {rail.map((c, i) => (
-                  <div
-                    key={`${c.slug}-${i}`}
-                    className="group/logo flex h-9 w-[108px] shrink-0 items-center justify-center px-2 transition-transform duration-300 ease-out hover:-translate-y-0.5"
-                  >
-                    <Image
-                      src={c.logo}
-                      alt={c.name}
-                      width={100}
-                      height={36}
-                      className={`object-contain brightness-0 invert opacity-55 transition-opacity duration-500 ease-out group-hover/logo:opacity-100 ${
-                        c.slug === "sears"
-                          ? "h-3 w-auto"
-                          : c.slug === "doto"
+            <div className="flex w-fit animate-marquee items-center gap-12 group-hover:[animation-play-state:paused] tablet:gap-16">
+              {rail.map((c, i) => (
+                <div
+                  key={`${c.slug}-${i}`}
+                  className="group/logo flex h-9 w-[108px] shrink-0 items-center justify-center px-2 transition-transform duration-300 ease-out hover:-translate-y-0.5"
+                >
+                  <Image
+                    src={c.logo}
+                    alt={c.name}
+                    width={100}
+                    height={36}
+                    className={`object-contain brightness-0 invert opacity-50 transition-opacity duration-500 ease-out group-hover/logo:opacity-100 ${
+                      c.slug === "sears"
+                        ? "h-3 w-auto"
+                        : c.slug === "doto"
+                          ? "h-4 w-auto"
+                          : c.slug === "makora"
                             ? "h-4 w-auto"
-                            : c.slug === "makora"
-                              ? "h-4 w-auto"
-                              : "h-7 max-w-[100px]"
-                      }`}
-                    />
-                  </div>
-                ))}
-              </div>
+                            : "h-7 max-w-[100px]"
+                    }`}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>
