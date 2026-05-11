@@ -22,15 +22,24 @@ const CENTERED_LOGO: Record<string, string> = {
 
 /* Per-article hover gradient. Each slug is paired with the painterly
    background from /background hover images/ whose dominant hue matches
-   the brand identity. */
+   the brand identity. Makora and PASE share BKG 6 but each frames a
+   different region of the same gradient (see CARD_GRADIENT_POSITION). */
 const CARD_GRADIENT: Record<string, string> = {
   "circulo-de-credito":
     "/images/background hover images/BKGMesa de trabajo 9.jpg",
   doto: "/images/background hover images/BKGMesa de trabajo 8.jpg",
-  makora: "/images/background hover images/BKGMesa de trabajo 1.jpg",
+  makora: "/images/background hover images/BKGMesa de trabajo 6.jpg",
   pase: "/images/background hover images/BKGMesa de trabajo 6.jpg",
   sears: "/images/background hover images/BKGMesa de trabajo 5.jpg",
   sesen: "/images/background hover images/BKGMesa de trabajo 10.jpg",
+};
+
+/* Horizontal framing of the gradient inside the card. Defaults to centered
+   when a slug is absent. BKG 6 runs blue → green → yellow left-to-right,
+   so PASE pulls toward the blue side and Makora toward the green band. */
+const CARD_GRADIENT_POSITION: Record<string, string> = {
+  pase: "15% center",
+  makora: "62% center",
 };
 
 /**
@@ -45,6 +54,7 @@ export default function ArticleCard({
 }: ArticleCardProps) {
   const logoH = CENTERED_LOGO[article.company] ?? "h-[40px]";
   const gradient = CARD_GRADIENT[article.slug];
+  const gradientPosition = CARD_GRADIENT_POSITION[article.slug];
 
   return (
     <Link
@@ -66,6 +76,7 @@ export default function ArticleCard({
           aria-hidden
           sizes="(max-width: 768px) 100vw, 50vw"
           className="object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          style={gradientPosition ? { objectPosition: gradientPosition } : undefined}
         />
       )}
 
