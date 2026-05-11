@@ -50,9 +50,9 @@
   },
   "brandMetrics": {
     "eyebrow": "By the numbers",
-    "title": "By the numbers",
+    "title": "By the numbers:",
     "items": {
-      "merchants": "businesses trust T1",
+      "merchants": "Businesses",
       "payments": "processed in payments",
       "shipments": "shipments managed"
     }

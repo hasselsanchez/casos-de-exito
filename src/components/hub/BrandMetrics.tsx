@@ -12,8 +12,8 @@ type Metric = {
 
 const METRICS: Metric[] = [
   { key: "merchants", prefix: "+", target: 25, suffix: " mil" },
-  { key: "payments", prefix: "+$", target: 25, suffix: "B" },
-  { key: "shipments", prefix: "+", target: 40, suffix: "M" },
+  { key: "payments", prefix: "+$", target: 25, suffix: " B" },
+  { key: "shipments", prefix: "+", target: 40, suffix: " M" },
 ];
 
 /**
@@ -25,12 +25,12 @@ export default function BrandMetrics() {
   const t = useTranslations("brandMetrics");
 
   return (
-    <section className="relative bg-black py-20 tablet:py-24">
-      <div className="relative mx-auto max-w-[1180px] px-8 tablet:px-16">
+    <section className="relative bg-black py-16 tablet:py-20">
+      <div className="relative mx-auto max-w-[1200px] px-8 tablet:px-14">
         {/* Section title — short, single color */}
         <h2
           data-animate
-          className="text-center font-sora text-[32px] leading-[1.1] font-light tracking-[-0.015em] text-white tablet:text-[44px]"
+          className="text-center font-sora text-[28px] leading-[1.1] font-light tracking-[-0.015em] text-white tablet:text-[40px]"
         >
           {t("title")}
         </h2>
@@ -38,7 +38,7 @@ export default function BrandMetrics() {
         {/* Single-row stats strip */}
         <div
           data-animate
-          className="mt-14 grid grid-cols-1 gap-y-12 tablet:mt-16 tablet:grid-cols-3 tablet:gap-y-0 tablet:gap-x-8"
+          className="mt-12 grid grid-cols-1 gap-y-12 tablet:mt-16 tablet:grid-cols-3 tablet:gap-y-0 tablet:gap-x-8"
         >
           {METRICS.map((m) => (
             <MetricCell key={m.key} metric={m} label={t(`items.${m.key}`)} />
@@ -52,12 +52,12 @@ export default function BrandMetrics() {
 function MetricCell({ metric, label }: { metric: Metric; label: string }) {
   return (
     <div className="text-center">
-      <p className="font-sora text-[44px] leading-[1] font-light tracking-[-0.025em] whitespace-nowrap text-white tablet:text-[56px] desktop:text-[64px]">
+      <p className="font-sora text-[56px] leading-[1] font-light tracking-[-0.03em] whitespace-nowrap text-white tablet:text-[80px] desktop:text-[96px]">
         {metric.prefix}
         <CountUp target={metric.target} />
         {metric.suffix}
       </p>
-      <p className="mx-auto mt-4 max-w-[220px] font-inter text-[13px] leading-[1.5] font-normal text-gray-400 tablet:text-[14px]">
+      <p className="mx-auto mt-8 max-w-[260px] font-inter text-[14px] leading-[1.5] font-normal text-gray-400 tablet:text-[16px]">
         {label}
       </p>
     </div>

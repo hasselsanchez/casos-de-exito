@@ -50,9 +50,9 @@
   },
   "brandMetrics": {
     "eyebrow": "En cifras",
-    "title": "Nuestros números",
+    "title": "Nuestros números:",
     "items": {
-      "merchants": "negocios confían en T1",
+      "merchants": "Negocios",
       "payments": "procesados en pagos",
       "shipments": "de envíos gestionados"
     }
