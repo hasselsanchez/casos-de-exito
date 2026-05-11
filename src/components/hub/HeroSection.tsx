@@ -1,140 +1,213 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 import { useLocale } from "next-intl";
+import { articles } from "@/lib/articles";
 import { T1_HOME_URL } from "@/lib/constants";
 
 /**
- * Minimalist editorial hero — no featured case, just a strong aspirational
- * statement about T1 as the infrastructure powering commerce in Mexico.
+ * Sticky video hero. The <section> is sticky-positioned at top:0 for the full
+ * viewport height, so as the user scrolls the next section (white background)
+ * slides up and "reveals" over the hero. The video itself is decorative —
+ * paused under prefers-reduced-motion, replaced by the poster on mobile to
+ * save bandwidth. Drop the final asset at /public/videos/hero.{mp4,webm}; the
+ * <source> tags will pick it up without any code change.
  */
 export default function HeroSection() {
   const locale = useLocale() as "es" | "en";
-  const sectionRef = useRef<HTMLElement>(null);
-  const [parallax, setParallax] = useState({ x: 0, y: 0 });
 
+  /* Disable video autoplay for users who opt out of motion. We still render
+     the poster so the hero never looks empty. */
+  const [reducedMotion, setReducedMotion] = useState(false);
   useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const handleMove = (e: MouseEvent) => {
-      const rect = el.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-      const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-      setParallax({ x, y });
-    };
-    const handleLeave = () => setParallax({ x: 0, y: 0 });
-    el.addEventListener("mousemove", handleMove);
-    el.addEventListener("mouseleave", handleLeave);
-    return () => {
-      el.removeEventListener("mousemove", handleMove);
-      el.removeEventListener("mouseleave", handleLeave);
-    };
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
   }, []);
 
   const copy = {
+    eyebrow: locale === "es" ? "Casos de éxito" : "Success stories",
     headlinePre: locale === "es" ? "Historias de" : "Stories of",
     headlineAccent: locale === "es" ? "éxito" : "success",
-    subheadLine1:
+    subhead:
       locale === "es"
-        ? "Miles de negocios están redefiniendo el comercio en México."
-        : "Thousands of businesses are redefining commerce in Mexico.",
-    subheadLine2:
-      locale === "es"
-        ? "Conoce cómo lo hacen con T1."
-        : "See how they do it with T1.",
+        ? "Miles de negocios están redefiniendo el comercio en México. Conoce cómo lo hacen con T1."
+        : "Thousands of businesses are redefining commerce in Mexico. See how they do it with T1.",
     primary: locale === "es" ? "Empieza con T1" : "Get started with T1",
     secondary: locale === "es" ? "Ver todas las historias" : "See all stories",
+    trustedBy:
+      locale === "es" ? "La eligen marcas como" : "Trusted by brands like",
   };
+
+  /* Logo rail — same source as the old LogoStrip, duplicated for a seamless
+     marquee loop. White-inverted to read on the dark video. */
+  const companies = articles.map((a) => ({
+    name: a.company,
+    logo: a.logoSrc,
+    slug: a.slug,
+  }));
+  const rail = [...companies, ...companies];
 
   return (
     <section
-      ref={sectionRef}
-      className="relative overflow-hidden pb-24 tablet:pb-32"
-      style={{
-        background:
-          "linear-gradient(to bottom, #E59086 0%, #F2B5AE 18%, #FFFFFF 60%)",
-      }}
+      className="sticky top-0 z-0 h-[100svh] w-full overflow-hidden bg-[#0A0B10]"
+      aria-label={copy.eyebrow}
     >
-      {/* Soft glow blob — follows cursor with eased parallax */}
+      {/* ── Background video ──
+          Place the final asset at /public/videos/hero.{mp4,webm}. The poster
+          shows while the video buffers and on mobile/reduced-motion where the
+          video is intentionally not played. */}
+      <video
+        autoPlay={!reducedMotion}
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster="/images/backgrounds/atmospheric-coral.jpg"
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-cover"
+      >
+        <source src="/videos/hero.webm" type="video/webm" />
+        <source src="/videos/hero.mp4" type="video/mp4" />
+      </video>
+
+      {/* ── Liquid-glass scrim ──
+          Three stacked layers create depth without hiding the video:
+          1. A left-weighted dark gradient for headline legibility.
+          2. A bottom gradient that anchors the logo rail.
+          3. A whisper of backdrop-blur tints the whole frame. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-24 left-1/2 h-[420px] w-[720px] rounded-full opacity-60 blur-[120px] transition-transform duration-[700ms] ease-out will-change-transform"
-        style={{
-          background: "radial-gradient(closest-side, #E59086, transparent)",
-          transform: `translate3d(calc(-50% + ${parallax.x * 36}px), ${parallax.y * 22}px, 0)`,
-        }}
+        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/65 via-black/30 to-transparent"
       />
-
-      {/* Secondary glow — counter-parallax for depth */}
       <div
         aria-hidden
-        className="pointer-events-none absolute top-[180px] right-[12%] h-[280px] w-[280px] rounded-full opacity-40 blur-[100px] transition-transform duration-[900ms] ease-out will-change-transform"
-        style={{
-          background: "radial-gradient(closest-side, #F1B0A9, transparent)",
-          transform: `translate3d(${parallax.x * -24}px, ${parallax.y * -16}px, 0)`,
-        }}
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/70 via-black/20 to-transparent"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 backdrop-blur-[2px]"
       />
 
-      <div className="relative mx-auto w-full max-w-[840px] px-5 pt-[140px] tablet:px-8 tablet:pt-[180px]">
-        <div className="flex flex-col items-center text-center">
-          {/* Headline — single fade-up */}
-          <h1
-            className="font-sora text-[32px] leading-[1.08] font-light tracking-[-0.02em] text-gray-900 tablet:text-[44px]"
-            style={{
-              animation: `hero-fade-up 850ms cubic-bezier(0.16, 1, 0.3, 1) both`,
-            }}
-          >
-            {copy.headlinePre}{" "}
-            <span className="text-[#E26153]">{copy.headlineAccent}</span>
-          </h1>
-
-          {/* Subhead */}
-          <p
-            className="mt-7 max-w-[600px] font-inter text-[15px] leading-[1.6] text-gray-600 tablet:text-[17px]"
-            style={{
-              animation: `hero-fade-up 800ms cubic-bezier(0.16, 1, 0.3, 1) 220ms both`,
-            }}
-          >
-            {copy.subheadLine1}
-            <br />
-            {copy.subheadLine2}
-          </p>
-
-          {/* CTAs */}
-          <div
-            className="mt-10 flex flex-col items-stretch gap-3 tablet:flex-row tablet:items-center tablet:gap-4"
-            style={{
-              animation: `hero-fade-up 800ms cubic-bezier(0.16, 1, 0.3, 1) 380ms both`,
-            }}
-          >
-            <a
-              href={T1_HOME_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-[45px] items-center justify-center rounded-[18px] bg-[#DB3B2B] px-7 font-inter text-[14px] font-semibold text-white shadow-[0_8px_24px_-8px_rgba(219,59,43,0.55)] transition-all duration-300 hover:bg-[#E26153] hover:shadow-[0_14px_32px_-8px_rgba(226,97,83,0.65)]"
+      {/* ── Content ── */}
+      <div className="relative z-10 flex h-full flex-col">
+        <div className="mx-auto flex w-full max-w-[1280px] flex-1 flex-col justify-center px-5 pt-[110px] pb-[160px] tablet:px-10 tablet:pt-[140px] tablet:pb-[180px]">
+          <div className="max-w-[640px]">
+            {/* Glass eyebrow chip */}
+            <span
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 font-inter text-[11px] font-semibold uppercase tracking-[0.18em] text-white/90 backdrop-blur-xl"
+              style={{
+                animation: `hero-fade-up 700ms cubic-bezier(0.16, 1, 0.3, 1) both`,
+              }}
             >
-              {copy.primary}
-            </a>
-            <a
-              href="#explorar"
-              className="group inline-flex h-[45px] items-center justify-center gap-2 rounded-[18px] border border-gray-300/80 bg-white/70 px-7 font-inter text-[14px] font-semibold text-[#0A0B10] backdrop-blur-sm transition-all duration-300 hover:border-gray-400 hover:bg-white"
+              <span className="h-1.5 w-1.5 rounded-full bg-[#E26153]" />
+              {copy.eyebrow}
+            </span>
+
+            <h1
+              className="mt-6 font-sora text-[40px] leading-[1.05] font-light tracking-[-0.02em] text-white tablet:text-[64px]"
+              style={{
+                animation: `hero-fade-up 850ms cubic-bezier(0.16, 1, 0.3, 1) 120ms both`,
+              }}
             >
-              {copy.secondary}
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.75"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="transition-transform duration-300 group-hover:translate-y-0.5"
+              {copy.headlinePre}{" "}
+              <span className="text-[#E26153]">{copy.headlineAccent}</span>
+            </h1>
+
+            <p
+              className="mt-6 max-w-[520px] font-inter text-[15px] leading-[1.6] text-white/75 tablet:text-[17px]"
+              style={{
+                animation: `hero-fade-up 800ms cubic-bezier(0.16, 1, 0.3, 1) 260ms both`,
+              }}
+            >
+              {copy.subhead}
+            </p>
+
+            <div
+              className="mt-9 flex flex-col items-stretch gap-3 tablet:flex-row tablet:items-center tablet:gap-3.5"
+              style={{
+                animation: `hero-fade-up 800ms cubic-bezier(0.16, 1, 0.3, 1) 400ms both`,
+              }}
+            >
+              <a
+                href={T1_HOME_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-[48px] items-center justify-center rounded-[18px] bg-[#DB3B2B] px-7 font-inter text-[14px] font-semibold text-white shadow-[0_10px_30px_-10px_rgba(219,59,43,0.65)] transition-all duration-300 hover:bg-[#E26153] hover:shadow-[0_16px_36px_-10px_rgba(226,97,83,0.75)]"
               >
-                <path d="m6 7 6 6 6-6" />
-                <path d="m6 14 6 6 6-6" />
-              </svg>
-            </a>
+                {copy.primary}
+              </a>
+              <a
+                href="#explorar"
+                className="group inline-flex h-[48px] items-center justify-center gap-2 rounded-[18px] border border-white/25 bg-white/[0.08] px-7 font-inter text-[14px] font-semibold text-white backdrop-blur-xl transition-all duration-300 hover:border-white/40 hover:bg-white/[0.14]"
+              >
+                {copy.secondary}
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.75"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="transition-transform duration-300 group-hover:translate-y-0.5"
+                >
+                  <path d="m6 7 6 6 6-6" />
+                  <path d="m6 14 6 6 6-6" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Logo rail — absorbed into the hero ──
+            Glass panel pinned to the bottom of the viewport. Logos are
+            inverted to white at low opacity so they read as a quiet proof
+            band over the video. Hover lifts opacity. */}
+        <div
+          className="absolute right-0 bottom-0 left-0 border-t border-white/10 bg-black/20 backdrop-blur-xl"
+          style={{
+            animation: `hero-fade-up 800ms cubic-bezier(0.16, 1, 0.3, 1) 560ms both`,
+          }}
+        >
+          <div className="mx-auto w-full max-w-[1280px] px-5 py-5 tablet:px-10 tablet:py-6">
+            <p className="font-inter text-[10px] font-semibold uppercase tracking-[0.22em] text-white/50">
+              {copy.trustedBy}
+            </p>
+            <div className="group relative mt-3 overflow-hidden">
+              {/* Edge fades match the panel tint */}
+              <div className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-16 bg-gradient-to-r from-black/40 to-transparent" />
+              <div className="pointer-events-none absolute top-0 right-0 bottom-0 z-10 w-16 bg-gradient-to-l from-black/40 to-transparent" />
+
+              <div className="flex w-fit animate-marquee items-center gap-12 group-hover:[animation-play-state:paused] tablet:gap-16">
+                {rail.map((c, i) => (
+                  <div
+                    key={`${c.slug}-${i}`}
+                    className="group/logo flex h-9 w-[108px] shrink-0 items-center justify-center px-2 transition-transform duration-300 ease-out hover:-translate-y-0.5"
+                  >
+                    <Image
+                      src={c.logo}
+                      alt={c.name}
+                      width={100}
+                      height={36}
+                      className={`object-contain brightness-0 invert opacity-55 transition-opacity duration-500 ease-out group-hover/logo:opacity-100 ${
+                        c.slug === "sears"
+                          ? "h-3 w-auto"
+                          : c.slug === "doto"
+                            ? "h-4 w-auto"
+                            : c.slug === "makora"
+                              ? "h-4 w-auto"
+                              : "h-7 max-w-[100px]"
+                      }`}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
