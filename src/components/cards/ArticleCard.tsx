@@ -20,33 +20,43 @@ const CENTERED_LOGO: Record<string, string> = {
   "Círculo de Crédito": "h-[44px]",
 };
 
-/* Per-article hover gradient. Each slug is paired with the painterly
-   background from /background hover images/ whose dominant hue matches
-   the brand identity. Makora and PASE share BKG 6 but each frames a
-   different region of the same gradient (see CARD_GRADIENT_POSITION). */
-const CARD_GRADIENT: Record<string, string> = {
-  "circulo-de-credito":
-    "/images/background hover images/BKGMesa de trabajo 9.jpg",
-  doto: "/images/background hover images/BKGMesa de trabajo 8.jpg",
-  makora: "/images/background hover images/BKGMesa de trabajo 6.jpg",
-  pase: "/images/background hover images/BKGMesa de trabajo 6.jpg",
-  sears: "/images/background hover images/BKGMesa de trabajo 5.jpg",
-  sesen: "/images/background hover images/BKGMesa de trabajo 10.jpg",
+/* Per-article hover gradient config. Each slug points to a painterly
+   background from /background hover images/ and optionally specifies how
+   to frame it inside the card. `position` maps to CSS object-position,
+   `origin` to transform-origin, and `scale` to a zoom factor — together
+   they let a single source image expose very different regions per card.
+   Makora and PASE share BKG 6: Makora crops into the upper-left, PASE
+   into the lower-right, so each card sits at one end of the gradient.
+   Círculo de Crédito uses BKG 1 framed on its lower-center blue blob to
+   avoid the red zone in the upper-left. */
+type GradientView = {
+  src: string;
+  position?: string;
+  origin?: string;
+  scale?: number;
 };
-
-/* Horizontal framing of the gradient inside the card. Defaults to centered
-   when a slug is absent. BKG 6 runs blue → green → yellow left-to-right,
-   so PASE pulls toward the blue side and Makora toward the green band. */
-const CARD_GRADIENT_POSITION: Record<string, string> = {
-  pase: "15% center",
-  makora: "55% center",
-};
-
-/* Optional zoom into the gradient — used to amplify a single hue so it
-   reads as a near-solid wash rather than a transition. Makora zooms into
-   the green band of BKG 6. */
-const CARD_GRADIENT_SCALE: Record<string, number> = {
-  makora: 1.8,
+const CARD_GRADIENT: Record<string, GradientView> = {
+  "circulo-de-credito": {
+    src: "/images/background hover images/BKGMesa de trabajo 1.jpg",
+    position: "50% 100%",
+    origin: "center bottom",
+    scale: 1.7,
+  },
+  doto: { src: "/images/background hover images/BKGMesa de trabajo 8.jpg" },
+  makora: {
+    src: "/images/background hover images/BKGMesa de trabajo 6.jpg",
+    position: "left top",
+    origin: "left top",
+    scale: 2.2,
+  },
+  pase: {
+    src: "/images/background hover images/BKGMesa de trabajo 6.jpg",
+    position: "right bottom",
+    origin: "right bottom",
+    scale: 2.2,
+  },
+  sears: { src: "/images/background hover images/BKGMesa de trabajo 5.jpg" },
+  sesen: { src: "/images/background hover images/BKGMesa de trabajo 10.jpg" },
 };
 
 /**
@@ -61,8 +71,6 @@ export default function ArticleCard({
 }: ArticleCardProps) {
   const logoH = CENTERED_LOGO[article.company] ?? "h-[40px]";
   const gradient = CARD_GRADIENT[article.slug];
-  const gradientPosition = CARD_GRADIENT_POSITION[article.slug];
-  const gradientScale = CARD_GRADIENT_SCALE[article.slug];
 
   return (
     <Link
@@ -73,20 +81,23 @@ export default function ArticleCard({
       className="group relative flex aspect-[5/4] flex-col overflow-hidden rounded-[14px] bg-[#F4F4F2] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_48px_-20px_rgba(10,11,16,0.22)]"
       style={{ transitionDelay: `${index * 80}ms` }}
     >
-      {/* Hover gradient layer — fades in over the neutral bg. The atmospheric
-         backgrounds already read as a smooth wash at native scale, so we let
-         them fill the card without zooming in. */}
+      {/* Hover gradient layer — fades in over the neutral bg. Some cards
+         tighten into a specific region of the source image via position +
+         transform-origin + scale (see CARD_GRADIENT). */}
       {gradient && (
         <Image
-          src={gradient}
+          src={gradient.src}
           alt=""
           fill
           aria-hidden
           sizes="(max-width: 768px) 100vw, 50vw"
           className="object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           style={{
-            ...(gradientPosition && { objectPosition: gradientPosition }),
-            ...(gradientScale && { transform: `scale(${gradientScale})` }),
+            ...(gradient.position && { objectPosition: gradient.position }),
+            ...(gradient.scale && {
+              transform: `scale(${gradient.scale})`,
+              transformOrigin: gradient.origin ?? "center",
+            }),
           }}
         />
       )}
