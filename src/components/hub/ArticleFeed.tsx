@@ -22,16 +22,15 @@ const CENTERED_LOGO: Record<string, string> = {
   "Círculo de Crédito": "h-[44px]",
 };
 
-/* Per-article hover gradient. Two source files for now (blue / red) — cycled
-   across the six cases until the rest land. Swap paths per slug as new
-   gradient images are dropped into /public/images/gradients/. */
+/* Per-article hover gradient. Each slug is paired with the atmospheric
+   background whose dominant hue matches the brand identity. */
 const CARD_GRADIENT: Record<string, string> = {
-  "circulo-de-credito": "/images/gradients/blue.jpg",
-  doto: "/images/gradients/red.jpg",
-  makora: "/images/gradients/blue.jpg",
-  pase: "/images/gradients/red.jpg",
-  sears: "/images/gradients/blue.jpg",
-  sesen: "/images/gradients/red.jpg",
+  "circulo-de-credito": "/images/backgrounds/atmospheric-blue.jpg",
+  doto: "/images/backgrounds/atmospheric-coral.jpg",
+  makora: "/images/backgrounds/red-gradient.jpg",
+  pase: "/images/backgrounds/atmospheric-blue.jpg",
+  sears: "/images/backgrounds/red-gradient.jpg",
+  sesen: "/images/backgrounds/atmospheric-coral.jpg",
 };
 
 /**
@@ -165,9 +164,9 @@ function FeedCard({
         animation: `fade-in-up 0.55s cubic-bezier(0.16, 1, 0.3, 1) ${index * 70}ms forwards`,
       }}
     >
-      {/* Hover gradient layer — fades in over the neutral bg. The scale-up
-         turns the source into a close-up wash so it reads as smooth color
-         (rather than a busy texture) behind the white logo + title. */}
+      {/* Hover gradient layer — fades in over the neutral bg. The atmospheric
+         backgrounds already read as a smooth wash at native scale, so we let
+         them fill the card without zooming in. */}
       {gradient && (
         <Image
           src={gradient}
@@ -175,7 +174,7 @@ function FeedCard({
           fill
           aria-hidden
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-          className="scale-[1.75] object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          className="object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         />
       )}
 
