@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { FOOTER_LINKS, SOCIAL_LINKS, WHATSAPP_URL } from "@/lib/constants";
+import { FOOTER_LINKS, SOCIAL_LINKS } from "@/lib/constants";
 
 const SOCIAL_ICONS: Record<string, ReactNode> = {
   linkedin: (
@@ -37,8 +37,7 @@ export default function Footer() {
   const t = useTranslations("footer");
 
   return (
-    <>
-      <footer className="relative bg-black">
+    <footer className="relative bg-black">
         <div className="mx-auto max-w-[1018px] px-5 py-16 tablet:px-6 tablet:py-16">
           <div className="grid grid-cols-1 gap-10 tablet:grid-cols-3">
             {/* Column 1: Logo + Tagline + Social */}
@@ -172,20 +171,6 @@ export default function Footer() {
             </span>
           </div>
         </div>
-      </footer>
-
-      {/* WhatsApp FAB */}
-      <a
-        href={WHATSAPP_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={t("whatsappAria")}
-        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_8px_24px_rgba(37,211,102,0.35)] transition-transform hover:scale-105"
-      >
-        <svg width="28" height="28" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
-          <path d="M16.003 3C9.376 3 4 8.377 4 15.003c0 2.345.667 4.633 1.93 6.612L4 28l6.578-1.886a12.014 12.014 0 0 0 5.422 1.299h.005c6.626 0 12.003-5.377 12.003-12.003 0-3.207-1.249-6.222-3.516-8.49A11.93 11.93 0 0 0 16.003 3zm0 21.83a9.81 9.81 0 0 1-5.012-1.374l-.36-.214-3.901 1.119 1.142-3.802-.234-.39a9.825 9.825 0 0 1-1.5-5.166c0-5.428 4.418-9.846 9.85-9.846 2.633 0 5.107 1.026 6.97 2.89a9.785 9.785 0 0 1 2.88 6.96c0 5.428-4.418 9.823-9.835 9.823zm5.398-7.357c-.296-.148-1.749-.864-2.02-.962-.27-.099-.467-.148-.665.148-.197.295-.762.961-.935 1.158-.172.197-.345.222-.64.074-.296-.148-1.25-.46-2.382-1.467-.88-.785-1.474-1.755-1.647-2.05-.172-.296-.018-.456.13-.604.133-.133.296-.345.444-.518.149-.173.198-.296.296-.493.099-.197.05-.37-.025-.518-.074-.148-.665-1.604-.911-2.198-.24-.578-.483-.5-.665-.51-.172-.008-.37-.01-.567-.01a1.09 1.09 0 0 0-.788.37c-.27.296-1.034 1.01-1.034 2.466s1.058 2.86 1.207 3.058c.148.197 2.085 3.184 5.05 4.464.706.305 1.257.487 1.687.624.708.225 1.353.193 1.862.117.568-.085 1.749-.715 1.995-1.405.246-.69.246-1.281.172-1.405-.074-.124-.27-.197-.566-.345z" />
-        </svg>
-      </a>
-    </>
+    </footer>
   );
 }
