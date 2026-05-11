@@ -22,15 +22,17 @@ const CENTERED_LOGO: Record<string, string> = {
   "Círculo de Crédito": "h-[44px]",
 };
 
-/* Per-article hover gradient. Each slug is paired with the atmospheric
-   background whose dominant hue matches the brand identity. */
+/* Per-article hover gradient. Each slug is paired with the painterly
+   background from /background hover images/ whose dominant hue matches
+   the brand identity. */
 const CARD_GRADIENT: Record<string, string> = {
-  "circulo-de-credito": "/images/backgrounds/atmospheric-blue.jpg",
-  doto: "/images/backgrounds/atmospheric-coral.jpg",
-  makora: "/images/backgrounds/red-gradient.jpg",
-  pase: "/images/backgrounds/atmospheric-blue.jpg",
-  sears: "/images/backgrounds/red-gradient.jpg",
-  sesen: "/images/backgrounds/atmospheric-coral.jpg",
+  "circulo-de-credito":
+    "/images/background hover images/BKGMesa de trabajo 9.jpg",
+  doto: "/images/background hover images/BKGMesa de trabajo 8.jpg",
+  makora: "/images/background hover images/BKGMesa de trabajo 1.jpg",
+  pase: "/images/background hover images/BKGMesa de trabajo 6.jpg",
+  sears: "/images/background hover images/BKGMesa de trabajo 5.jpg",
+  sesen: "/images/background hover images/BKGMesa de trabajo 10.jpg",
 };
 
 /**
