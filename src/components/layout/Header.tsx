@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
-import LanguageSwitcher from "./LanguageSwitcher";
 import { NAV_LINKS, SIGNUP_URL, T1_HOME_URL } from "@/lib/constants";
 
 /**
@@ -38,33 +37,34 @@ export default function Header() {
       }`}
     >
       <div className="mx-auto flex h-full max-w-[1100px] items-center justify-between px-5 tablet:px-8">
-        <Link href="/" className="flex shrink-0 items-center">
-          <Image
-            src="/logos/T1.svg"
-            alt="T1"
-            width={44}
-            height={42}
-            className="h-[32px] w-auto tablet:h-[36px]"
-            priority
-          />
-        </Link>
+        {/* Left cluster: logo + nav */}
+        <div className="flex items-center gap-8">
+          <Link href="/" className="flex shrink-0 items-center">
+            <Image
+              src="/logos/T1.svg"
+              alt="T1"
+              width={44}
+              height={42}
+              className="h-[32px] w-auto tablet:h-[36px]"
+              priority
+            />
+          </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden items-center gap-7 tablet:flex">
-          {links.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="font-inter text-[12px] font-medium text-[#0A0B10]/75 transition-colors hover:text-[#0A0B10]"
-            >
-              {link.label}
-            </a>
-          ))}
+          <nav className="hidden items-center gap-7 tablet:flex">
+            {links.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="font-inter text-[12px] font-medium text-[#0A0B10]/75 transition-colors hover:text-[#0A0B10]"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+        </div>
 
-          <span aria-hidden className="h-3.5 w-px bg-gray-200" />
-
-          <LanguageSwitcher />
-
+        {/* Right cluster: login + CTA */}
+        <div className="hidden items-center gap-5 tablet:flex">
           <a
             href={SIGNUP_URL}
             className="font-inter text-[12px] font-medium text-[#0A0B10]/75 transition-colors hover:text-[#0A0B10]"
@@ -72,10 +72,10 @@ export default function Header() {
             {t("login")}
           </a>
 
-          {/* CTA pill */}
+          {/* CTA pill — brand red, matches hero */}
           <a
             href={T1_HOME_URL}
-            className="group inline-flex h-9 items-center gap-1.5 rounded-full bg-[#0A0B10] px-4 font-inter text-[12px] font-semibold text-white transition-all duration-300 hover:bg-[#0A0B10]/85"
+            className="group inline-flex h-9 items-center gap-1.5 rounded-full bg-[#DB3B2B] px-4 font-inter text-[12px] font-semibold text-white shadow-[0_8px_24px_-8px_rgba(219,59,43,0.55)] transition-all duration-300 hover:bg-[#E26153] hover:shadow-[0_14px_32px_-8px_rgba(226,97,83,0.65)]"
           >
             {t("cta")}
             <svg
@@ -90,7 +90,7 @@ export default function Header() {
               <path d="M5 12h14M13 5l7 7-7 7" />
             </svg>
           </a>
-        </nav>
+        </div>
 
         {/* Mobile hamburger */}
         <button
@@ -135,10 +135,9 @@ export default function Header() {
             >
               {t("login")}
             </a>
-            <LanguageSwitcher />
             <a
               href={T1_HOME_URL}
-              className="mt-2 inline-flex h-10 items-center justify-center rounded-full bg-[#0A0B10] font-inter text-[12.5px] font-semibold text-white"
+              className="mt-2 inline-flex h-10 items-center justify-center rounded-full bg-[#DB3B2B] font-inter text-[12.5px] font-semibold text-white shadow-[0_8px_24px_-8px_rgba(219,59,43,0.55)] transition-colors hover:bg-[#E26153]"
             >
               {t("cta")}
             </a>
