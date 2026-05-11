@@ -9,9 +9,10 @@ export default function HomePage() {
     <>
       <HeroSection />
       {/* Wrapper lifts the rest of the page above the sticky hero so the
-         first section slides up over it as you scroll. The negative margin
-         + rounded top creates the editorial reveal. */}
-      <div className="relative z-10 -mt-8 rounded-t-[32px] bg-white shadow-[0_-12px_40px_-12px_rgba(0,0,0,0.25)]">
+         first section slides up over it as you scroll. The rounded top +
+         soft top-shadow create the editorial reveal — no negative margin,
+         so the hero owns the full viewport at scroll=0. */}
+      <div className="relative z-10 rounded-t-[32px] bg-white shadow-[0_-12px_40px_-12px_rgba(0,0,0,0.25)]">
         <CustomersBySize />
         <BrandMetrics />
         <ArticleFeed />

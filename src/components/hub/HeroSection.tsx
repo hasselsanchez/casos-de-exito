@@ -87,7 +87,7 @@ export default function HeroSection() {
 
       {/* ── Content ── */}
       <div className="relative z-10 flex h-full flex-col">
-        <div className="mx-auto flex w-full max-w-[1280px] flex-1 flex-col justify-center px-5 pt-[110px] pb-[120px] tablet:px-10 tablet:pt-[140px] tablet:pb-[140px]">
+        <div className="mx-auto flex w-full max-w-[1280px] flex-1 flex-col justify-center px-5 pt-[110px] pb-[200px] tablet:px-10 tablet:pt-[140px] tablet:pb-[220px]">
           <div className="max-w-[640px]">
             <h1
               className="font-sora text-[40px] leading-[1.05] font-light tracking-[-0.02em] text-white tablet:text-[64px]"
@@ -152,7 +152,7 @@ export default function HeroSection() {
             without competing with the headline. Edge fades blend the rail
             into the dark scrim instead of sitting on a glass card. */}
         <div
-          className="absolute right-0 bottom-0 left-0 pb-7 tablet:pb-9"
+          className="absolute right-0 bottom-0 left-0 pb-20 tablet:pb-24"
           style={{
             animation: `hero-fade-up 800ms cubic-bezier(0.16, 1, 0.3, 1) 560ms both`,
           }}
