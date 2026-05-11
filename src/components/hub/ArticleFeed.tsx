@@ -39,10 +39,10 @@ type GradientView = {
 };
 const CARD_GRADIENT: Record<string, GradientView> = {
   "circulo-de-credito": {
-    src: "/images/background hover images/BKGMesa de trabajo 1.jpg",
-    position: "50% 100%",
-    origin: "center bottom",
-    scale: 1.7,
+    src: "/images/background hover images/BKGMesa de trabajo 6.jpg",
+    position: "left top",
+    origin: "left top",
+    scale: 1.9,
   },
   doto: { src: "/images/background hover images/BKGMesa de trabajo 8.jpg" },
   makora: {
@@ -52,10 +52,10 @@ const CARD_GRADIENT: Record<string, GradientView> = {
     scale: 2.2,
   },
   pase: {
-    src: "/images/background hover images/BKGMesa de trabajo 6.jpg",
-    position: "left top",
-    origin: "left top",
-    scale: 2.2,
+    src: "/images/background hover images/BKGMesa de trabajo 1.jpg",
+    position: "50% 100%",
+    origin: "center bottom",
+    scale: 1.7,
   },
   sears: { src: "/images/background hover images/BKGMesa de trabajo 5.jpg" },
   sesen: { src: "/images/background hover images/BKGMesa de trabajo 10.jpg" },
