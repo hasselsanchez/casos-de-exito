@@ -41,7 +41,14 @@ const CARD_GRADIENT: Record<string, string> = {
    so PASE pulls toward the blue side and Makora toward the green band. */
 const CARD_GRADIENT_POSITION: Record<string, string> = {
   pase: "15% center",
-  makora: "62% center",
+  makora: "55% center",
+};
+
+/* Optional zoom into the gradient — used to amplify a single hue so it
+   reads as a near-solid wash rather than a transition. Makora zooms into
+   the green band of BKG 6. */
+const CARD_GRADIENT_SCALE: Record<string, number> = {
+  makora: 1.8,
 };
 
 /**
@@ -167,6 +174,7 @@ function FeedCard({
   const logoH = CENTERED_LOGO[article.company] ?? "h-[40px]";
   const gradient = CARD_GRADIENT[article.slug];
   const gradientPosition = CARD_GRADIENT_POSITION[article.slug];
+  const gradientScale = CARD_GRADIENT_SCALE[article.slug];
 
   return (
     <Link
@@ -187,7 +195,10 @@ function FeedCard({
           aria-hidden
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
           className="object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-          style={gradientPosition ? { objectPosition: gradientPosition } : undefined}
+          style={{
+            ...(gradientPosition && { objectPosition: gradientPosition }),
+            ...(gradientScale && { transform: `scale(${gradientScale})` }),
+          }}
         />
       )}
 
