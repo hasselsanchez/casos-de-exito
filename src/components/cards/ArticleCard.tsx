@@ -53,9 +53,9 @@ export default function ArticleCard({
       className="group relative flex aspect-[5/4] flex-col overflow-hidden rounded-[14px] bg-[#F4F4F2] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_48px_-20px_rgba(10,11,16,0.22)]"
       style={{ transitionDelay: `${index * 80}ms` }}
     >
-      {/* Hover gradient layer — fades in over the neutral bg. The scale-up
-         turns the source into a close-up wash so it reads as smooth color
-         (rather than a busy texture) behind the white logo + title. */}
+      {/* Hover gradient layer — fades in over the neutral bg. The atmospheric
+         backgrounds already read as a smooth wash at native scale, so we let
+         them fill the card without zooming in. */}
       {gradient && (
         <Image
           src={gradient}
@@ -63,7 +63,7 @@ export default function ArticleCard({
           fill
           aria-hidden
           sizes="(max-width: 768px) 100vw, 50vw"
-          className="scale-[1.75] object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          className="object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         />
       )}
 
