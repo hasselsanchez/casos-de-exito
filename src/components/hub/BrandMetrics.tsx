@@ -17,20 +17,21 @@ const METRICS: Metric[] = [
 ];
 
 /**
- * Brand metrics — black band with three large display numbers laid out
- * in a single row. Black and white only; no chromatic accents. Numbers
- * animate up on scroll.
+ * Brand metrics — compact black band with three large display numbers in a
+ * single row. Black and white only; no chromatic accents. Numbers animate up
+ * on scroll, starting from a value with the same digit count as the target
+ * so the layout never shifts mid-animation.
  */
 export default function BrandMetrics() {
   const t = useTranslations("brandMetrics");
 
   return (
-    <section className="relative bg-black py-16 tablet:py-20">
-      <div className="relative mx-auto max-w-[1200px] px-8 tablet:px-14">
+    <section className="relative bg-black py-10 tablet:py-12">
+      <div className="relative mx-auto max-w-[1200px] px-6 tablet:px-12">
         {/* Section title — short, single color */}
         <h2
           data-animate
-          className="text-center font-sora text-[28px] leading-[1.1] font-light tracking-[-0.015em] text-white tablet:text-[40px]"
+          className="text-center font-sora text-[24px] leading-[1.1] font-light tracking-[-0.015em] text-white tablet:text-[36px]"
         >
           {t("title")}
         </h2>
@@ -38,7 +39,7 @@ export default function BrandMetrics() {
         {/* Single-row stats strip */}
         <div
           data-animate
-          className="mt-12 grid grid-cols-1 gap-y-12 tablet:mt-16 tablet:grid-cols-3 tablet:gap-y-0 tablet:gap-x-8"
+          className="mt-8 grid grid-cols-1 gap-y-10 tablet:mt-10 tablet:grid-cols-3 tablet:gap-y-0 tablet:gap-x-6"
         >
           {METRICS.map((m) => (
             <MetricCell key={m.key} metric={m} label={t(`items.${m.key}`)} />
@@ -52,12 +53,12 @@ export default function BrandMetrics() {
 function MetricCell({ metric, label }: { metric: Metric; label: string }) {
   return (
     <div className="text-center">
-      <p className="font-sora text-[56px] leading-[1] font-light tracking-[-0.03em] whitespace-nowrap text-white tablet:text-[80px] desktop:text-[96px]">
+      <p className="font-sora leading-[1] font-light tracking-[-0.03em] whitespace-nowrap text-white text-[clamp(44px,5.2vw,84px)]">
         {metric.prefix}
         <CountUp target={metric.target} />
         {metric.suffix}
       </p>
-      <p className="mx-auto mt-8 max-w-[260px] font-inter text-[14px] leading-[1.5] font-normal text-gray-400 tablet:text-[16px]">
+      <p className="mx-auto mt-4 max-w-[260px] font-inter text-[13px] leading-[1.5] font-normal text-gray-400 tablet:mt-5 tablet:text-[15px]">
         {label}
       </p>
     </div>
@@ -71,7 +72,14 @@ function CountUp({
   target: number;
   duration?: number;
 }) {
-  const [count, setCount] = useState(0);
+  /* Start from a value with the same digit count as the target so the rendered
+     number never gains a digit mid-animation — that transition (e.g. 9 → 10)
+     was causing a horizontal layout shift in the surrounding prefix/suffix,
+     which read as a visual "jam" during the count-up on initial load. */
+  const digits = String(target).length;
+  const startValue = digits > 1 ? Math.pow(10, digits - 1) : 0;
+
+  const [count, setCount] = useState(startValue);
   const ref = useRef<HTMLSpanElement>(null);
   const triggered = useRef(false);
 
@@ -82,11 +90,12 @@ function CountUp({
       ([entry]) => {
         if (entry.isIntersecting && !triggered.current) {
           triggered.current = true;
-          const start = performance.now();
+          const t0 = performance.now();
+          const range = target - startValue;
           const animate = (now: number) => {
-            const progress = Math.min((now - start) / duration, 1);
+            const progress = Math.min((now - t0) / duration, 1);
             const eased = 1 - Math.pow(1 - progress, 3);
-            setCount(eased * target);
+            setCount(startValue + eased * range);
             if (progress < 1) requestAnimationFrame(animate);
             else setCount(target);
           };
@@ -94,14 +103,21 @@ function CountUp({
           observer.disconnect();
         }
       },
-      { threshold: 0.4 }
+      /* Lower threshold so the animation triggers reliably as the band enters
+         the viewport, even on viewports where the span is small relative to
+         the section. */
+      { threshold: 0.1 }
     );
     observer.observe(node);
     return () => observer.disconnect();
-  }, [target, duration]);
+  }, [target, duration, startValue]);
 
   return (
-    <span ref={ref} className="tabular-nums">
+    <span
+      ref={ref}
+      className="tabular-nums inline-block text-right"
+      style={{ minWidth: `${digits}ch` }}
+    >
       {Math.round(count)}
     </span>
   );
