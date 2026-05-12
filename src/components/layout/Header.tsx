@@ -55,7 +55,7 @@ export default function Header() {
               <a
                 key={link.label}
                 href={link.href}
-                className={`font-inter text-[12px] font-medium transition-colors ${
+                className={`font-inter text-[14px] font-medium transition-colors ${
                   scrolled
                     ? "text-[#0A0B10]/75 hover:text-[#0A0B10]"
                     : "text-white/85 hover:text-white"
@@ -71,7 +71,7 @@ export default function Header() {
         <div className="hidden items-center gap-5 tablet:flex">
           <a
             href={SIGNUP_URL}
-            className={`font-inter text-[12px] font-medium transition-colors ${
+            className={`font-inter text-[14px] font-medium transition-colors ${
               scrolled
                 ? "text-[#0A0B10]/75 hover:text-[#0A0B10]"
                 : "text-white/85 hover:text-white"
@@ -83,7 +83,7 @@ export default function Header() {
           {/* CTA pill — brand red, matches hero */}
           <a
             href={T1_HOME_URL}
-            className="group inline-flex h-9 items-center gap-1.5 rounded-full bg-[#DB3B2B] px-4 font-inter text-[12px] font-semibold text-white shadow-[0_8px_24px_-8px_rgba(219,59,43,0.55)] transition-all duration-300 hover:bg-[#E26153] hover:shadow-[0_14px_32px_-8px_rgba(226,97,83,0.65)]"
+            className="group inline-flex h-9 items-center gap-1.5 rounded-full bg-[#DB3B2B] px-4 font-inter text-[14px] font-semibold text-white shadow-[0_8px_24px_-8px_rgba(219,59,43,0.55)] transition-all duration-300 hover:bg-[#E26153] hover:shadow-[0_14px_32px_-8px_rgba(226,97,83,0.65)]"
           >
             {t("cta")}
             <svg
