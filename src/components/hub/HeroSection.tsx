@@ -54,18 +54,18 @@ export default function HeroSection() {
       aria-label={locale === "es" ? "Casos de éxito" : "Success stories"}
     >
       {/* ── Background video ──
-          Place the final asset at /public/videos/hero.{mp4,webm}. The poster
-          shows while the video buffers and on mobile/reduced-motion where the
-          video is intentionally not played. */}
+          Place the final asset at /public/videos/hero.{mp4,webm}. No poster
+          image — the video element falls back to pure black (via bg-black)
+          while buffering, so the transition into the first frame is
+          invisible instead of revealing a placeholder photo. */}
       <video
         autoPlay={!reducedMotion}
         muted
         loop
         playsInline
         preload="metadata"
-        poster="/images/backgrounds/atmospheric-coral.jpg"
         aria-hidden="true"
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full bg-black object-cover"
       >
         <source src="/videos/hero.webm" type="video/webm" />
         <source src="/videos/hero.mp4" type="video/mp4" />
