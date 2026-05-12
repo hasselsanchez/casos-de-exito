@@ -55,7 +55,11 @@ export default function Header() {
               <a
                 key={link.label}
                 href={link.href}
-                className="font-inter text-[12px] font-medium text-[#0A0B10]/75 transition-colors hover:text-[#0A0B10]"
+                className={`font-inter text-[12px] font-medium transition-colors ${
+                  scrolled
+                    ? "text-[#0A0B10]/75 hover:text-[#0A0B10]"
+                    : "text-white/85 hover:text-white"
+                }`}
               >
                 {link.label}
               </a>
@@ -67,7 +71,11 @@ export default function Header() {
         <div className="hidden items-center gap-5 tablet:flex">
           <a
             href={SIGNUP_URL}
-            className="font-inter text-[12px] font-medium text-[#0A0B10]/75 transition-colors hover:text-[#0A0B10]"
+            className={`font-inter text-[12px] font-medium transition-colors ${
+              scrolled
+                ? "text-[#0A0B10]/75 hover:text-[#0A0B10]"
+                : "text-white/85 hover:text-white"
+            }`}
           >
             {t("login")}
           </a>
@@ -95,7 +103,9 @@ export default function Header() {
         {/* Mobile hamburger */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="flex h-10 w-10 items-center justify-center text-[#0A0B10] transition-colors tablet:hidden"
+          className={`flex h-10 w-10 items-center justify-center transition-colors tablet:hidden ${
+            scrolled ? "text-[#0A0B10]" : "text-white"
+          }`}
           aria-label="Menu"
         >
           <svg
