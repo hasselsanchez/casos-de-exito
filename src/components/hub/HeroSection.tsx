@@ -96,7 +96,7 @@ export default function HeroSection() {
               }}
             >
               {copy.headlinePre}{" "}
-              <span className="text-[#E26153]">{copy.headlineAccent}</span>
+              <span className="text-white">{copy.headlineAccent}</span>
             </h1>
 
             <p
