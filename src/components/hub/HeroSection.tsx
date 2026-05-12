@@ -87,7 +87,7 @@ export default function HeroSection() {
 
       {/* ── Content ── */}
       <div className="relative z-10 flex h-full flex-col">
-        <div className="mx-auto flex w-full max-w-[1280px] flex-1 flex-col justify-center px-5 pt-[110px] pb-[200px] tablet:px-10 tablet:pt-[140px] tablet:pb-[220px]">
+        <div className="mx-auto flex w-full max-w-[1280px] flex-1 flex-col justify-center px-5 pt-[110px] pb-[160px] tablet:px-10 tablet:pt-[140px] tablet:pb-[180px]">
           <div className="max-w-[640px]">
             <h1
               className="font-sora text-[40px] leading-[1.05] font-light tracking-[-0.02em] text-white tablet:text-[64px]"
@@ -146,40 +146,38 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* ── Logo rail — no label, no panel ──
-            Marquee pinned to the bottom of the hero. Logos invert to white at
-            low opacity so they read as a quiet proof line over the video,
-            without competing with the headline. Edge fades blend the rail
-            into the dark scrim instead of sitting on a glass card. */}
+        {/* ── Logo rail — no label, no panel, no edge fades ──
+            Marquee pinned near the bottom of the hero. Logos invert to white
+            at fixed 55% opacity so they read as a quiet proof line over the
+            video. The marquee pauses on hover, but individual logos do NOT
+            change state — no scale, no opacity bump — so the strip stays
+            still and uniform while the user reads it. */}
         <div
-          className="absolute right-0 bottom-0 left-0 pb-20 tablet:pb-24"
+          className="absolute right-0 bottom-0 left-0 pb-10 tablet:pb-14"
           style={{
             animation: `hero-fade-up 800ms cubic-bezier(0.16, 1, 0.3, 1) 560ms both`,
           }}
         >
           <div className="group relative overflow-hidden">
-            <div className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-24 bg-gradient-to-r from-[#0A0B10] via-[#0A0B10]/60 to-transparent" />
-            <div className="pointer-events-none absolute top-0 right-0 bottom-0 z-10 w-24 bg-gradient-to-l from-[#0A0B10] via-[#0A0B10]/60 to-transparent" />
-
-            <div className="flex w-fit animate-marquee items-center gap-12 group-hover:[animation-play-state:paused] tablet:gap-16">
+            <div className="flex w-fit animate-marquee items-center gap-16 group-hover:[animation-play-state:paused] tablet:gap-24">
               {rail.map((c, i) => (
                 <div
                   key={`${c.slug}-${i}`}
-                  className="group/logo flex h-9 w-[108px] shrink-0 items-center justify-center px-2 transition-transform duration-300 ease-out hover:-translate-y-0.5"
+                  className="flex h-16 w-[160px] shrink-0 items-center justify-center px-2"
                 >
                   <Image
                     src={c.logo}
                     alt={c.name}
-                    width={100}
-                    height={36}
-                    className={`object-contain brightness-0 invert opacity-50 transition-opacity duration-500 ease-out group-hover/logo:opacity-100 ${
+                    width={160}
+                    height={56}
+                    className={`object-contain brightness-0 invert opacity-55 ${
                       c.slug === "sears"
-                        ? "h-3 w-auto"
+                        ? "h-5 w-auto"
                         : c.slug === "doto"
-                          ? "h-4 w-auto"
+                          ? "h-7 w-auto"
                           : c.slug === "makora"
-                            ? "h-4 w-auto"
-                            : "h-7 max-w-[100px]"
+                            ? "h-6 w-auto"
+                            : "h-11 max-w-[150px]"
                     }`}
                   />
                 </div>

@@ -37,9 +37,10 @@ const PRODUCT_LOGO_HEIGHT: Record<SolutionKey, string> = {
   score: "h-[20px]",
 };
 
-/** Auto-rotation cadence (ms). 5s is the editorial sweet spot — fast enough
-   to feel alive, slow enough to read. */
-const ROTATION_MS = 5000;
+/** Auto-rotation cadence (ms). Tuned with the progress-line keyframe in
+   globals.css — must match the keyframe duration so the line completes its
+   sweep exactly when the next case advances. */
+const ROTATION_MS = 3500;
 
 /** Cooldown after a manual click before auto-rotation resumes. */
 const CLICK_COOLDOWN_MS = 12000;
@@ -343,7 +344,7 @@ export default function CustomersBySize() {
                         href={aHref}
                         aria-hidden={!isActive}
                         tabIndex={isActive ? 0 : -1}
-                        className={`group col-start-1 row-start-1 block transition-opacity duration-500 ease-out ${
+                        className={`group col-start-1 row-start-1 block transition-opacity duration-300 ease-out ${
                           isActive
                             ? "opacity-100"
                             : "pointer-events-none opacity-0"
@@ -481,7 +482,7 @@ export default function CustomersBySize() {
                     <div
                       key={k}
                       aria-hidden={!isActive}
-                      className={`col-start-1 row-start-1 flex flex-col transition-opacity duration-500 ease-out ${
+                      className={`col-start-1 row-start-1 flex flex-col transition-opacity duration-300 ease-out ${
                         isActive
                           ? "opacity-100"
                           : "pointer-events-none opacity-0"
