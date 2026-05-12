@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useLocale } from "next-intl";
 import { articles } from "@/lib/articles";
@@ -27,6 +27,20 @@ export default function HeroSection() {
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
   }, []);
+
+  /* iOS Safari only allows autoplay when video.muted is the DOM property
+     (not just the HTML attribute React serializes). Force it on the element
+     and kick off play() so we can swallow the rejected promise quietly. */
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || reducedMotion) return;
+    video.muted = true;
+    const attempt = video.play();
+    if (attempt && typeof attempt.catch === "function") {
+      attempt.catch(() => {});
+    }
+  }, [reducedMotion]);
 
   const copy = {
     headlinePre: locale === "es" ? "Historias de" : "Stories of",
@@ -59,6 +73,7 @@ export default function HeroSection() {
           while buffering, so the transition into the first frame is
           invisible instead of revealing a placeholder photo. */}
       <video
+        ref={videoRef}
         autoPlay={!reducedMotion}
         muted
         loop
@@ -67,7 +82,6 @@ export default function HeroSection() {
         aria-hidden="true"
         className="absolute inset-0 h-full w-full bg-black object-cover"
       >
-        <source src="/videos/hero.webm" type="video/webm" />
         <source src="/videos/hero.mp4" type="video/mp4" />
       </video>
 
