@@ -77,18 +77,13 @@ export default function CustomersBySize() {
   const t = useTranslations("customers");
   const locale = useLocale() as "es" | "en";
   const [active, setActive] = useState<SolutionKey>("tienda");
-  /* rotationKey forces the progress-line div to remount (and the keyframe to
-     restart at 0) on each cycle — including a click on the already-active
-     logo, which would otherwise not change `active`. */
-  const [rotationKey, setRotationKey] = useState(0);
   const [isHoveringStrip, setIsHoveringStrip] = useState(false);
   const [isInClickCooldown, setIsInClickCooldown] = useState(false);
   const cooldownTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const paused = isHoveringStrip || isInClickCooldown;
 
-  /* Respect prefers-reduced-motion — disables auto-rotation AND hides the
-     progress line for users who opt out of motion. They can still click
-     logos to navigate. State (not ref) so the JSX reacts to it. */
+  /* Respect prefers-reduced-motion — disables auto-rotation. Users can still
+     click logos to navigate. State (not ref) so the JSX reacts to it. */
   const [reducedMotion, setReducedMotion] = useState(false);
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -111,11 +106,7 @@ export default function CustomersBySize() {
     return () => mq.removeEventListener("change", handler);
   }, []);
 
-  /* Track whether the section is currently pinned (sticky inner is "stuck"
-     to the top of the viewport). Used to suppress the progress line when
-     scroll — not the timer — drives advancement. */
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const [isPinned, setIsPinned] = useState(false);
 
   /* Scroll-driven active step. The outer wrapper is 4× viewport tall on
      desktop; inside, a sticky element pins for the first 3 viewports. We
@@ -137,11 +128,7 @@ export default function CustomersBySize() {
       /* Math.min guards against progress === 1 producing index 4. */
       const step = Math.min(ORDER.length - 1, Math.floor(progress * ORDER.length));
       const nextActive = ORDER[step];
-      setActive((prev) => {
-        if (prev !== nextActive) setRotationKey((k) => k + 1);
-        return nextActive;
-      });
-      setIsPinned(rect.top <= 0 && rect.bottom > wh);
+      setActive(nextActive);
     };
     const onScroll = () => {
       if (raf) return;
@@ -168,7 +155,6 @@ export default function CustomersBySize() {
     if (!isDesktop) {
       const id = setInterval(() => {
         setActive((prev) => ORDER[(ORDER.indexOf(prev) + 1) % ORDER.length]);
-        setRotationKey((k) => k + 1);
       }, ROTATION_MS);
       return () => clearInterval(id);
     }
@@ -215,7 +201,6 @@ export default function CustomersBySize() {
       window.scrollTo({ top: wrapperTopAbs + targetScrolled, behavior: "smooth" });
     } else {
       setActive(k);
-      setRotationKey((rk) => rk + 1);
     }
     setIsInClickCooldown(true);
     if (cooldownTimerRef.current) clearTimeout(cooldownTimerRef.current);
@@ -234,11 +219,6 @@ export default function CustomersBySize() {
 
   const readFullCase =
     locale === "es" ? "Leer el caso completo" : "Read the full case";
-
-  /* The progress line communicates "auto-rotation will advance in N seconds".
-     When the section is scroll-pinned on desktop, scroll position — not a
-     timer — drives the next step, so showing the line would be misleading. */
-  const showProgressLine = !reducedMotion && !(isDesktop && isPinned);
 
   return (
     <section id="por-solucion" className="bg-white">
@@ -293,18 +273,12 @@ export default function CustomersBySize() {
                       aria-pressed={isActive}
                       className="group flex items-center gap-3 py-2 text-left"
                     >
-                      <div className="relative h-10 w-px shrink-0 overflow-hidden bg-gray-100">
-                        {isActive && showProgressLine && (
-                          <span
-                            key={rotationKey}
-                            aria-hidden
-                            className="absolute inset-0 w-px origin-top animate-progress-line-vertical bg-[#E26153]"
-                            style={{
-                              animationPlayState: isHoveringStrip ? "paused" : "running",
-                            }}
-                          />
-                        )}
-                      </div>
+                      <div
+                        aria-hidden
+                        className={`h-10 w-px shrink-0 transition-colors duration-300 ${
+                          isActive ? "bg-[#E26153]" : "bg-gray-100"
+                        }`}
+                      />
                       <div className="flex h-6 items-center">
                         {meta && (
                           <Image
@@ -435,18 +409,12 @@ export default function CustomersBySize() {
                       aria-pressed={isActive}
                       className="group flex flex-col items-center"
                     >
-                      <div className="relative h-px w-full overflow-hidden bg-gray-100">
-                        {isActive && showProgressLine && (
-                          <span
-                            key={rotationKey}
-                            aria-hidden
-                            className="absolute inset-0 h-px origin-left animate-progress-line bg-[#E26153]"
-                            style={{
-                              animationPlayState: isHoveringStrip ? "paused" : "running",
-                            }}
-                          />
-                        )}
-                      </div>
+                      <div
+                        aria-hidden
+                        className={`h-px w-full transition-colors duration-300 ${
+                          isActive ? "bg-[#E26153]" : "bg-gray-100"
+                        }`}
+                      />
                       <div className="mt-5 flex h-6 items-center">
                         {meta && (
                           <Image
