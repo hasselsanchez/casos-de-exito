@@ -64,6 +64,7 @@
   --animate-pulse-soft: pulse-soft 4s ease-in-out infinite;
   --animate-marquee: marquee 32s linear infinite;
   --animate-progress-line: progress-line 5s linear forwards;
+  --animate-progress-line-vertical: progress-line-vertical 5s linear forwards;
 }
 
 /* ===== Keyframes ===== */
@@ -82,6 +83,10 @@
 @keyframes progress-line {
   from { transform: scaleX(0); }
   to   { transform: scaleX(1); }
+}
+@keyframes progress-line-vertical {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
 }
 @keyframes hero-fade-up {
   from { opacity: 0; transform: translateY(18px); }
