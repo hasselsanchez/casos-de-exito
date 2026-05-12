@@ -245,10 +245,12 @@ export default function CustomersBySize() {
       {/* ── Outer wrapper: tall on tablet+ to host the pinned scroll range.
           The inner element below uses `sticky top-0` to pin while the user
           scrolls through this height, mapping scroll position to active
-          case. Mobile gets natural flow, no extra height. */}
+          case. 300vh = 200vh of pin range = ~50vh per case, so one trackpad
+          swipe advances one solution. Mobile gets natural flow, no extra
+          height. */}
       <div
         ref={wrapperRef}
-        className="tablet:h-[400vh]"
+        className="tablet:h-[300vh]"
       >
         {/* ── Inner sticky pinned showcase ── */}
         <div className="py-16 tablet:sticky tablet:top-0 tablet:flex tablet:h-screen tablet:flex-col tablet:justify-center tablet:py-0">
