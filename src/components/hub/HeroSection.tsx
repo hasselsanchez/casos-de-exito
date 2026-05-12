@@ -38,7 +38,10 @@ export default function HeroSection() {
     video.muted = true;
     const attempt = video.play();
     if (attempt && typeof attempt.catch === "function") {
-      attempt.catch(() => {});
+      attempt.catch((err: DOMException) => {
+        // eslint-disable-next-line no-console
+        console.warn("[hero] autoplay blocked:", err.name, err.message);
+      });
     }
   }, [reducedMotion]);
 
@@ -78,7 +81,7 @@ export default function HeroSection() {
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="auto"
         aria-hidden="true"
         className="absolute inset-0 h-full w-full bg-black object-cover"
       >
