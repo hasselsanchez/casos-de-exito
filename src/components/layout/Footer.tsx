@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import Link from "next/link";
 import { FOOTER_LINKS, SOCIAL_LINKS } from "@/lib/constants";
 
 const SOCIAL_ICONS: Record<string, ReactNode> = {
@@ -112,12 +113,12 @@ export default function Footer() {
                   </a>
                 </li>
                 <li>
-                  <a
+                  <Link
                     href="/"
                     className="font-inter text-[13px] text-[#9CA3AF] transition-colors hover:text-white"
                   >
                     {t("successStories")}
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a

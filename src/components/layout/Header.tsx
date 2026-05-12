@@ -107,6 +107,8 @@ export default function Header() {
             scrolled ? "text-[#0A0B10]" : "text-white"
           }`}
           aria-label="Menu"
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-nav"
         >
           <svg
             width="22"
@@ -127,7 +129,7 @@ export default function Header() {
 
       {/* Mobile menu — always white panel for legibility */}
       {mobileOpen && (
-        <div className="border-t border-gray-100 bg-white px-5 py-6 tablet:hidden">
+        <div id="mobile-nav" className="border-t border-gray-100 bg-white px-5 py-6 tablet:hidden">
           <nav className="flex flex-col gap-4">
             {links.map((link) => (
               <a

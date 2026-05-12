@@ -31,7 +31,7 @@ export default function BrandMetrics() {
         {/* Section title — short, single color */}
         <h2
           data-animate
-          className="text-center font-sora text-[24px] leading-[1.1] font-light tracking-[-0.015em] text-white tablet:text-[36px]"
+          className="text-center font-sora text-[32px] leading-[1.1] font-light tracking-[-0.015em] text-white tablet:text-[44px]"
         >
           {t("title")}
         </h2>

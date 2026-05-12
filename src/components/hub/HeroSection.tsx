@@ -22,6 +22,7 @@ export default function HeroSection() {
   const [reducedMotion, setReducedMotion] = useState(false);
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time sync of the initial match value; tracked via subscribe below
     setReducedMotion(mq.matches);
     const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
     mq.addEventListener("change", handler);
@@ -39,7 +40,6 @@ export default function HeroSection() {
     const attempt = video.play();
     if (attempt && typeof attempt.catch === "function") {
       attempt.catch((err: DOMException) => {
-        // eslint-disable-next-line no-console
         console.warn("[hero] autoplay blocked:", err.name, err.message);
       });
     }

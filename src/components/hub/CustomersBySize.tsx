@@ -87,6 +87,7 @@ export default function CustomersBySize() {
   const [reducedMotion, setReducedMotion] = useState(false);
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time sync of the initial match value; tracked via subscribe below
     setReducedMotion(mq.matches);
     const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
     mq.addEventListener("change", handler);
@@ -100,6 +101,7 @@ export default function CustomersBySize() {
   const [isDesktop, setIsDesktop] = useState(false);
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 768px)");
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time sync of the initial match value; tracked via subscribe below
     setIsDesktop(mq.matches);
     const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
     mq.addEventListener("change", handler);
@@ -237,7 +239,7 @@ export default function CustomersBySize() {
           <div className="mx-auto w-full max-w-[1100px] px-5 tablet:px-8">
             {/* ── Section header ── */}
             <div data-animate className="max-w-[760px]">
-              <h2 className="font-sora text-[32px] leading-[1.1] font-light tracking-[-0.015em] text-[#0A0B10] tablet:text-[40px]">
+              <h2 className="font-sora text-[32px] leading-[1.1] font-light tracking-[-0.015em] text-[#0A0B10] tablet:text-[44px]">
                 {t("title")}
                 <span className="text-[#E26153]">{t("titleAccent")}</span>
               </h2>
