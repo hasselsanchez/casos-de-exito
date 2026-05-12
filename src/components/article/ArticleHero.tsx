@@ -54,7 +54,7 @@ export default function ArticleHero({ article, locale }: ArticleHeroProps) {
           href={T1_HOME_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex h-[40px] items-center gap-2 rounded-[18px] bg-[#E26153] px-5 font-inter text-2xs font-semibold text-white transition-colors hover:bg-[#DB3B2B]"
+          className="inline-flex h-[40px] items-center gap-2 rounded-[18px] bg-[#DB3B2B] px-5 font-inter text-2xs font-semibold text-white transition-colors hover:bg-[#E26153]"
         >
           {t("exploreT1")}
           <svg

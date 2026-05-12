@@ -27,7 +27,7 @@ export default function ArticleMetrics({
           rel="noopener noreferrer"
           aria-hidden={heroCtaVisible}
           tabIndex={heroCtaVisible ? -1 : 0}
-          className={`mb-7 inline-flex h-[40px] w-full items-center justify-center gap-2 rounded-[18px] bg-[#E26153] px-4 font-inter text-2xs font-semibold text-white transition-opacity duration-300 hover:bg-[#DB3B2B] ${
+          className={`mb-7 inline-flex h-[40px] w-full items-center justify-center gap-2 rounded-[18px] bg-[#DB3B2B] px-4 font-inter text-2xs font-semibold text-white transition-opacity duration-300 hover:bg-[#E26153] ${
             heroCtaVisible
               ? "pointer-events-none opacity-0"
               : "opacity-100"

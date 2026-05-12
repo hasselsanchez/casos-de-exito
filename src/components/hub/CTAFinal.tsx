@@ -27,7 +27,7 @@ export default function CTAFinal() {
         <div data-animate className="mt-8">
           <Link
             href={T1_HOME_URL}
-            className="inline-flex h-[56px] items-center rounded-full bg-[#E26153] px-10 font-inter text-[15px] font-semibold text-white transition-colors duration-300 hover:bg-[#DB3B2B]"
+            className="inline-flex h-[56px] items-center rounded-full bg-[#DB3B2B] px-10 font-inter text-[15px] font-semibold text-white transition-colors duration-300 hover:bg-[#E26153]"
           >
             {t("primary")}
           </Link>
