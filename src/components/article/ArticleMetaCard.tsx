@@ -24,6 +24,15 @@ const SOLUTION_DISPLAY: Record<string, string> = {
   T1Score: "T1score",
 };
 
+/* Per-brand logo sizing in the meta card aside. Default is h-6 + max-w-[110px]
+   which works for horizontal wordmarks (Doto, Sears, Sesen, Makora, PASE,
+   Círculo). Stacked logos with icon ABOVE wordmark need more vertical room
+   and a wider max-width to stay legible at this scale. */
+const META_LOGO_SIZING: Record<string, string> = {
+  "Organic Skincare": "h-14 w-auto max-w-[140px] object-contain object-left",
+};
+const DEFAULT_META_LOGO = "h-6 w-auto max-w-[110px] object-contain object-left";
+
 export default function ArticleMetaCard({
   article,
   locale,
@@ -33,13 +42,14 @@ export default function ArticleMetaCard({
 
   return (
     <aside className="rounded-[14px] bg-gray-50 p-5">
-      {/* Brand logo — capped width, natural aspect ratio */}
+      {/* Brand logo — capped width, natural aspect ratio.
+         Per-brand sizing override for stacked logos (see META_LOGO_SIZING). */}
       <Image
         src={article.logoSrc}
         alt={article.company}
         width={160}
-        height={24}
-        className="h-6 w-auto max-w-[110px] object-contain object-left"
+        height={56}
+        className={META_LOGO_SIZING[article.company] ?? DEFAULT_META_LOGO}
       />
 
       <MetaRow label={t("solutions")}>
