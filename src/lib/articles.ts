@@ -538,6 +538,67 @@ export const articles: Article[] = [
     readingTime: 4,
     publishedAt: "2026-04-21",
   },
+  {
+    slug: "organic-skincare",
+    slugEn: "organic-skincare",
+    company: "Organic Skincare",
+    logoSrc: "/images/partners/organic-skincare.png",
+    industry: { es: "Salud y Belleza", en: "Health & Beauty" },
+    industrySlug: "salud-y-belleza",
+    size: "growth",
+    solutions: ["T1 Envíos"],
+    contentType: "article",
+    heroImage: "/images/articles/ORGANICSKINCARE/hero.png",
+    heroImageFocal: "70% 35%",
+    images: ["/images/articles/ORGANICSKINCARE/hero.png"],
+    articleImageFocal: "70% 35%",
+    title: {
+      es: "Cómo Organic Skincare convirtió la logística en parte de su experiencia de marca",
+      en: "How Organic Skincare turned logistics into part of its brand experience",
+    },
+    subtitle: {
+      es: "Una marca de skincare facial que unificó 3 paqueterías en T1 Envíos y bajó sus tiempos de entrega 30%",
+      en: "A facial skincare brand that consolidated 3 carriers into T1 Envíos and cut delivery times by 30%",
+    },
+    executiveSummary: {
+      es: "Organic Skincare, marca mexicana de skincare facial, reemplazó la coordinación manual de tres paqueterías por una sola integración con T1 Envíos. Hoy gestiona 4,200 envíos mensuales con tiempos de entrega 30% más rápidos, incluso en temporadas altas de venta.",
+      en: "Organic Skincare, a Mexican facial skincare brand, replaced its manual coordination of three carriers with a single T1 Envíos integration. Today it manages 4,200 monthly shipments with delivery times 30% faster — even during peak sales seasons.",
+    },
+    metrics: [
+      { value: { es: "30%", en: "30%" }, label: { es: "Reducción en tiempos de entrega", en: "Reduction in delivery times" } },
+      { value: { es: "4,200", en: "4,200" }, label: { es: "Envíos mensuales gestionados", en: "Monthly shipments managed" } },
+    ],
+    callout: {
+      text: {
+        es: "Para una marca de skincare facial, la entrega es parte de la experiencia. Con T1 Envíos, sostenerla en temporadas altas de venta dejó de ser un riesgo.",
+        en: "For a facial skincare brand, delivery is part of the experience. With T1 Envíos, sustaining that promise through peak sales seasons stopped being a risk.",
+      },
+      highlight: {
+        es: "la entrega es parte de la experiencia",
+        en: "delivery is part of the experience",
+      },
+    },
+    content: {
+      intro: {
+        es: "Organic Skincare es una marca mexicana de skincare facial con cobertura nacional. Vende a través de su tienda Shopify y de su catálogo en Mercado Libre, dos de los canales más usados del comercio digital en México. En una categoría donde la lealtad del consumidor se gana en la consistencia que va desde la página de producto hasta la puerta del cliente, la experiencia del usuario es la prioridad declarada de la marca. Es cliente de T1 Envíos desde febrero de 2025.",
+        en: "Organic Skincare is a Mexican facial skincare brand with national coverage. It sells through its Shopify store and its Mercado Libre catalog, two of the most used channels in Mexico's digital commerce. In a category where customer loyalty is earned in the consistency from the product page to the customer's doorstep, user experience is the brand's stated priority. It has been a T1 Envíos customer since February 2025.",
+      },
+      challenge: {
+        es: "Antes de integrar T1 Envíos, Organic Skincare gestionaba sus envíos con tres paqueterías por separado para cubrir su operación entre Shopify y Mercado Libre. Cada pedido pasaba por un flujo manual y el seguimiento se fragmentaba entre tres lógicas distintas, sin un punto único de verdad para la marca ni una experiencia uniforme para el cliente. A medida que el volumen crece, este modelo se vuelve el cuello de botella natural de cualquier operación de e-commerce: cada minuto invertido en coordinar paqueterías es un minuto que no se invierte en producto, marca o servicio.",
+        en: "Before integrating T1 Envíos, Organic Skincare managed its shipments with three carriers in parallel to cover operations across Shopify and Mercado Libre. Every order went through a manual flow and tracking was fragmented across three different logics, with no single source of truth for the brand and no uniform experience for the customer. As volume grows, this model becomes the natural bottleneck of any e-commerce operation: every minute spent coordinating carriers is a minute not invested in product, brand or service.",
+      },
+      solution: {
+        es: "Con T1 Envíos, Organic Skincare consolidó su operación logística en un solo flujo. Los pedidos de Shopify y Mercado Libre se sincronizan automáticamente en una sola consola, donde la marca cotiza, genera guías y monitorea entregas sin entrar a portales separados. La gestión de las tres paqueterías deja de ser un trabajo de orquestación manual y se convierte en una capa coordinada, con seguimiento unificado tanto para el equipo interno como para el cliente final. La integración respetó los canales de venta originales — Shopify y Mercado Libre siguen siendo el front del negocio — y trasladó la complejidad logística a la infraestructura de T1.",
+        en: "With T1 Envíos, Organic Skincare consolidated its logistics operation into a single flow. Orders from Shopify and Mercado Libre sync automatically into a single console, where the brand quotes, generates labels and monitors deliveries without entering separate portals. Managing the three carriers stopped being a manual orchestration job and became a coordinated layer, with unified tracking for both the internal team and the end customer. The integration respected the original sales channels — Shopify and Mercado Libre remain the front of the business — and moved the logistics complexity into T1's infrastructure.",
+      },
+      results: {
+        es: "Los tiempos de entrega bajaron 30% y la marca gestiona hoy 4,200 envíos mensuales con T1 Envíos. Las temporadas altas de venta — el momento donde más se pone a prueba la consistencia de cualquier operación de e-commerce — dejaron de ser un punto de riesgo logístico y pasaron a ser una validación del modelo. En una categoría como skincare, donde la recompra depende en buena medida de la coherencia entre lo que la marca promete y lo que el cliente recibe, la logística dejó de ser un costo invisible y se convirtió en una extensión declarada de la propuesta de Organic Skincare.",
+        en: "Delivery times dropped 30% and the brand now manages 4,200 monthly shipments with T1 Envíos. Peak sales seasons — the moment when the consistency of any e-commerce operation is tested most — stopped being a logistical risk point and became a validation of the model. In a category like skincare, where repeat purchase largely depends on the coherence between what the brand promises and what the customer receives, logistics stopped being an invisible cost and became a declared extension of Organic Skincare's proposition.",
+      },
+    },
+    readingTime: 3,
+    publishedAt: "2026-05-15",
+  },
 ];
 
 export function getArticleBySlug(slug: string): Article | undefined {
