@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import type { Article } from "@/lib/articles";
 
 interface QuoteBlockProps {
-  quote: Article["quote"];
+  quote: NonNullable<Article["quote"]>;
   locale: "es" | "en";
 }
 
