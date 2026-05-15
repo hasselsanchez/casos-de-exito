@@ -1,78 +1,17 @@
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
-import { articles, type Article } from "@/lib/articles";
+import type { Article } from "@/lib/articles";
+import {
+  CARD_GRADIENT,
+  CENTERED_LOGO,
+  CENTERED_LOGO_MAX_W,
+  DEFAULT_LOGO_MAX_W,
+} from "@/lib/cardAssets";
 
 interface ArticleCardProps {
   article: Article;
   locale: "es" | "en";
   index?: number;
-}
-
-/* Per-logo height for the centered-logo card layout. Wider wordmarks (Makora,
-   Sears) get a smaller height so the bounding box stays in line with the more
-   compact ones; taller-friendly marks (PASE, Doto) get a bit more presence. */
-const CENTERED_LOGO: Record<string, string> = {
-  "Sears México": "h-[36px]",
-  Doto: "h-[44px]",
-  Makora: "h-[28px]",
-  PASE: "h-[48px]",
-  Sesen: "h-[40px]",
-  "Círculo de Crédito": "h-[44px]",
-  "Organic Skincare": "h-[120px]",
-};
-
-/* Per-article hover gradient config. Each slug points to a painterly
-   background from /background hover images/ and optionally specifies how
-   to frame it inside the card. `position` maps to CSS object-position,
-   `origin` to transform-origin, and `scale` to a zoom factor — together
-   they let a single source image expose very different regions per card.
-   Makora and PASE share BKG 6: Makora crops into the upper-left, PASE
-   into the lower-right, so each card sits at one end of the gradient.
-   Círculo de Crédito uses BKG 1 framed on its lower-center blue blob to
-   avoid the red zone in the upper-left. */
-type GradientView = {
-  src: string;
-  position?: string;
-  origin?: string;
-  scale?: number;
-};
-const CARD_GRADIENT: Record<string, GradientView> = {
-  "circulo-de-credito": {
-    src: "/images/background hover images/BKGMesa de trabajo 6.jpg",
-    position: "left top",
-    origin: "left top",
-    scale: 1.9,
-  },
-  doto: { src: "/images/background hover images/BKGMesa de trabajo 8.jpg" },
-  makora: {
-    src: "/images/background hover images/BKGMesa de trabajo 6.jpg",
-    position: "right top",
-    origin: "right top",
-    scale: 2.2,
-  },
-  pase: {
-    src: "/images/background hover images/BKGMesa de trabajo 1.jpg",
-    position: "50% 100%",
-    origin: "center bottom",
-    scale: 1.7,
-  },
-  sears: { src: "/images/background hover images/BKGMesa de trabajo 5.jpg" },
-  sesen: { src: "/images/background hover images/BKGMesa de trabajo 10.jpg" },
-  "organic-skincare": { src: "/images/background hover images/BKGMesa de trabajo 3.jpg" },
-};
-
-/* Build-time safeguard: every article in articles.ts MUST have a hover
-   background registered here, or the listing grid card looks flat on hover.
-   This has been forgotten enough times that we now hard-fail the build
-   instead of relying on memory. If you hit this error, add a new entry to
-   CARD_GRADIENT above (pick a BKG whose tone relates to the brand). */
-const missingGradient = articles.find((a) => !(a.slug in CARD_GRADIENT));
-if (missingGradient) {
-  throw new Error(
-    `[ArticleCard] Missing CARD_GRADIENT entry for slug "${missingGradient.slug}". ` +
-      `Add a hover background in src/components/cards/ArticleCard.tsx — pick a file ` +
-      `from /public/images/background hover images/ whose tone relates to the brand.`,
-  );
 }
 
 /**
@@ -86,6 +25,7 @@ export default function ArticleCard({
   index = 0,
 }: ArticleCardProps) {
   const logoH = CENTERED_LOGO[article.company] ?? "h-[40px]";
+  const logoMaxW = CENTERED_LOGO_MAX_W[article.company] ?? DEFAULT_LOGO_MAX_W;
   const gradient = CARD_GRADIENT[article.slug];
 
   return (
@@ -135,7 +75,7 @@ export default function ArticleCard({
 
       {/* Centered logo — crossfades between full-color and white on hover. */}
       <div className="relative z-10 flex flex-1 items-center justify-center px-6">
-        <div className="relative w-full max-w-[68%]">
+        <div className={`relative w-full ${logoMaxW}`}>
           <span
             role="img"
             aria-label={article.company}
