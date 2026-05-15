@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
-import type { Article } from "@/lib/articles";
+import { articles, type Article } from "@/lib/articles";
 
 interface ArticleCardProps {
   article: Article;
@@ -18,7 +18,7 @@ const CENTERED_LOGO: Record<string, string> = {
   PASE: "h-[48px]",
   Sesen: "h-[40px]",
   "Círculo de Crédito": "h-[44px]",
-  "Organic Skincare": "h-[68px]",
+  "Organic Skincare": "h-[120px]",
 };
 
 /* Per-article hover gradient config. Each slug points to a painterly
@@ -60,6 +60,20 @@ const CARD_GRADIENT: Record<string, GradientView> = {
   sesen: { src: "/images/background hover images/BKGMesa de trabajo 10.jpg" },
   "organic-skincare": { src: "/images/background hover images/BKGMesa de trabajo 3.jpg" },
 };
+
+/* Build-time safeguard: every article in articles.ts MUST have a hover
+   background registered here, or the listing grid card looks flat on hover.
+   This has been forgotten enough times that we now hard-fail the build
+   instead of relying on memory. If you hit this error, add a new entry to
+   CARD_GRADIENT above (pick a BKG whose tone relates to the brand). */
+const missingGradient = articles.find((a) => !(a.slug in CARD_GRADIENT));
+if (missingGradient) {
+  throw new Error(
+    `[ArticleCard] Missing CARD_GRADIENT entry for slug "${missingGradient.slug}". ` +
+      `Add a hover background in src/components/cards/ArticleCard.tsx — pick a file ` +
+      `from /public/images/background hover images/ whose tone relates to the brand.`,
+  );
+}
 
 /**
  * Logo-forward recommendation card.
