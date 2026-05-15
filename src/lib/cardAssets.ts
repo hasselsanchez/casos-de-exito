@@ -18,7 +18,7 @@ export const CENTERED_LOGO: Record<string, string> = {
   PASE: "h-[48px]",
   Sesen: "h-[40px]",
   "Círculo de Crédito": "h-[44px]",
-  "Organic Skincare": "h-[160px]",
+  "Organic Skincare": "h-[90px]",
 };
 
 /* Per-brand override for the logo container's max-width within the card.
@@ -28,7 +28,8 @@ export const CENTERED_LOGO: Record<string, string> = {
    so they need both more height AND more width to grow large enough that
    the visible wordmark portion feels equivalent to other brands. */
 export const CENTERED_LOGO_MAX_W: Record<string, string> = {
-  "Organic Skincare": "max-w-[88%]",
+  // Add an entry here only when h alone isn't enough (max-w-[68%] caps the
+  // bg-contain width before the height takes effect). Empty by default.
 };
 export const DEFAULT_LOGO_MAX_W = "max-w-[68%]";
 
