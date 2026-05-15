@@ -18,6 +18,7 @@ const CENTERED_LOGO: Record<string, string> = {
   PASE: "h-[48px]",
   Sesen: "h-[40px]",
   "Círculo de Crédito": "h-[44px]",
+  "Organic Skincare": "h-[68px]",
 };
 
 /* Per-article hover gradient config. Each slug points to a painterly
@@ -57,6 +58,7 @@ const CARD_GRADIENT: Record<string, GradientView> = {
   },
   sears: { src: "/images/background hover images/BKGMesa de trabajo 5.jpg" },
   sesen: { src: "/images/background hover images/BKGMesa de trabajo 10.jpg" },
+  "organic-skincare": { src: "/images/background hover images/BKGMesa de trabajo 3.jpg" },
 };
 
 /**
