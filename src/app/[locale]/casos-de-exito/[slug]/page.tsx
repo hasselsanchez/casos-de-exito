@@ -8,6 +8,7 @@ import ArticleMetrics from "@/components/article/ArticleMetrics";
 import { HeroCtaProvider } from "@/components/article/HeroCtaContext";
 import LiteYouTube from "@/components/article/LiteYouTube";
 import QuoteBlock from "@/components/article/QuoteBlock";
+import CalloutBlock from "@/components/article/CalloutBlock";
 import RelatedArticles from "@/components/article/RelatedArticles";
 import FinalCta from "@/components/article/FinalCta";
 import { linkifyT1 } from "@/lib/linkifyT1";
@@ -245,10 +246,16 @@ export default async function ArticlePage({ params }: PageProps) {
               </p>
             </section>
 
-            {/* Quote */}
-            <div className="mt-14">
-              <QuoteBlock quote={article.quote} locale={locale} />
-            </div>
+            {/* Quote (video cases) or editorial callout (article-only cases) */}
+            {article.quote ? (
+              <div className="mt-14">
+                <QuoteBlock quote={article.quote} locale={locale} />
+              </div>
+            ) : article.callout ? (
+              <div className="mt-14">
+                <CalloutBlock callout={article.callout} locale={locale} />
+              </div>
+            ) : null}
           </div>
         </div>
       </article>

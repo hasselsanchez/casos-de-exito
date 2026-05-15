@@ -46,7 +46,10 @@ export interface Article {
     value: { es: string; en: string };
     label: { es: string; en: string };
   }[];
-  quote: {
+  /** Director/founder pull quote from the interview. Omitted for article-only
+     case studies (no video, no on-camera testimonial). When absent, the article
+     body renders `callout` instead, and preview cards fall back to `subtitle`. */
+  quote?: {
     text: { es: string; en: string };
     /** ≤ 110 char punch-line for the "Por tamaño" preview cards */
     short: { es: string; en: string };
@@ -55,6 +58,13 @@ export interface Article {
     author: string;
     role: { es: string; en: string };
     photo: string;
+  };
+  /** Editorial pull-statement used in place of a director quote. Required when
+     `quote` is absent so the article keeps its visual rhythm. */
+  callout?: {
+    text: { es: string; en: string };
+    /** Substring of `text` to render in brand red as the moneyline */
+    highlight?: { es: string; en: string };
   };
   content: {
     intro: { es: string; en: string };

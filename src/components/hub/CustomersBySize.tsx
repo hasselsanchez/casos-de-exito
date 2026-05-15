@@ -477,17 +477,23 @@ export default function CustomersBySize() {
                         </div>
                       )}
 
-                      {/* 3. Quote — the human truth */}
-                      <blockquote className="mt-6 border-l border-gray-200 pl-4">
-                        <p className="font-sora text-[14px] leading-[1.55] font-light text-gray-800 tablet:text-[15px]">
-                          &ldquo;{a.quote.short[locale]}&rdquo;
+                      {/* 3. Quote (video) or subtitle fallback (article-only) */}
+                      {a.quote ? (
+                        <blockquote className="mt-6 border-l border-gray-200 pl-4">
+                          <p className="font-sora text-[14px] leading-[1.55] font-light text-gray-800 tablet:text-[15px]">
+                            &ldquo;{a.quote.short[locale]}&rdquo;
+                          </p>
+                          <footer className="mt-2.5 font-inter text-[10.5px] text-gray-500">
+                            {a.quote.author}
+                            <span className="mx-1.5 text-gray-300">·</span>
+                            {a.quote.role[locale]}
+                          </footer>
+                        </blockquote>
+                      ) : (
+                        <p className="mt-6 border-l border-gray-200 pl-4 font-sora text-[14px] leading-[1.55] font-light text-gray-800 tablet:text-[15px]">
+                          {a.subtitle[locale]}
                         </p>
-                        <footer className="mt-2.5 font-inter text-[10.5px] text-gray-500">
-                          {a.quote.author}
-                          <span className="mx-1.5 text-gray-300">·</span>
-                          {a.quote.role[locale]}
-                        </footer>
-                      </blockquote>
+                      )}
 
                       {/* 4. CTA — solution context already lives in the active pill above */}
                       <Link
