@@ -8,6 +8,13 @@ import type { ReactNode } from "react";
  */
 
 const PRODUCT_URLS: Record<string, string> = {
+  // New format (canonical going forward — no space, lowercase second word)
+  T1pagos: "https://t1.com/mx/pagos/",
+  T1score: "https://t1.com/mx/score/",
+  T1tienda: "https://www.t1.com/mx",
+  T1envíos: "https://www.t1.com/mx/envios",
+  T1pos: "https://t1.com/mx",
+  // Legacy format (backward compat for existing articles)
   T1Score: "https://t1.com/mx/score/",
   "T1 Tienda": "https://www.t1.com/mx",
   "T1 Pagos": "https://t1.com/mx/pagos/",
@@ -17,8 +24,10 @@ const PRODUCT_URLS: Record<string, string> = {
 const T1_HOME = "https://www.t1.com/mx";
 
 // Order matters — longer / more specific patterns first so "T1Score" wins
-// over a bare "T1", and "T1 Pagos" wins over "T1" alone.
-const PATTERN = /(T1Score|T1\s+Tienda|T1\s+Pagos|T1\s+Env[íi]os|T1)\b/g;
+// over a bare "T1", and "T1 Pagos" wins over "T1" alone. New no-space
+// format ("T1pagos", "T1score", etc.) comes first, legacy space format
+// second, bare "T1" last as a fallback.
+const PATTERN = /(T1pagos|T1score|T1tienda|T1env[íi]os|T1pos|T1Score|T1\s+Tienda|T1\s+Pagos|T1\s+Env[íi]os|T1)\b/g;
 
 const LINK_CLASSES =
   "font-medium text-[#E26153] underline decoration-[#E26153]/30 underline-offset-[3px] transition-colors hover:decoration-[#E26153]";
