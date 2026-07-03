@@ -661,6 +661,68 @@ export const articles: Article[] = [
     readingTime: 4,
     publishedAt: "2026-07-02",
   },
+  {
+    slug: "ticketopolis",
+    slugEn: "ticketopolis",
+    company: "Ticketopolis",
+    logoSrc: "/images/partners/ticketopolis.webp",
+    industry: { es: "Entretenimiento", en: "Entertainment" },
+    industrySlug: "entretenimiento",
+    size: "growth",
+    solutions: ["T1 Pagos"],
+    contentType: "article",
+    heroImage: "/images/articles/TICKETOPOLIS/hero.png",
+    heroImageFocal: "center",
+    images: ["/images/articles/TICKETOPOLIS/hero.png"],
+    articleImageFocal: "center",
+    title: {
+      es: "Cómo Ticketopolis escaló su venta digital de boletos con T1pagos",
+      en: "How Ticketopolis scaled its online ticket sales with T1pagos",
+    },
+    subtitle: {
+      es: "Diez trimestres de crecimiento transaccional sostenido con aprobación antifraude del 99.9%",
+      en: "Ten quarters of sustained transactional growth with 99.9% antifraud approval",
+    },
+    executiveSummary: {
+      es: "Ticketopolis, plataforma mexicana de venta de boletos en línea, procesa su motor transaccional con T1pagos desde 2024. Diez trimestres con $107 millones MXN procesados y aprobación antifraude del 99.9%.",
+      en: "Ticketopolis, a Mexican online ticket sales platform, has run its transactional engine with T1pagos since 2024. Ten quarters with $107 million MXN processed and 99.9% antifraud approval.",
+    },
+    metrics: [
+      { value: { es: "$107M MXN", en: "$107M MXN" }, label: { es: "Monto procesado (Feb 2024 – Jun 2026)", en: "Volume processed (Feb 2024 – Jun 2026)" } },
+      { value: { es: "99.9%", en: "99.9%" }, label: { es: "Aprobación antifraude", en: "Antifraud approval rate" } },
+      { value: { es: "136.2K", en: "136.2K" }, label: { es: "Peticiones procesadas", en: "Requests processed" } },
+    ],
+    callout: {
+      text: {
+        es: "En la venta de boletos en línea, cada rechazo de antifraude es un ticket que no se vende. T1pagos mantiene ese rechazo en 0.08% de las peticiones en Ticketopolis, incluso durante los picos de demanda.",
+        en: "In online ticket sales, every antifraud rejection is a ticket that doesn't sell. T1pagos keeps that rejection at 0.08% of requests at Ticketopolis, even during demand spikes.",
+      },
+      highlight: {
+        es: "cada rechazo de antifraude es un ticket que no se vende",
+        en: "every antifraud rejection is a ticket that doesn't sell",
+      },
+    },
+    content: {
+      intro: {
+        es: "Ticketopolis es una plataforma mexicana de venta de boletos en línea. Su modelo depende de picos de demanda: cada lanzamiento genera oleadas de tráfico y transacciones concentradas en minutos. Es cliente de T1pagos desde 2024, con procesamiento y antifraude para sus pagos con tarjeta.",
+        en: "Ticketopolis is a Mexican online ticket sales platform. Its business model depends on demand spikes: every launch generates waves of traffic and transactions concentrated in minutes. It has been a T1pagos customer since 2024, with card payment processing and antifraud.",
+      },
+      challenge: {
+        es: "Una venta de boletos en línea combina dos condiciones que endurecen el procesamiento de pagos: picos concentrados de demanda cuando abre una venta, e inventario finito que no admite recompra cuando ya se agotó. Cada punto porcentual de aprobación es venta directa que se gana o se pierde en el momento.",
+        en: "Online ticket sales combine two conditions that harden payment processing: concentrated demand spikes when a sale opens, and finite inventory that admits no repurchase once sold out. Every percentage point of approval is direct revenue won or lost in the moment.",
+      },
+      solution: {
+        es: "T1pagos opera como capa de procesamiento y control de fraude sobre las transacciones con tarjeta de Ticketopolis. Cada petición se evalúa con reglas de antifraude calibradas para el patrón de la venta de boletos, donde las transacciones se concentran en ventanas cortas y los intentos de bot apuntan a acaparar inventario. Cuando una venta abre y el volumen se dispara, T1pagos aprueba las transacciones legítimas al mismo ritmo sin frenar al comprador.",
+        en: "T1pagos operates as a processing and fraud control layer for Ticketopolis' card transactions. Every request is evaluated against antifraud rules calibrated for the ticket sales pattern, where transactions concentrate in short windows and bot attempts target inventory hoarding. When a sale opens and volume spikes, T1pagos approves legitimate transactions at the same pace without slowing the buyer.",
+      },
+      results: {
+        es: "En diez trimestres consecutivos, T1pagos ha procesado más de $107 millones MXN en pagos con tarjeta para Ticketopolis, con más de 136 mil peticiones procesadas y una tasa de rechazo antifraude del 0.08%. La aprobación antifraude se ha mantenido en 99.9% del volumen, sostenida a través de los picos de demanda que caracterizan la venta de boletos en línea. El crecimiento sostenido del volumen muestra que T1pagos escaló con el negocio de Ticketopolis.",
+        en: "Over ten consecutive quarters, T1pagos has processed more than $107 million MXN in card payments for Ticketopolis, with more than 136 thousand processed requests and a 0.08% antifraud rejection rate. Antifraud approval has remained at 99.9% of volume, sustained across the demand spikes that characterize online ticket sales. Sustained volume growth shows that T1pagos scaled with Ticketopolis' business.",
+      },
+    },
+    readingTime: 4,
+    publishedAt: "2026-07-02",
+  },
 ];
 
 export function getArticleBySlug(slug: string): Article | undefined {

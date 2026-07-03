@@ -20,6 +20,7 @@ export const CENTERED_LOGO: Record<string, string> = {
   "Círculo de Crédito": "h-[44px]",
   "Organic Skincare": "h-[90px]",
   "Claro Colombia": "h-[40px]",
+  Ticketopolis: "h-[44px]",
 };
 
 /* Per-brand override for the logo container's max-width within the card.
@@ -80,6 +81,9 @@ export const CARD_GRADIENT: Record<string, GradientView> = {
   },
   "claro-colombia": {
     src: "/images/background hover images/BKGMesa de trabajo 4.jpg",
+  },
+  ticketopolis: {
+    src: "/images/background hover images/BKGMesa de trabajo 7.jpg",
   },
 };
 
