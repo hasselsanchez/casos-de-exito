@@ -28,9 +28,7 @@ const SOLUTION_DISPLAY: Record<string, string> = {
    which works for horizontal wordmarks (Doto, Sears, Sesen, Makora, PASE,
    Círculo). Stacked logos with icon ABOVE wordmark need more vertical room
    and a wider max-width to stay legible at this scale. */
-const META_LOGO_SIZING: Record<string, string> = {
-  "Organic Skincare": "h-14 w-auto max-w-[140px] object-contain object-left",
-};
+const META_LOGO_SIZING: Record<string, string> = {};
 const DEFAULT_META_LOGO = "h-6 w-auto max-w-[110px] object-contain object-left";
 
 export default function ArticleMetaCard({
