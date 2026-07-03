@@ -1,10 +1,112 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useTranslations } from "next-intl";
+import { useEffect, useRef, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { FOOTER_LINKS, SOCIAL_LINKS } from "@/lib/constants";
+import { usePathname, useRouter } from "@/i18n/routing";
+
+const LOCALE_OPTIONS = [
+  { locale: "es", flag: "🇲🇽", label: "Español (México)" },
+  { locale: "en", flag: "🇺🇸", label: "English (USA)" },
+] as const;
+
+function LocaleSelector() {
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
+  const params = useParams();
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onClick = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, [open]);
+
+  const current =
+    LOCALE_OPTIONS.find((o) => o.locale === locale) ?? LOCALE_OPTIONS[0];
+
+  const switchLocale = (newLocale: string) => {
+    setOpen(false);
+    if (newLocale === locale) return;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    router.replace({ pathname, params } as any, { locale: newLocale });
+  };
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        className="flex items-center gap-2 font-inter text-micro text-[#9CA3AF] transition-colors hover:text-white"
+      >
+        <span aria-hidden="true">{current.flag}</span>
+        <span>{current.label}</span>
+        <svg
+          width="10"
+          height="10"
+          viewBox="0 0 12 12"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          aria-hidden="true"
+          className={`transition-transform ${open ? "rotate-180" : ""}`}
+        >
+          <path d="M3 4.5l3 3 3-3" />
+        </svg>
+      </button>
+      {open && (
+        <ul
+          role="listbox"
+          className="absolute bottom-full left-0 z-10 mb-2 min-w-[180px] overflow-hidden rounded-[10px] border border-white/[0.12] bg-[#1A1F2E] py-1 shadow-[0px_4px_8px_rgba(0,0,0,0.4)]"
+        >
+          {LOCALE_OPTIONS.map((option) => (
+            <li key={option.locale}>
+              <button
+                type="button"
+                role="option"
+                aria-selected={option.locale === locale}
+                onClick={() => switchLocale(option.locale)}
+                className={`flex w-full items-center gap-2 px-4 py-2 text-left font-inter text-micro transition-colors hover:bg-white/[0.08] ${
+                  option.locale === locale ? "text-white" : "text-[#9CA3AF]"
+                }`}
+              >
+                <span aria-hidden="true">{option.flag}</span>
+                <span>{option.label}</span>
+                {option.locale === locale && (
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    aria-hidden="true"
+                    className="ml-auto text-[#E26153]"
+                  >
+                    <path d="M2.5 6.5l2.5 2.5 4.5-5" />
+                  </svg>
+                )}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
 
 const SOCIAL_ICONS: Record<string, ReactNode> = {
   linkedin: (
@@ -134,24 +236,7 @@ export default function Footer() {
 
           {/* Bottom bar */}
           <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-gray-800 pt-8 tablet:flex-row">
-            <button
-              type="button"
-              className="flex items-center gap-2 font-inter text-micro text-[#9CA3AF] transition-colors hover:text-white"
-            >
-              <span aria-hidden="true">🇲🇽</span>
-              <span>{t("country")}</span>
-              <svg
-                width="10"
-                height="10"
-                viewBox="0 0 12 12"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                aria-hidden="true"
-              >
-                <path d="M3 4.5l3 3 3-3" />
-              </svg>
-            </button>
+            <LocaleSelector />
             <div className="flex gap-4">
               <a
                 href="#"
