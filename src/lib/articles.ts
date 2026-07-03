@@ -599,6 +599,68 @@ export const articles: Article[] = [
     readingTime: 3,
     publishedAt: "2026-05-15",
   },
+  {
+    slug: "claro-colombia",
+    slugEn: "claro-colombia",
+    company: "Claro Colombia",
+    logoSrc: "/images/partners/claro-colombia.webp",
+    industry: { es: "Telecomunicaciones", en: "Telecommunications" },
+    industrySlug: "telecomunicaciones",
+    size: "enterprise",
+    solutions: ["T1 Pagos"],
+    contentType: "article",
+    heroImage: "/images/articles/CLAROCOLOMBIA/hero.png",
+    heroImageFocal: "center",
+    images: ["/images/articles/CLAROCOLOMBIA/hero.png"],
+    articleImageFocal: "center",
+    title: {
+      es: "Cómo T1 Pagos sostiene la infraestructura transaccional de Claro Colombia",
+      en: "How T1 Pagos powers Claro Colombia's transactional infrastructure",
+    },
+    subtitle: {
+      es: "Ocho trimestres de procesamiento con más de 94% de aprobación antifraude y cerca de $1 billón COP en pagos con tarjeta",
+      en: "Eight quarters of processing with over 94% antifraud approval and nearly $1 trillion COP in card payments",
+    },
+    executiveSummary: {
+      es: "Claro Colombia, la operadora líder de telecomunicaciones del país, opera su procesamiento con tarjeta y antifraude con T1 Pagos desde 2024. Ocho trimestres consecutivos con más de 94% de aprobación antifraude y cerca de $1 billón COP procesados.",
+      en: "Claro Colombia, the country's leading telecommunications operator, has run its card processing and antifraud with T1 Pagos since 2024. Eight consecutive quarters with over 94% antifraud approval and nearly $1 trillion COP processed.",
+    },
+    metrics: [
+      { value: { es: "$1B COP", en: "$1T COP" }, label: { es: "Volumen procesado (Feb 2024 – Jun 2026)", en: "Volume processed (Feb 2024 – Jun 2026)" } },
+      { value: { es: "94.3%", en: "94.3%" }, label: { es: "Aprobación antifraude sostenida", en: "Sustained antifraud approval" } },
+      { value: { es: "0.25%", en: "0.25%" }, label: { es: "Tasa de contracargo por fraude", en: "Fraud chargeback rate" } },
+    ],
+    callout: {
+      text: {
+        es: "Para una telco a escala nacional, aprobar la transacción legítima y rechazar el intento fraudulento son la misma operación. T1 Pagos sostiene ese balance en Claro Colombia con más de 94% de aprobación y 0.25% de contracargo.",
+        en: "For a nationwide telco, approving the legitimate transaction and rejecting the fraudulent attempt are the same operation. T1 Pagos sustains that balance at Claro Colombia with over 94% approval and 0.25% chargeback.",
+      },
+      highlight: {
+        es: "aprobar la transacción legítima y rechazar el intento fraudulento son la misma operación",
+        en: "approving the legitimate transaction and rejecting the fraudulent attempt are the same operation",
+      },
+    },
+    content: {
+      intro: {
+        es: "Claro Colombia es la operadora líder de telecomunicaciones del país, filial de América Móvil, con operación en telefonía móvil, internet residencial y televisión por suscripción. La escala de su negocio se traduce en un volumen transaccional constante: millones de clientes que pagan sus servicios de forma recurrente cada mes. Es cliente de T1 Pagos desde 2024, con procesamiento y antifraude para pagos con tarjeta.",
+        en: "Claro Colombia is the country's leading telecommunications operator, a subsidiary of América Móvil, with operations in mobile telephony, home internet, and pay-TV. The scale of its business translates into constant transactional volume: millions of customers who pay for services on a recurring monthly basis. It has been a T1 Pagos customer since 2024, with card payment processing and antifraud.",
+      },
+      challenge: {
+        es: "Para una operadora del tamaño de Claro Colombia, la capa de procesamiento de pagos enfrenta una tensión estructural: cada punto porcentual de rechazo antifraude significa un cliente legítimo que no completa el pago, y cada intento fraudulento aprobado se convierte en un contracargo.",
+        en: "For an operator the size of Claro Colombia, the payment processing layer faces a structural tension: every percentage point of antifraud rejection means a legitimate customer who doesn't complete the payment, and every approved fraudulent attempt becomes a chargeback.",
+      },
+      solution: {
+        es: "T1 Pagos opera como capa unificada de procesamiento y control de fraude para los pagos con tarjeta de Claro Colombia. Cada transacción se evalúa contra reglas de antifraude antes de la aprobación bancaria, con calibración específica para el patrón de consumo de una telco de alto volumen. La plataforma también sostiene la operación cuando el patrón cambia. Durante 2025, Claro Colombia enfrentó un repunte atípico de intentos fraudulentos y T1 Pagos respondió a tiempo, rechazando decenas de miles de intentos y protegiendo la aprobación de las transacciones legítimas en los trimestres siguientes.",
+        en: "T1 Pagos operates as a unified processing and fraud control layer for Claro Colombia's card payments. Every transaction is evaluated against antifraud rules before bank approval, with calibration specific to the consumption pattern of a high-volume telco. The platform also sustains operations when the pattern shifts. During 2025, Claro Colombia faced an atypical spike in fraudulent attempts and T1 Pagos responded in time, rejecting tens of thousands of attempts and protecting the approval of legitimate transactions in the following quarters.",
+      },
+      results: {
+        es: "En ocho trimestres consecutivos, T1 Pagos ha procesado cerca de $1 billón COP en pagos con tarjeta para Claro Colombia. La aprobación antifraude se ha mantenido por encima del 94% y el contracargo por fraude en 0.25% del monto aprobado — un balance sostenido entre baja fricción para el cliente y control efectivo del fraude. El crecimiento del volumen muestra que T1 Pagos escaló con el negocio sin comprometer los indicadores de calidad.",
+        en: "Over eight consecutive quarters, T1 Pagos has processed nearly $1 trillion COP in card payments for Claro Colombia. Antifraud approval has remained above 94% and fraud chargebacks at 0.25% of approved volume — a sustained balance between low friction for the customer and effective fraud control. Volume growth shows that T1 Pagos scaled with the business without compromising quality indicators.",
+      },
+    },
+    readingTime: 4,
+    publishedAt: "2026-07-02",
+  },
 ];
 
 export function getArticleBySlug(slug: string): Article | undefined {

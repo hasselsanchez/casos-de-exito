@@ -19,6 +19,7 @@ export const CENTERED_LOGO: Record<string, string> = {
   Sesen: "h-[40px]",
   "Círculo de Crédito": "h-[44px]",
   "Organic Skincare": "h-[90px]",
+  "Claro Colombia": "h-[40px]",
 };
 
 /* Per-brand override for the logo container's max-width within the card.
@@ -76,6 +77,9 @@ export const CARD_GRADIENT: Record<string, GradientView> = {
   sesen: { src: "/images/background hover images/BKGMesa de trabajo 10.jpg" },
   "organic-skincare": {
     src: "/images/background hover images/BKGMesa de trabajo 3.jpg",
+  },
+  "claro-colombia": {
+    src: "/images/background hover images/BKGMesa de trabajo 4.jpg",
   },
 };
 
