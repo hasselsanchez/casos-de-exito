@@ -40,7 +40,10 @@ function LocaleSelector() {
     setOpen(false);
     if (newLocale === locale) return;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    router.replace({ pathname, params } as any, { locale: newLocale });
+    router.replace({ pathname, params } as any, {
+      locale: newLocale,
+      scroll: true,
+    });
   };
 
   return (

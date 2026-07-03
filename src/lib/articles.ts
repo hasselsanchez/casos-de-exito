@@ -614,16 +614,16 @@ export const articles: Article[] = [
     images: ["/images/articles/CLAROCOLOMBIA/hero.png"],
     articleImageFocal: "center",
     title: {
-      es: "Cómo T1 Pagos sostiene la infraestructura transaccional de Claro Colombia",
-      en: "How T1 Pagos powers Claro Colombia's transactional infrastructure",
+      es: "Cómo T1pagos sostiene la infraestructura transaccional de Claro Colombia",
+      en: "How T1pagos powers Claro Colombia's transactional infrastructure",
     },
     subtitle: {
       es: "Ocho trimestres de procesamiento con más de 94% de aprobación antifraude y cerca de $1 billón COP en pagos con tarjeta",
       en: "Eight quarters of processing with over 94% antifraud approval and nearly $1 trillion COP in card payments",
     },
     executiveSummary: {
-      es: "Claro Colombia, la operadora líder de telecomunicaciones del país, opera su procesamiento con tarjeta y antifraude con T1 Pagos desde 2024. Ocho trimestres consecutivos con más de 94% de aprobación antifraude y cerca de $1 billón COP procesados.",
-      en: "Claro Colombia, the country's leading telecommunications operator, has run its card processing and antifraud with T1 Pagos since 2024. Eight consecutive quarters with over 94% antifraud approval and nearly $1 trillion COP processed.",
+      es: "Claro Colombia, la operadora líder de telecomunicaciones del país, opera su procesamiento con tarjeta y antifraude con T1pagos desde 2024. Ocho trimestres consecutivos con más de 94% de aprobación antifraude y cerca de $1 billón COP procesados.",
+      en: "Claro Colombia, the country's leading telecommunications operator, has run its card processing and antifraud with T1pagos since 2024. Eight consecutive quarters with over 94% antifraud approval and nearly $1 trillion COP processed.",
     },
     metrics: [
       { value: { es: "$1B COP", en: "$1T COP" }, label: { es: "Volumen procesado (Feb 2024 – Jun 2026)", en: "Volume processed (Feb 2024 – Jun 2026)" } },
@@ -632,8 +632,8 @@ export const articles: Article[] = [
     ],
     callout: {
       text: {
-        es: "T1 Pagos sostiene la operación transaccional de Claro Colombia con más de 94% de aprobación y 0.25% de contracargo.",
-        en: "T1 Pagos sustains Claro Colombia's transactional operation with over 94% approval and 0.25% chargeback.",
+        es: "T1pagos sostiene la operación transaccional de Claro Colombia con más de 94% de aprobación y 0.25% de contracargo.",
+        en: "T1pagos sustains Claro Colombia's transactional operation with over 94% approval and 0.25% chargeback.",
       },
       highlight: {
         es: "más de 94% de aprobación y 0.25% de contracargo",
