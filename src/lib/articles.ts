@@ -632,12 +632,12 @@ export const articles: Article[] = [
     ],
     callout: {
       text: {
-        es: "Para una telco a escala nacional, aprobar la transacción legítima y rechazar el intento fraudulento son la misma operación. T1 Pagos sostiene ese balance en Claro Colombia con más de 94% de aprobación y 0.25% de contracargo.",
-        en: "For a nationwide telco, approving the legitimate transaction and rejecting the fraudulent attempt are the same operation. T1 Pagos sustains that balance at Claro Colombia with over 94% approval and 0.25% chargeback.",
+        es: "T1 Pagos sostiene la operación transaccional de Claro Colombia con más de 94% de aprobación y 0.25% de contracargo.",
+        en: "T1 Pagos sustains Claro Colombia's transactional operation with over 94% approval and 0.25% chargeback.",
       },
       highlight: {
-        es: "aprobar la transacción legítima y rechazar el intento fraudulento son la misma operación",
-        en: "approving the legitimate transaction and rejecting the fraudulent attempt are the same operation",
+        es: "más de 94% de aprobación y 0.25% de contracargo",
+        en: "over 94% approval and 0.25% chargeback",
       },
     },
     content: {
