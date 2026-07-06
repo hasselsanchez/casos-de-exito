@@ -557,15 +557,15 @@ export const articles: Article[] = [
       en: "How T1pagos powers Claro Colombia's transactional infrastructure",
     },
     subtitle: {
-      es: "Ocho trimestres de procesamiento con más de 94% de aprobación antifraude y cerca de $1 billón COP en pagos con tarjeta",
-      en: "Eight quarters of processing with over 94% antifraud approval and nearly $1 trillion COP in card payments",
+      es: "Procesamiento con tarjeta con más de 94% de aprobación antifraude sostenida y cerca de $1 billón COP en pagos",
+      en: "Card processing with over 94% sustained antifraud approval and nearly $1 trillion COP in payments",
     },
     executiveSummary: {
-      es: "Claro Colombia, la operadora líder de telecomunicaciones del país, opera su procesamiento con tarjeta y antifraude con T1pagos desde 2024. Ocho trimestres consecutivos con más de 94% de aprobación antifraude y cerca de $1 billón COP procesados.",
-      en: "Claro Colombia, the country's leading telecommunications operator, has run its card processing and antifraud with T1pagos since 2024. Eight consecutive quarters with over 94% antifraud approval and nearly $1 trillion COP processed.",
+      es: "Claro Colombia, la operadora líder de telecomunicaciones del país, opera su procesamiento con tarjeta y control de fraude con T1pagos. Más de 94% de aprobación antifraude sostenida y cerca de $1 billón COP procesados, con un contracargo por fraude de apenas 0.25%.",
+      en: "Claro Colombia, the country's leading telecommunications operator, runs its card processing and fraud control with T1pagos. Over 94% sustained antifraud approval and nearly $1 trillion COP processed, with fraud chargebacks at just 0.25%.",
     },
     metrics: [
-      { value: { es: "$1B COP", en: "$1T COP" }, label: { es: "Volumen procesado (Feb 2024 – Jun 2026)", en: "Volume processed (Feb 2024 – Jun 2026)" } },
+      { value: { es: "$1B COP", en: "$1T COP" }, label: { es: "Volumen procesado", en: "Volume processed" } },
       { value: { es: "94.3%", en: "94.3%" }, label: { es: "Aprobación antifraude sostenida", en: "Sustained antifraud approval" } },
       { value: { es: "0.25%", en: "0.25%" }, label: { es: "Tasa de contracargo por fraude", en: "Fraud chargeback rate" } },
     ],
@@ -581,20 +581,20 @@ export const articles: Article[] = [
     },
     content: {
       intro: {
-        es: "Claro Colombia es la operadora líder de telecomunicaciones del país, filial de América Móvil, con operación en telefonía móvil, internet residencial y televisión por suscripción. La escala de su negocio se traduce en un volumen transaccional constante: millones de clientes que pagan sus servicios de forma recurrente cada mes. Es cliente de T1pagos desde 2024, con procesamiento y antifraude para pagos con tarjeta.",
-        en: "Claro Colombia is the country's leading telecommunications operator, a subsidiary of América Móvil, with operations in mobile telephony, home internet, and pay-TV. The scale of its business translates into constant transactional volume: millions of customers who pay for services on a recurring monthly basis. It has been a T1pagos customer since 2024, with card payment processing and antifraud.",
+        es: "Claro Colombia es la operadora líder de telecomunicaciones del país, filial de América Móvil, con operación en telefonía móvil, internet residencial y televisión por suscripción. La escala de su negocio se traduce en un volumen transaccional constante: millones de clientes que pagan sus servicios de forma recurrente cada mes. T1pagos opera el procesamiento y el control de fraude de sus pagos con tarjeta.",
+        en: "Claro Colombia is the country's leading telecommunications operator, a subsidiary of América Móvil, with operations in mobile telephony, home internet, and pay-TV. The scale of its business translates into constant transactional volume: millions of customers who pay for services on a recurring monthly basis. T1pagos runs the processing and fraud control for its card payments.",
       },
       challenge: {
         es: "Para una operadora del tamaño de Claro Colombia, la capa de procesamiento de pagos enfrenta una tensión estructural: cada punto porcentual de rechazo antifraude significa un cliente legítimo que no completa el pago, y cada intento fraudulento aprobado se convierte en un contracargo.",
         en: "For an operator the size of Claro Colombia, the payment processing layer faces a structural tension: every percentage point of antifraud rejection means a legitimate customer who doesn't complete the payment, and every approved fraudulent attempt becomes a chargeback.",
       },
       solution: {
-        es: "T1pagos opera como capa unificada de procesamiento y control de fraude para los pagos con tarjeta de Claro Colombia. Cada transacción se evalúa contra reglas de antifraude antes de la aprobación bancaria, con calibración específica para el patrón de consumo de una telco de alto volumen. La plataforma también sostiene la operación cuando el patrón cambia. Durante 2025, Claro Colombia enfrentó un repunte atípico de intentos fraudulentos y T1pagos respondió a tiempo, rechazando decenas de miles de intentos y protegiendo la aprobación de las transacciones legítimas en los trimestres siguientes.",
-        en: "T1pagos operates as a unified processing and fraud control layer for Claro Colombia's card payments. Every transaction is evaluated against antifraud rules before bank approval, with calibration specific to the consumption pattern of a high-volume telco. The platform also sustains operations when the pattern shifts. During 2025, Claro Colombia faced an atypical spike in fraudulent attempts and T1pagos responded in time, rejecting tens of thousands of attempts and protecting the approval of legitimate transactions in the following quarters.",
+        es: "T1pagos opera como capa unificada de procesamiento y control de fraude para los pagos con tarjeta de Claro Colombia. Cada transacción se evalúa contra reglas de antifraude antes de la aprobación bancaria, con calibración específica para el patrón de consumo de una telco de alto volumen. La plataforma también sostiene la operación cuando el patrón cambia. Ante un repunte atípico de intentos fraudulentos, T1pagos respondió a tiempo, rechazando decenas de miles de intentos y protegiendo la aprobación de las transacciones legítimas en el periodo siguiente.",
+        en: "T1pagos operates as a unified processing and fraud control layer for Claro Colombia's card payments. Every transaction is evaluated against antifraud rules before bank approval, with calibration specific to the consumption pattern of a high-volume telco. The platform also sustains operations when the pattern shifts. Faced with an atypical spike in fraudulent attempts, T1pagos responded in time, rejecting tens of thousands of attempts and protecting the approval of legitimate transactions in the following period.",
       },
       results: {
-        es: "En ocho trimestres consecutivos, T1pagos ha procesado cerca de $1 billón COP en pagos con tarjeta para Claro Colombia. La aprobación antifraude se ha mantenido por encima del 94% y el contracargo por fraude en 0.25% del monto aprobado — un balance sostenido entre baja fricción para el cliente y control efectivo del fraude. El crecimiento del volumen muestra que T1pagos escaló con el negocio sin comprometer los indicadores de calidad.",
-        en: "Over eight consecutive quarters, T1pagos has processed nearly $1 trillion COP in card payments for Claro Colombia. Antifraud approval has remained above 94% and fraud chargebacks at 0.25% of approved volume — a sustained balance between low friction for the customer and effective fraud control. Volume growth shows that T1pagos scaled with the business without compromising quality indicators.",
+        es: "T1pagos ha procesado cerca de $1 billón COP en pagos con tarjeta para Claro Colombia. La aprobación antifraude se ha mantenido por encima del 94% y el contracargo por fraude en 0.25% del monto aprobado — un balance sostenido entre baja fricción para el cliente y control efectivo del fraude. El crecimiento del volumen muestra que T1pagos escaló con el negocio sin comprometer los indicadores de calidad.",
+        en: "T1pagos has processed nearly $1 trillion COP in card payments for Claro Colombia. Antifraud approval has remained above 94% and fraud chargebacks at 0.25% of approved volume — a sustained balance between low friction for the customer and effective fraud control. Volume growth shows that T1pagos scaled with the business without compromising quality indicators.",
       },
     },
     readingTime: 4,
@@ -619,15 +619,15 @@ export const articles: Article[] = [
       en: "How Ticketopolis scaled its online ticket sales with T1pagos",
     },
     subtitle: {
-      es: "Diez trimestres de crecimiento transaccional sostenido con aprobación antifraude del 99.9%",
-      en: "Ten quarters of sustained transactional growth with 99.9% antifraud approval",
+      es: "Crecimiento transaccional sostenido con aprobación antifraude del 99.9%",
+      en: "Sustained transactional growth with 99.9% antifraud approval",
     },
     executiveSummary: {
-      es: "Ticketopolis, plataforma mexicana de venta de boletos en línea, procesa su motor transaccional con T1pagos desde 2024. Diez trimestres con $107 millones MXN procesados y aprobación antifraude del 99.9%.",
-      en: "Ticketopolis, a Mexican online ticket sales platform, has run its transactional engine with T1pagos since 2024. Ten quarters with $107 million MXN processed and 99.9% antifraud approval.",
+      es: "Ticketopolis, plataforma mexicana de venta de boletos en línea, procesa sus pagos con tarjeta con T1pagos. Más de $100 millones MXN procesados con aprobación antifraude del 99.9%, sostenida durante los picos de demanda de cada lanzamiento.",
+      en: "Ticketopolis, a Mexican online ticket sales platform, runs its card payments with T1pagos. More than $100 million MXN processed with 99.9% antifraud approval, sustained through the demand spikes of every launch.",
     },
     metrics: [
-      { value: { es: "$107M MXN", en: "$107M MXN" }, label: { es: "Monto procesado (Feb 2024 – Jun 2026)", en: "Volume processed (Feb 2024 – Jun 2026)" } },
+      { value: { es: "+$100M MXN", en: "+$100M MXN" }, label: { es: "Monto procesado", en: "Volume processed" } },
       { value: { es: "99.9%", en: "99.9%" }, label: { es: "Aprobación antifraude", en: "Antifraud approval rate" } },
       { value: { es: "136.2K", en: "136.2K" }, label: { es: "Peticiones procesadas", en: "Requests processed" } },
     ],
@@ -643,8 +643,8 @@ export const articles: Article[] = [
     },
     content: {
       intro: {
-        es: "Ticketopolis es una plataforma mexicana de venta de boletos en línea. Su modelo depende de picos de demanda: cada lanzamiento genera oleadas de tráfico y transacciones concentradas en minutos. Es cliente de T1pagos desde 2024, con procesamiento y antifraude para sus pagos con tarjeta.",
-        en: "Ticketopolis is a Mexican online ticket sales platform. Its business model depends on demand spikes: every launch generates waves of traffic and transactions concentrated in minutes. It has been a T1pagos customer since 2024, with card payment processing and antifraud.",
+        es: "Ticketopolis es una plataforma mexicana de venta de boletos en línea. Su modelo depende de picos de demanda: cada lanzamiento genera oleadas de tráfico y transacciones concentradas en minutos. T1pagos opera el procesamiento y el control de fraude de sus pagos con tarjeta.",
+        en: "Ticketopolis is a Mexican online ticket sales platform. Its business model depends on demand spikes: every launch generates waves of traffic and transactions concentrated in minutes. T1pagos runs the processing and fraud control for its card payments.",
       },
       challenge: {
         es: "La venta de boletos en línea concentra el volumen de pagos en minutos y trabaja con inventario limitado. Cada rechazo antifraude es una venta perdida que no se recupera.",
@@ -655,8 +655,8 @@ export const articles: Article[] = [
         en: "T1pagos operates as a processing and fraud control layer for Ticketopolis' card transactions. Its antifraud configuration is tuned to ticketing: it separates the legitimate buyer from the bot hoarding inventory, and approves without friction. It's the difference between a checkout that opens and closes a sale in minutes, and one that stalls before inventory sells out.",
       },
       results: {
-        es: "En diez trimestres consecutivos, T1pagos ha procesado más de $107 millones MXN en pagos con tarjeta para Ticketopolis, con más de 136 mil peticiones procesadas y una tasa de rechazo antifraude del 0.08%. La aprobación antifraude se ha mantenido en 99.9% del volumen, sostenida a través de los picos de demanda que caracterizan la venta de boletos en línea. En una plataforma donde el inventario se agota en minutos, ese 0.08% define cuántos boletos alcanzan a venderse antes del cierre.",
-        en: "Over ten consecutive quarters, T1pagos has processed more than $107 million MXN in card payments for Ticketopolis, with more than 136 thousand processed requests and a 0.08% antifraud rejection rate. Antifraud approval has remained at 99.9% of volume, sustained across the demand spikes that characterize online ticket sales. On a platform where inventory sells out in minutes, that 0.08% determines how many tickets actually get sold before the window closes.",
+        es: "T1pagos ha procesado más de $100 millones MXN en pagos con tarjeta para Ticketopolis, con más de 136 mil peticiones y una tasa de rechazo antifraude del 0.08%. La aprobación antifraude se ha mantenido en 99.9% del volumen, sostenida a través de los picos de demanda que caracterizan la venta de boletos en línea. En una plataforma donde el inventario se agota en minutos, ese 0.08% define cuántos boletos alcanzan a venderse antes del cierre.",
+        en: "T1pagos has processed more than $100 million MXN in card payments for Ticketopolis, with more than 136 thousand requests and a 0.08% antifraud rejection rate. Antifraud approval has remained at 99.9% of volume, sustained across the demand spikes that characterize online ticket sales. On a platform where inventory sells out in minutes, that 0.08% determines how many tickets actually get sold before the window closes.",
       },
     },
     readingTime: 4,
