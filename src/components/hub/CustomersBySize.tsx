@@ -220,7 +220,7 @@ export default function CustomersBySize() {
   if (!activeArticle) return null;
 
   const readFullCase =
-    locale === "es" ? "Leer el caso completo" : "Read the full case";
+    locale === "es" ? "Leer la historia completa" : "Read the full story";
 
   return (
     <section id="por-solucion" className="bg-white">
