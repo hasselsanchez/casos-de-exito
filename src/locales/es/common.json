@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "Casos de Éxito | T1",
+    "title": "Historias de Éxito | T1",
     "description": "Descubre cómo empresas de todos los tamaños transforman sus operaciones de comercio con T1. Historias reales de éxito con T1 Tienda, T1 Envíos, T1 Pagos y T1Score."
   },
   "nav": {
@@ -15,15 +15,15 @@
     "titleAccent": "que inspiran",
     "subtitle": "Descubre cómo empresas de todos los tamaños transforman sus operaciones de comercio con T1.",
     "findSolution": "Encuentra tu solución",
-    "moreCases": "Más casos de éxito",
+    "moreCases": "Más historias de éxito",
     "readStory": "Leer historia"
   },
   "editorial": {
     "title": "Empresas de todos los tamaños eligen",
     "titleAccent": "T1",
     "subtitle": "Desde startups hasta enterprise, empresas de distintas industrias confían en T1 para transformar sus operaciones de comercio.",
-    "viewAll": "Ver todos los casos",
-    "readFullCase": "Leer caso completo",
+    "viewAll": "Ver todas las historias",
+    "readFullCase": "Leer historia completa",
     "productsUsed": "Soluciones T1 utilizadas",
     "readStory": "Leer historia completa"
   },
@@ -38,8 +38,8 @@
     "segmentEnterpriseDesc": "Operaciones consolidadas a escala nacional",
     "segmentGrowthDesc": "Escalando rápidamente",
     "segmentStartupDesc": "Construyendo desde cero",
-    "casePlural": "casos",
-    "caseSingular": "caso",
+    "casePlural": "historias",
+    "caseSingular": "historia",
     "readStory": "Leer historia",
     "allStories": "Ver todas las historias",
     "productsUsed": "Soluciones integradas"
@@ -60,7 +60,7 @@
   "explore": {
     "eyebrow": "Explorar",
     "title": "Más ",
-    "titleAccent": "casos de éxito"
+    "titleAccent": "historias de éxito"
   },
   "filters": {
     "all": "Todos",
@@ -71,7 +71,7 @@
     "article": "Artículo",
     "video": "Video",
     "clear": "Limpiar filtros",
-    "noResults": "No se encontraron casos de éxito con estos filtros.",
+    "noResults": "No se encontraron historias de éxito con estos filtros.",
     "showing": "Mostrando",
     "of": "de",
     "results": "resultados"
@@ -93,8 +93,8 @@
   },
   "cta": {
     "eyebrow": "Tu turno",
-    "title": "El próximo caso de éxito",
-    "titleAccent": "es el tuyo.",
+    "title": "La próxima historia de éxito",
+    "titleAccent": "es la tuya.",
     "subtitle": "La infraestructura que usan Sears, Círculo de Crédito, PASE y +25 mil negocios mexicanos.",
     "primary": "Empieza con T1",
     "secondary": "Habla con un experto",

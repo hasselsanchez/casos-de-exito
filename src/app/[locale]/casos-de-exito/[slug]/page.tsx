@@ -39,14 +39,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const imageUrl = `${SITE_URL}${article.heroImage}`;
   const keywords = [
     article.company,
-    "caso de éxito",
+    loc === "es" ? "historia de éxito" : "success story",
     "T1",
     ...article.solutions,
     article.industry[loc],
   ];
 
   return {
-    title: `${article.title[loc]} | T1 Casos de Éxito`,
+    title: `${article.title[loc]} | T1 ${loc === "es" ? "Historias de Éxito" : "Success Stories"}`,
     description,
     keywords,
     authors: [{ name: "T1" }],
@@ -144,7 +144,7 @@ export default async function ArticlePage({ params }: PageProps) {
       article.company,
       ...article.solutions,
       article.industry[locale],
-      "caso de éxito",
+      locale === "es" ? "historia de éxito" : "success story",
       "T1",
     ].join(", "),
   };

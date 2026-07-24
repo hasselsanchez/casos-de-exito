@@ -68,7 +68,7 @@ export default function HeroSection() {
   return (
     <section
       className="sticky top-0 z-0 h-[100svh] w-full overflow-hidden bg-[#0A0B10]"
-      aria-label={locale === "es" ? "Casos de éxito" : "Success stories"}
+      aria-label={locale === "es" ? "Historias de éxito" : "Success stories"}
     >
       {/* ── Background video ──
           Place the final asset at /public/videos/hero.{mp4,webm}. No poster
